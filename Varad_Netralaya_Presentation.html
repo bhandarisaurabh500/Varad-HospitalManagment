@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varad Netralaya - Official Digital Presentation Proposal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .slide {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glow-amber {
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+    }
+    .glow-teal {
+      box-shadow: 0 0 30px rgba(20, 184, 166, 0.3);
+    }
+  </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col justify-between p-4 md:p-8 selection:bg-teal-500 selection:text-white">
+
+  <!-- Header Bar -->
+  <header class="flex items-center justify-between pb-4 border-b border-slate-800">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-white p-1 shadow-lg border-2 border-amber-400 flex items-center justify-center">
+        <img src="frontend/public/Varadlogo_emblem.png" alt="Emblem" class="w-full h-full object-contain">
+      </div>
+      <div>
+        <h1 class="text-xl font-extrabold text-white tracking-tight">VARAD <span class="text-teal-400 font-light">NETRALAYA</span></h1>
+        <p class="text-[10px] font-bold text-amber-400 tracking-wider">— नेत्रसेवेचा आधुनिक दृष्टिकोन —</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <span className="hidden sm:inline-block text-xs font-semibold px-3 py-1 rounded-full bg-slate-800 text-teal-300 border border-slate-700">
+        Presentation Deck for Hospital Management
+      </span>
+      <span id="slideCounter" class="text-sm font-bold text-amber-400 bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/50">
+        Slide 1 of 10
+      </span>
+    </div>
+  </header>
+
+  <!-- Main Slides Stage Container -->
+  <main class="flex-1 my-4 flex items-center justify-center relative">
+    
+    <!-- SLIDE 1: Title Slide -->
+    <div class="slide active flex-col items-center justify-center text-center max-w-4xl space-y-6">
+      <div class="w-28 h-28 rounded-full bg-white p-2 shadow-2xl border-4 border-amber-400 glow-amber flex items-center justify-center">
+        <img src="frontend/public/Varadlogo_emblem.png" alt="Emblem" class="w-full h-full object-contain">
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-500/40 text-xs font-bold">
+        <span>★ 4.9 Rating (439+ Google Reviews) • सावेडी, अहिल्यानगर</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-black text-white font-poppins leading-tight">
+        वरद नेत्रालय <br>
+        <span class="bg-gradient-to-r from-blue-500 via-amber-400 to-teal-400 bg-clip-text text-transparent">
+          डिजिटल वेबसाईट व ब्रँडिंग प्रस्ताव
+        </span>
+      </h1>
+
+      <p class="text-lg text-slate-300 max-w-2xl font-light">
+        Apollo Hospitals च्या धर्तीवर तयार केलेली जगन्मान्य प्रीमियम वेबसाईट, अत्याधुनिक फीचर्स, यूट्यूब व्हिडिओ एकत्रीकरण आणि रुग्णांसाठी सुलभ अपॉइंटमेंट सिस्टीम.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left pt-4 w-full max-w-lg">
+        <div class="p-3.5 rounded-2xl glass-card border-l-4 border-amber-400">
+          <p class="text-[11px] text-slate-400 uppercase font-bold">Presented To</p>
+          <p class="text-sm font-bold text-white">Dr. Smita Patare & Dr. Raosaheb Borude</p>
+          <p class="text-xs text-teal-400">DOS, AIOS, MOS Senior Ophthalmologists</p>
+        </div>
+        <div class="p-3.5 rounded-2xl glass-card border-l-4 border-teal-400">
+          <p class="text-[11px] text-slate-400 uppercase font-bold">Location & Contact</p>
+          <p class="text-sm font-bold text-white">Balikashram Road, Savedi</p>
+          <p class="text-xs text-teal-400">+91 98765 43210 • Ahilyanagar</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Project Objectives -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">01. Objectives</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">डिजिटल वेबसाईटची उद्दिष्टे व फायदे</h2>
+        <p class="text-slate-400 text-sm">वरद नेत्रालयाला अहिल्यानगर मधील #1 नेत्रोपचार केंद्र म्हणून स्थापित करणे.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-3xl glass-card hover:border-amber-400 transition">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold mb-4">01</div>
+          <h3 class="text-lg font-bold text-white mb-2">रुग्णांचा विश्वास व पत</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Google वरील 4.9★ रेटिंग व 439+ अभिप्राय ठळकपणे दाखवून नवीन रुग्णांचा आत्मविश्वास वाढवणे.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-card hover:border-teal-400 transition">
+          <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl font-bold mb-4">02</div>
+          <h3 class="text-lg font-bold text-white mb-2">1-क्लिक अपॉइंटमेंट</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">फोन कॉल, व्हॉट्सॲप आणि ऑनलाईन फॉर्म द्वारे एका क्लिकवर OPD अपॉइंटमेंट बुकिंग सुविधा.</p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-card hover:border-blue-500 transition">
+          <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl font-bold mb-4">03</div>
+          <h3 class="text-lg font-bold text-white mb-2">100% कॅशलेस माहिती</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Zurich Kotak, Star Health, HDFC ERGO इन्शुरन्स जोडणीची पारदर्शक माहिती देऊन रुग्णांना आकर्षित करणे.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: UI/UX & Theme -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">02. Design Theme</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">Apollo-Inspired प्रीमियम डिझाईन थीम</h2>
+        <p class="text-slate-400 text-sm">दृष्टी आणि डोळ्यांच्या आरोग्यासाठी अत्यंत सुखद, आधुनिक व डोळ्यांना न टोचणारी रंगसंगती.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-3xl glass-card space-y-4">
+          <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-2">रंगसंगती (Color Palette)</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-[#0B5ED7]"></div>
+              <div><p class="text-xs font-bold text-white">Primary Blue (#0B5ED7)</p><p class="text-[11px] text-slate-400">वैद्यकीय विश्वासार्हता व दर्जा</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-[#00B894]"></div>
+              <div><p class="text-xs font-bold text-white">Teal Emerald (#00B894)</p><p class="text-[11px] text-slate-400">आरोग्य, ताजेपणा व दृष्टी सुधारणा</p></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-[#F59E0B]"></div>
+              <div><p class="text-xs font-bold text-white">Amber Gold (#F59E0B)</p><p class="text-[11px] text-slate-400">4.9★ रेटिंग व प्रिमियम ब्रँडिंग</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-card space-y-4">
+          <h3 class="text-lg font-bold text-white border-b border-slate-700 pb-2">वैशिष्ट्यपूर्ण सुविधा (UI Features)</h3>
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="flex items-center gap-2"><span class="text-teal-400">✓</span> <strong>लाइट व डीप डार्क मोड (#030712)</strong>: रात्रीच्या वेळी सहज वाचता येणारा डार्क थिम.</li>
+            <li class="flex items-center gap-2"><span class="text-teal-400">✓</span> <strong>3D ॲनिमेटेड प्रीलोडर</strong>: वेबसाईट उघडताच गोल फिरणारा HD लोगो.</li>
+            <li class="flex items-center gap-2"><span class="text-teal-400">✓</span> <strong>फुल स्क्रीन लेआऊट (1440px)</strong>: डेस्कटॉप स्क्रीनवर भव्य अनुभव.</li>
+            <li class="flex items-center gap-2"><span class="text-teal-400">✓</span> <strong>100% मोबाईल रिस्पॉन्सिव्ह</strong>: मोबाईलवर सहज नेव्हिगेट होणारा ड्रॉवर मेनू.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Tech Stack -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">03. Technology Stack</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">आधुनिक तंत्रज्ञान व वेग (Super-Fast Performance)</h2>
+        <p class="text-slate-400 text-sm">जगभरात वापरल्या जाणाऱ्या अत्याधुनिक कटिंग-एज फ्रंटएंड फ्रेमवर्कचा वापर.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl glass-card text-center space-y-2">
+          <div class="text-3xl font-black text-cyan-400">React 19</div>
+          <p class="text-xs font-semibold text-white">React.js Engine</p>
+          <p class="text-[11px] text-slate-400">डायनामिक व जलद लोड होणारे कॉम्पोनंट्स</p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card text-center space-y-2">
+          <div class="text-3xl font-black text-purple-400">Vite 8</div>
+          <p class="text-xs font-semibold text-white">Vite Build Tool</p>
+          <p class="text-[11px] text-slate-400">३६०ms पेक्षा जलद बिल्ड स्पीड</p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card text-center space-y-2">
+          <div class="text-3xl font-black text-teal-400">Tailwind v4</div>
+          <p class="text-xs font-semibold text-white">Tailwind CSS</p>
+          <p class="text-[11px] text-slate-400">सुंदर व रिस्पॉन्सिव्ह स्टाईलिंग</p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card text-center space-y-2">
+          <div class="text-3xl font-black text-pink-400">Motion</div>
+          <p class="text-xs font-semibold text-white">Framer Motion</p>
+          <p class="text-[11px] text-slate-400">गुळगुळीत स्क्रोल व कारड ॲनिमेशन्स</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: YouTube Integration -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-red-500 uppercase tracking-widest">04. Media & Video</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">थेट युट्युब व्हिडिओ व चॅनेल जोडणी</h2>
+        <p class="text-slate-400 text-sm">वरद नेत्रालयाचे अधिकृत युट्युब चॅनेल व व्हिडिओ वेबसाईटवर थेट प्ले होतात.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <div class="p-4 rounded-3xl glass-card border border-red-500/40 space-y-3">
+          <div class="aspect-video rounded-2xl overflow-hidden bg-black relative">
+            <iframe className="w-full h-full border-0" src="https://www.youtube.com/embed/a38nME-7Ocg" title="YouTube video player"></iframe>
+          </div>
+          <div class="flex items-center justify-between text-xs px-2">
+            <span class="font-bold text-white">Official Video Playback</span>
+            <span class="text-red-400 font-semibold">@VaradNetrayala</span>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="p-4 rounded-2xl glass-card">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2"><span class="text-red-500">▶</span> थेट युट्युब प्लेअर</h4>
+            <p class="text-xs text-slate-300 mt-1">रुग्ण वेबसाईट सोडल्याशिवाय वरद नेत्रालयाचे व्हिडिओ थेट वेबसाईटवर पाहू शकतात.</p>
+          </div>
+          <div class="p-4 rounded-2xl glass-card">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2"><span class="text-red-500">🔔</span> यूट्यूब चॅनेल सबस्क्राईब लिंक</h4>
+            <p class="text-xs text-slate-300 mt-1">1-क्लिक वर रुग्णांना https://www.youtube.com/@VaradNetrayala वर पुनर्निर्देशित केले जाते.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Doctors & Specialties -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">05. Clinical Excellence</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">तज्ज्ञ डॉक्टर व अत्याधुनिक उपचार</h2>
+        <p class="text-slate-400 text-sm">सावेडी, अहिल्यानगर मधील अनुभवी नेत्ररोग तज्ज्ञांची माहिती व उपचार पद्धती.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-3xl glass-card border-l-4 border-teal-400 space-y-2">
+          <h3 class="text-lg font-bold text-white">Dr. Smita Prashant Patare</h3>
+          <p class="text-xs font-bold text-teal-400">DOS, AIOS, MOS • Senior Eye Surgeon</p>
+          <p class="text-xs text-slate-300 leading-relaxed">बिनटाक्याची मोतीबिंदू शस्त्रक्रिया (Phacoemulsification), प्रीमियम आयओएल रोपण व लहान मुलांच्या डोळ्यांचे आजार तज्ज्ञ.</p>
+        </div>
+
+        <div class="p-5 rounded-3xl glass-card border-l-4 border-amber-400 space-y-2">
+          <h3 class="text-lg font-bold text-white">Dr. Raosaheb Kundlik Borude</h3>
+          <p class="text-xs font-bold text-amber-400">MOS, AIOS • Refractive & Retina Specialist</p>
+          <p class="text-xs text-slate-300 leading-relaxed">डायबेटीक नेत्रतपासणी, कॉम्प्युटराइज्ड पेरीमेट्री (Humphrey Field Analyzer), मेडिकल रेटिना व चष्मा नंबर घालवणे.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Cashless Insurance -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">06. Cashless Desk</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">100% कॅशलेस हेल्थ इन्शुरन्स सुविधा</h2>
+        <p class="text-slate-400 text-sm">प्रमुख इन्शुरन्स कंपन्यांसोबत कॅशलेस मोतीबिंदू शस्त्रक्रिया सुविधा.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">Zurich Kotak</p>
+          <p class="text-[10px] text-teal-400">General Insurance</p>
+        </div>
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">Star Health</p>
+          <p class="text-[10px] text-teal-400">Health Insurance</p>
+        </div>
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">HDFC ERGO</p>
+          <p class="text-[10px] text-teal-400">General Insurance</p>
+        </div>
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">ICICI Lombard</p>
+          <p class="text-[10px] text-teal-400">Health Care</p>
+        </div>
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">Niva Bupa</p>
+          <p class="text-[10px] text-teal-400">Health Insurance</p>
+        </div>
+        <div class="p-4 rounded-2xl glass-card text-center">
+          <p class="text-sm font-bold text-white">SBI General</p>
+          <p class="text-[10px] text-teal-400">General Insurance</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Patient Reviews & Google Maps -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">07. Google Trust</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">Google Maps & 4.9★ रीव्ह्यूज एकत्रीकरण</h2>
+        <p class="text-slate-400 text-sm">सावेडी परिसरातील रुग्णांचे थेट रेटिंग व गुगल मॅप्स मॅपिंग.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-3xl glass-card border border-amber-500/40 space-y-3">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl font-black text-amber-400">4.9★</span>
+            <div><p class="text-sm font-bold text-white">439+ Google Reviews</p><p class="text-xs text-slate-400">Top Rated Eye Clinic Savedi</p></div>
+          </div>
+          <p class="text-xs text-slate-300 italic">"Dr. Smita Patare & Dr. Raosaheb Borude matchless treatment. My mother's phaco surgery was 100% successful!"</p>
+        </div>
+
+        <div class="p-6 rounded-3xl glass-card border border-teal-500/40 space-y-3">
+          <h4 class="text-sm font-bold text-white">Google Maps Location</h4>
+          <p class="text-xs text-slate-300">Near Anita Medical, Behind Hotel Parichay, Balikashram Road, Savedi, Ahilyanagar - 414003 (Plus Code: 4PCG+JR8)</p>
+          <span class="inline-block text-xs font-bold text-teal-400">Direct Navigation Link Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Digital Strategy -->
+    <div class="slide flex-col justify-center max-w-5xl space-y-6 w-full">
+      <div class="space-y-2 text-center md:text-left">
+        <span class="text-xs font-bold text-teal-400 uppercase tracking-widest">08. Patient Conversion</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white">रुग्ण वाढ व SEO धोरण (Digital Strategy)</h2>
+        <p class="text-slate-400 text-sm">गुगल सर्चवर प्रथम क्रमांकावर राहण्यासाठी व ऑनलाईन रुग्ण वाढवण्यासाठी सुसज्ज.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-5 rounded-2xl glass-card space-y-2">
+          <h4 class="text-sm font-bold text-white">🔍 SEO ऑप्टिमायझेशन</h4>
+          <p class="text-xs text-slate-300">"Eye Specialist Savedi", "Phaco Cataract Ahilyanagar" किवर्ड्सवर गुगल वर प्रथम रँक प्राप्त करणे.</p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card space-y-2">
+          <h4 class="text-sm font-bold text-white">💬 व्हॉट्सॲप थेट चॅट</h4>
+          <p class="text-xs text-slate-300">स्क्रीनवर फ्लोटिंग व्हॉट्सॲप बटण, ज्याद्वारे रुग्ण १-क्लिक वर डॉक्टरांशी संपर्क साधू शकतात.</p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card space-y-2">
+          <h4 class="text-sm font-bold text-white">📞 24x7 आपत्कालीन संपर्क</h4>
+          <p class="text-xs text-slate-300">मोबाईल व डेस्कटॉपवरून थेट कॉल लागणारे Click-to-Call बटन्स.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Conclusion & Demo Link -->
+    <div class="slide flex-col items-center justify-center text-center max-w-4xl space-y-6">
+      <div class="w-20 h-20 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center text-3xl font-bold border-2 border-teal-400 glow-teal">
+        ✓
+      </div>
+
+      <h2 class="text-3xl md:text-5xl font-extrabold text-white">प्रस्ताव निष्कर्ष व लाईव्ह डेमो</h2>
+      <p class="text-slate-300 text-sm max-w-xl">
+        वरद नेत्रालयाची ही अत्याधुनिक वेबसाईट लाइव्ह झाली असून चाचणीसाठी पूर्णपणे तयार आहे.
+      </p>
+
+      <div class="p-6 rounded-3xl glass-card border border-teal-400/50 w-full max-w-lg space-y-3">
+        <p class="text-xs text-slate-400 uppercase font-bold">Live Demo Server</p>
+        <a href="http://localhost:5173/" target="_blank" class="text-xl font-black text-teal-400 hover:underline">
+          http://localhost:5173/
+        </a>
+        <p class="text-xs text-slate-400 pt-2 border-t border-slate-700">
+          GitHub Repo: github.com/bhandarisaurabh500/Varad-HospitalManagment.git
+        </p>
+      </div>
+
+      <div class="pt-4">
+        <p class="text-lg font-bold text-white">धन्यवाद! (Thank You!)</p>
+        <p class="text-xs text-amber-400 font-semibold">Q&A Session with Dr. Smita Patare & Dr. Raosaheb Borude</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer Navigation Controls -->
+  <footer class="flex items-center justify-between pt-4 border-t border-slate-800">
+    <button id="prevBtn" onclick="changeSlide(-1)" class="px-5 py-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs disabled:opacity-30 transition">
+      ← मागील (Prev)
+    </button>
+
+    <div class="flex items-center gap-1.5">
+      <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+      <span class="text-xs font-semibold text-slate-400">बाणांची बटणे (Arrow Keys) वापरून स्लाईड बदला</span>
+    </div>
+
+    <button id="nextBtn" onclick="changeSlide(1)" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-xs shadow-lg transition">
+      पुढील (Next) →
+    </button>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counter = document.getElementById('slideCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+      });
+      counter.innerText = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.innerText = currentSlide === totalSlides - 1 ? 'पूर्ण (Finish) ✓' : 'पुढील (Next) →';
+    }
+
+    function changeSlide(direction) {
+      if (currentSlide + direction >= 0 && currentSlide + direction < totalSlides) {
+        currentSlide += direction;
+        updateSlides();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+
+    updateSlides();
+  </script>
+</body>
+</html>
