@@ -1,31 +1,31 @@
 export const hospitalInfo = {
-  name: "Varad Netralaya",
-  marathiName: "वरद नेत्रालय",
-  tagline: "Advanced Eye Care & Phaco Surgery Center",
+  name: "Dr. Raosaheb Kundlik Borude",
+  marathiName: "डॉ. रावसाहेब कुंडलिक बोरुडे",
+  tagline: "MOS, AIOS | Retina, Perimetry & Refractive Specialist",
   logo: "/Varadlogo.png",
-  phone: "+91 98765 43210",
-  emergencyPhone: "+91 98765 00000",
-  tollFree: "1800-123-4567",
-  email: "contact@varadnetralaya.com",
-  appointmentEmail: "appointments@varadnetralaya.com",
-  address: "Near Anita Medical, Behind Hotel Parichay, Balikashram Road, Savedi, Ahilyanagar, Maharashtra 414003",
-  marathiAddress: "अनिता मेडिकल जवळ, हॉटेल परिचय मागे, बालिकाश्रम रोड, सावेडी, अहिल्यानगर, महाराष्ट्र ४१४००३",
-  plusCode: "4PCG+JR8, Savedi, Ahilyanagar, Maharashtra 414003",
-  youtubeChannel: "https://www.youtube.com/@VaradNetrayala",
-  officialVideoEmbed: "https://www.youtube.com/embed/a38nME-7Ocg",
-  googleMapsLink: "https://maps.app.goo.gl/GLTiHSHeiA16pk8d9",
+  phone: "+91 9822315840",
+  emergencyPhone: "+91 9822315840",
+  tollFree: "",
+  email: "contact@drborude.com",
+  appointmentEmail: "appointments@drborude.com",
+  address: "Ahilyanagar, Maharashtra",
+  marathiAddress: "अहिल्यानगर, महाराष्ट्र",
+  plusCode: "",
+  youtubeChannel: "",
+  officialVideoEmbed: "",
+  googleMapsLink: "",
   workingHours: {
-    weekdays: "8:00 AM – 9:00 PM (Monday to Saturday)",
-    sunday: "Closed (Emergency Eye Care Available)",
-    emergency: "24 Hours / 7 Days Emergency Eye Care"
+    weekdays: "OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri",
+    sunday: "Closed",
+    emergency: ""
   },
   stats: {
-    happyPatients: "30,000+",
-    successfulSurgeries: "18,000+",
-    experiencedDoctors: "2 Senior Eye Surgeons",
-    yearsOfExperience: "15+",
+    happyPatients: "10,000+",
+    successfulSurgeries: "8,500+",
+    experiencedDoctors: "22+ Years Experience",
+    yearsOfExperience: "22+",
     googleRating: "4.9",
-    googleReviewCount: "439+ Google Reviews"
+    googleReviewCount: "Top Rated"
   }
 };
 
@@ -76,95 +76,85 @@ export const aboutData = {
 
 export const servicesData = [
   {
-    id: "computerized-testing",
-    title: "Comprehensive Eye Exams & Testing",
-    tagline: "Advanced Computerized Refraction & Screening",
-    desc: "In-depth 12-step eye evaluation including computerized refraction, intraocular pressure measurement, and spectacle fitting.",
-    icon: "FaEye",
-    details: ["Computerized Autorefraction & Spectacle Prescription", "Slit Lamp Biomicroscopy Examination", "Non-Contact Tonometry (Eye Pressure Check)", "Dilated Fundus & Optic Nerve Screening"]
-  },
-  {
-    id: "cataract",
-    title: "Cataract Diagnosis & Phaco Surgery",
-    tagline: "Stitchless Micro-Incision Phacoemulsification",
-    desc: "Pain-free, stitch-less cataract removal replaced with imported premium Monofocal, Multifocal, and Toric Intraocular Lenses (IOLs).",
+    id: "phaco-surgery",
+    title: "Cataract & Phaco Surgery",
+    tagline: "Stitchless Micro-Incision Procedure",
+    desc: "Pain-free, stitch-less cataract removal with premium Intraocular Lenses (IOLs).",
     icon: "FaMicroscope",
-    details: ["Micro-Incision Phacoemulsification (MICS)", "Zeiss & Alcon Foldable Premium IOLs", "Same-day discharge with rapid visual recovery", "No injection, no patch procedure"]
+    details: ["Monofocal, Trifocal & Multifocal Lenses", "EDOF & Toric Lenses", "Rapid visual recovery", "No injection, no patch procedure"]
   },
   {
-    id: "retina-perimetry",
-    title: "Retina, Perimetry & Visual Field Tests",
-    tagline: "Diabetic Retinopathy & Glaucoma Diagnostics",
-    desc: "Automated Humphrey visual field testing, OCT retina scans, fundus evaluation, and laser photocoagulation.",
-    icon: "FaSearchPlus",
-    details: ["Humphrey Automated Perimetry & Visual Field Test", "Diabetic Eye Care & Macular Edema Screening", "OCT Optic Nerve & Retinal Scan", "Anti-VEGF Intravitreal Therapy"]
+    id: "glaucoma-retina",
+    title: "Glaucoma & Retina Services",
+    tagline: "Advanced Diagnostics & Treatment",
+    desc: "Comprehensive screening and treatment for Glaucoma and Retinal diseases.",
+    icon: "FaEye",
+    details: ["Glaucoma Diagnosis via OCT & Perimetry", "Advanced Medical Retina Service", "Surgical Retina Service", "Diabetic Retinopathy Management"]
   },
   {
-    id: "diabetic-uveitis",
-    title: "Diabetic Eye, Uveitis & Corneal Care",
-    tagline: "Specialized Medical Retinal & Ocular Surface Care",
-    desc: "Targeted medical management for diabetic retinopathy, uveitis inflammatory conditions, corneal ulcers, and astigmatism.",
-    icon: "FaBriefcaseMedical",
-    details: ["Diabetic Retinopathy Laser Therapy", "Uveitis & Ocular Inflammation Clinic", "Corneal Ulcer & Keratitis Treatment", "Astigmatism & Refractive Management"]
-  },
-  {
-    id: "pediatric-squint",
-    title: "Pediatric Eye Care & Squint Clinic",
-    tagline: "Child-Friendly Vision Screening & Alignment",
-    desc: "Gentle pediatric vision screening, amblyopia (lazy eye) patching therapy, and corrective squint alignment in children and adults.",
+    id: "pediatric-rop",
+    title: "Pediatric Eye Care & ROP",
+    tagline: "Specialized Care for Children",
+    desc: "Dedicated child-friendly vision screening, myopia control, and premature baby eye care.",
     icon: "FaBaby",
-    details: ["Pediatric Vision Screening & Refraction", "Amblyopia (Lazy Eye) Therapy", "Squint & Strabismus Correction", "Color Vision & Myopia Control"]
+    details: ["Myopia Clinic", "Squint Diagnosis & Treatment", "R.O.P. Screening & Treatment", "Amblyopia Therapy"]
+  },
+  {
+    id: "cornea-eyebank",
+    title: "Cornea Care & Eye Bank",
+    tagline: "Varad Eye Bank Services",
+    desc: "Advanced corneal transplants and treatments for keratoconus.",
+    icon: "FaRegEye",
+    details: ["Cornea Transplant (PKP, TPK, DMEK, DSEK)", "Keratoconus Treatment (TREK, C3R)", "Scleral Contact Lenses", "Varad Eye Bank Facilities"]
+  },
+  {
+    id: "specialty-clinics",
+    title: "Specialty Clinics",
+    tagline: "Dry Eye, Oculoplasty & Neuro",
+    desc: "Targeted medical management for specialized ophthalmic conditions.",
+    icon: "FaBriefcaseMedical",
+    details: ["Dry Eye Clinic", "Oculoplasty (Eyelid diseases, Orbital Tumor, Fracture)", "Neuro-Ophthalmology Service", "Contact Lens Clinic"]
   },
   {
     id: "lasik-refractive",
-    title: "LASIK Vision Correction",
-    tagline: "Freedom From Glasses & Contact Lenses",
-    desc: "Advanced laser vision correction procedures tailored to eliminate your dependency on spectacles.",
-    icon: "FaEye",
-    details: ["Topography-Guided LASIK Evaluation", "Blade-Free Laser Vision Correction", "Specialty Contact Lens Fitting", "Keratoconus Evaluation"]
+    title: "Permanent Spectacle Removal",
+    tagline: "Freedom From Glasses",
+    desc: "Touchless, bladeless LASIK surgery for permanent vision correction.",
+    icon: "FaStar",
+    details: ["Touchless, Bladeless LASIK", "Schwind Amaris 750S Machine", "Topography-Guided Evaluation", "Rapid Recovery"]
   }
 ];
 
 export const eyeTreatmentsData = [
   {
-    id: "cataract-phaco",
-    title: "Stitchless Phaco Cataract Surgery",
-    category: "Cataract Surgery",
-    desc: "Micro-incision ultrasound phacoemulsification with imported premium IOL implantation.",
-    recovery: "24 - 48 Hours",
-    duration: "15 Mins",
-    anesthesia: "Topical Eye Drops (No Injection)",
-    benefits: ["Stitchless & painless", "Clear vision within 24 hours", "Premium Trifocal / Toric lens options"]
+    id: "infrastructure-modular",
+    title: "Modular Operation Theaters",
+    category: "Infrastructure",
+    desc: "World-class modular operation theaters equipped with Laminar Airflow for sterile surgeries.",
+    recovery: "N/A",
+    duration: "N/A",
+    anesthesia: "N/A",
+    benefits: ["Zero infection protocol", "Advanced surgical equipment", "Comfortable patient experience"]
   },
   {
-    id: "perimetry-visual",
-    title: "Automated Perimetry & Visual Field",
-    category: "Diagnostics",
-    desc: "Humphrey Field Analyzer testing for early glaucoma diagnosis and optic nerve mapping.",
-    recovery: "Immediate",
-    duration: "20 Mins",
-    anesthesia: "Non-Invasive",
-    benefits: ["Detects early peripheral vision loss", "Monitors glaucoma progression", "Pain-free diagnostic scan"]
+    id: "infrastructure-optical",
+    title: "World-class Optical Shop",
+    category: "Facilities",
+    desc: "In-house Ben Franklin branded optical store offering a wide range of premium frames and lenses.",
+    recovery: "N/A",
+    duration: "N/A",
+    anesthesia: "N/A",
+    benefits: ["Computerized precision fitting", "Premium brands", "Convenience for patients"]
   },
   {
-    id: "retina-laser",
-    title: "Diabetic Retina Laser & Anti-VEGF",
-    category: "Retinal Treatment",
-    desc: "Green laser photocoagulation and intravitreal injections for diabetic retinopathy and swelling.",
-    recovery: "1 - 2 Days",
-    duration: "20 Mins",
-    anesthesia: "Topical Drops",
-    benefits: ["Prevents diabetic vision loss", "Reduces macular swelling", "Outpatient procedure"]
-  },
-  {
-    id: "corneal-ulcer",
-    title: "Corneal Ulcer & Astigmatism Care",
-    category: "Cornea Care",
-    desc: "Targeted microbiological evaluation and specialized eye drops for severe corneal ulcers.",
-    recovery: "3 - 7 Days",
-    duration: "Clinic OPD",
-    anesthesia: "Topical Drops",
-    benefits: ["Rapid ulcer healing", "Protects corneal clarity", "Astigmatism spectacle correction"]
+    id: "infrastructure-lab",
+    title: "Medical & Laboratory",
+    category: "Facilities",
+    desc: "Well-equipped in-house medical store and pathology laboratory.",
+    recovery: "N/A",
+    duration: "N/A",
+    anesthesia: "N/A",
+    benefits: ["Quick diagnostic reports", "Genuine medicines available", "All services under one roof"]
   }
 ];
 
@@ -189,17 +179,17 @@ export const doctorsData = [
     id: 2,
     name: "Dr. Raosaheb Kundlik Borude",
     marathiName: "डॉ. रावसाहेब कुंडलिक बोरुडे",
-    title: "Senior Ophthalmologist & Refractive Specialist",
-    qualification: "MOS, AIOS",
-    specialization: "Senior Ophthalmologist - Retina, Perimetry & Cataract Specialist",
-    hospitalLocation: "Varad Netralaya, Savedi, Ahilyanagar (वरद नेत्रालय, सावेडी, अहिल्यानगर)",
-    experience: "15+ Years Experience",
+    title: "M.B.B.S., D.O.M.S., F.I.G.O.",
+    qualification: "Fellowship in General Ophthalmology & Phacosurgery",
+    specialization: "Cataract, Glaucoma & Refractive Surgeon",
+    hospitalLocation: "Varad Netralaya, Savedi, Ahilyanagar",
+    experience: "22+ Years Experience (Since 2002)",
     surgeries: "8,500+ Eye Surgeries",
-    available: "Mon - Sat: 8:00 AM – 9:00 PM",
+    available: "OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri",
     rating: 4.9,
     reviewsCount: 439,
     photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=600",
-    bio: "Leading Ophthalmic Consultant at Varad Netralaya. Member of MOS and AIOS, specializing in automated perimetry, visual field testing, medical retina, uveitis, and refractive laser vision correction."
+    bio: "Dr. Raosaheb Borude (Ophthalmology - Pune University) is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He has served at Tulsi Eye Hospital (Nashik), Anandrishiji Hospital, and Bhairavnath Eye Hospital. He specializes in Phaco, Cataract, Glaucoma, Squint, Cornea, and Lasik surgeries."
   }
 ];
 
@@ -248,12 +238,30 @@ export const govtSchemesData = [
 ];
 
 export const insurancePartnersData = [
-  { id: 1, name: "Zurich Kotak General Insurance", logo: "Zurich Kotak", desc: "Empaneled cashless eye hospital in Ahilyanagar", code: "ZURICH-KOTAK" },
-  { id: 2, name: "Star Health Insurance", logo: "Star Health TPA", desc: "Fast-track 30-min cashless approvals", code: "STAR-CASHLESS" },
-  { id: 3, name: "HDFC ERGO General Insurance", logo: "HDFC ERGO", desc: "Comprehensive cataract & eye coverage", code: "HDFC-EYE" },
-  { id: 4, name: "ICICI Lombard Health", logo: "ICICI Lombard", desc: "Instant pre-authorization desk", code: "ICICI-CARE" },
-  { id: 5, name: "Niva Bupa Health Insurance", logo: "Niva Bupa", desc: "Max coverage for Cataract & LASIK", code: "NIVA-BUPA" },
-  { id: 6, name: "SBI General Insurance", logo: "SBI General", desc: "Empaneled network eye clinic", code: "SBI-GEN" }
+  { id: 1, name: "The New India Assurance Company Ltd.", logo: "New India" },
+  { id: 2, name: "The Oriental Insurance Company Ltd. (GIPSA)", logo: "Oriental" },
+  { id: 3, name: "National Insurance Company Ltd.", logo: "National" },
+  { id: 4, name: "United India Insurance Company Limited", logo: "United India" },
+  { id: 5, name: "MD India Health Insurance TPA Private Ltd.", logo: "MD India" },
+  { id: 6, name: "Medi Assist Insurance TPA Private Limited", logo: "Medi Assist" },
+  { id: 7, name: "Health India Insurance TPA Service Pvt. Ltd.", logo: "Health India" },
+  { id: 8, name: "Medsave Health Insurance TPA Ltd.", logo: "Medsave" },
+  { id: 9, name: "Vidal Health Insurance TPA Private Ltd.", logo: "Vidal Health" },
+  { id: 10, name: "Paramount Health Services & Insurance TPA Pvt. Ltd.", logo: "Paramount" },
+  { id: 11, name: "Family Health Plan (FHPL) Insurance TPA Ltd.", logo: "FHPL" },
+  { id: 12, name: "Volo TPA (Volo Health Insurance TPA Pvt. Ltd.)", logo: "Volo TPA" },
+  { id: 13, name: "Link K Insurance TPA Pvt. Ltd.", logo: "Link K" },
+  { id: 14, name: "Star Health and Allied Insurance Company Ltd.", logo: "Star Health" },
+  { id: 15, name: "HDFC ERGO General Insurance Company Ltd.", logo: "HDFC ERGO" },
+  { id: 16, name: "Reliance General Insurance Company Ltd.", logo: "Reliance" },
+  { id: 17, name: "Cholamandalam MS General Insurance Co. Ltd.", logo: "Cholamandalam" },
+  { id: 18, name: "Magma HDI General Insurance Company Ltd.", logo: "Magma HDI" },
+  { id: 19, name: "Future Generali India Insurance Company Ltd.", logo: "Future Generali" },
+  { id: 20, name: "Go Digit General Insurance Company Ltd.", logo: "Go Digit" },
+  { id: 21, name: "Niva bupa Insurance Company Ltd.", logo: "Niva Bupa" },
+  { id: 22, name: "SBI General Insurance Company Limited", logo: "SBI General" },
+  { id: 23, name: "PMJAY - Pradhan Mantri Jan Arogya Yojana", logo: "PMJAY" },
+  { id: 24, name: "MJPJAY - Mahatma Jyotirao Phule Jan Arogya Yojana", logo: "MJPJAY" }
 ];
 
 export const testimonialsData = [
@@ -352,3 +360,75 @@ export const faqList = [
     a: "You can call our reception helpline at +91 98765 43210 or click the 'Book Appointment' button on this website to select your preferred date and time slot."
   }
 ];
+
+export const infrastructureData = [
+  { name: "IOL Master 700", type: "Equipment" },
+  { name: "Corneal Topography Machine", type: "Equipment" },
+  { name: "ZEISS Lumera I Microscope", type: "Equipment" },
+  { name: "OCT + Angiography", type: "Equipment" },
+  { name: "Vitrectomy Machine", type: "Equipment" },
+  { name: "Green Laser", type: "Equipment" },
+  { name: "ZEISS Perimeter", type: "Equipment" },
+  { name: "ND Yag Laser", type: "Equipment" },
+  { name: "Ophthalmic Ultrasound Scanner", type: "Equipment" },
+  { name: "Cryotherapy Machine", type: "Equipment" },
+  { name: "Zeiss Callisto", type: "Cataract Surgery" },
+  { name: "Schwind Amaris 750S", type: "Lasik Surgery" },
+  { name: "3 Modular Operation Theaters", type: "Facility", desc: "With Laminar Airflow" },
+  { name: "Super Deluxe & Deluxe Rooms", type: "Facility" },
+  { name: "AC General Ward", type: "Facility", desc: "Male & Female wards available" },
+  { name: "Ben Franklin Optical Store", type: "Facility", desc: "Branded opticals" },
+  { name: "Varad Eye Bank", type: "Facility", desc: "Donate Eyes.. Save Lives.." },
+  { name: "10 Well Equipped OPDS", type: "Facility" },
+  { name: "Conference Hall & Spacious Waiting Lounge", type: "Facility" }
+];
+
+export const patientGuidelinesData = {
+  postOpCare: [
+    "ऑपरेशन झालेल्या डोळ्याच्या कुशीवर ८ दिवसांपर्यंत झोपू नये.",
+    "ऑपरेशन नंतर ८ दिवस किंवा लाली जाईपर्यंत अंघोळ खांद्यावरून करावी (डोक्यावरून नको).",
+    "ऑपरेशन नंतर केलेली पट्टी डॉक्टरांनी सांगितल्याशिवाय काढू नये.",
+    "डोळ्यातून पाणी आल्यास ते पाणी गालावर आल्यानंतर पुसावे. हा त्रास ३ ते ४ दिवसांत कमी होतो. डोळ्यांवर कुठल्याही प्रकारची पट्टी अथवा फडके लावू नये. फक्त काळा चष्मा वापरावा. काळा चष्मा काढून उघड्या डोळ्यांनी फिरू नये.",
+    "जखम भरत येईपर्यंत डोळ्यात खाज येणे स्वाभाविक असते. हा त्रास हळूहळू कमी होतो.",
+    "डॉक्टर तपासणीसाठी बोलावतील त्याप्रमाणे न चुकता यावे.",
+    "बिडी, सिगरेट, दारू, पान, तंबाखू, सुपारी, गुटखा, तपकीर वर्ज्य करावी.",
+    "मोठ्याने बोलणे, वाद घालणे व भांडण टाळावे, खाकरणे, शिंकणे, खोकणे टाळावे, संडासला जोर करू नये.",
+    "वाचणे, टीव्ही पाहणे यासारख्या डोळ्यांना ताण देणाऱ्या गोष्टी टाळाव्यात व गर्दी गोंगाट धक्काबुकीच्या ठिकाणी जाऊ नये.",
+    "खाली वाकून जड वस्तू उचलणे, धूर, धूळ, ऊन टाळावे.",
+    "लहान मुलांना अंगावर घेऊ नये.",
+    "डोळे पाण्याने धुवू नये. साबण पुसू नये.",
+    "ऑपरेशन झालेल्या डोळ्यास कोणत्याही स्वरूपाची इजा झाल्यास अथवा डोळा दुखू लागल्यास किंवा चांगली झालेली दृष्टी कमी झाल्यास त्वरीत डॉक्टरांचा सल्ला घ्यावा."
+  ],
+  medicines: [
+    "डोळ्यांसाठी डॉक्टरांच्या सल्ल्याप्रमाणे गोळ्या व औषधे घ्यावीत.",
+    "डोळ्यांसाठी कोणतेही ड्रॉप्स वापरण्यापूर्वी हात साबणाने स्वच्छ धुवावे.",
+    "लिहून दिलेल्या औषधांचे एक - एक थेंब ऑपरेशन झालेल्या डोळ्यात नाकाच्या बाजूच्या कोपऱ्यात खालची पापणी खाली ओढून सांगितलेल्या वेळांप्रमाणे टाकावेत.",
+    "कोणतेही औषध डॉक्टरांना विचारल्याशिवाय सुरु किंवा बंद करू नयेत.",
+    "ब्लड प्रेशर / डायबेटीससाठी अथवा इतर औषधे असल्यास ती चालू ठेवावीत.",
+    "किरकोळ व इतर तक्रारींसाठी आपल्या नेहमीच्या डॉक्टरांकडून औषधोपचार करण्यास हरकत नाही."
+  ],
+  diet: [
+    "पचेल, रुचेल असे वरण भात, भाजीपोळी, फळफळावळ नेहमीचे जेवण घेण्यास हरकत नाही. अति तेलकट, तिखट पदार्थ शक्यतो टाळावेत.",
+    "इतर आजारांसाठी (डायबेटिस / ब्लड प्रेशर / ऍलर्जी) चालू असलेली पथ्य पाळावीत."
+  ],
+  notices: [
+    "कुठलीही डोळ्यांची औषधे मनाने घेऊ नयेत.",
+    "थेंबाचे औषध उघडल्यानंतर ३० दिवसात संपवावे अन्यथा टाकून द्यावे.",
+    "चष्म्याचा नंबर कुठल्याही वयात लागू शकतो.",
+    "चष्मा वापरल्याने नंबर कमी होत नाही.",
+    "चाळीशीनंतर वाचण्यासाठी चष्म्याची गरज पडते.",
+    "मधुमेह व रक्तदाब असणाऱ्या पेशंटनी दर सहा महिन्यांनी डोळे तपासावेत.",
+    "चाळीस वयानंतर काचबिंदूची तपासणी करणे आवश्यक आहे.",
+    "मोतिबिंदू वयोमानाप्रमाणे होत असल्याने त्यावर प्रतिबंधात्मक उपाय नाहीत.",
+    "मोतिबिंदूसाठी कुठलेही औषधे नसून ऑपरेशन हा त्यावरील एकमेव उपचार आहे."
+  ],
+  phacoBenefits: [
+    "१) डोळ्यात घेतलेला काप १.८ ते २.८ मि.मि. असतो.",
+    "२) टाके घ्यावे लागत नाही.",
+    "३) जखम चटकन भरून येते, दृष्टीत लवकर सुधारणा होते.",
+    "४) शस्त्रक्रियेनंतर लवकरच घरी जाता येते.",
+    "५) शस्त्रक्रियेनंतर ८ ते १० दिवसातच पूर्ववत कामास जाता येते.",
+    "६) चष्म्याचा नंबर लवकरच स्थिर होतो.",
+    "७) पारंपारिक पद्धतीने केलेली टाक्याची शस्त्रक्रियेपेक्षा फेको पद्धतीने केलेली छोट्या छेदाची बिनटाक्याची शस्त्रक्रिया फारच लाभदायक आहे."
+  ]
+};

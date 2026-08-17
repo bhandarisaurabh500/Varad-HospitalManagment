@@ -11,7 +11,8 @@ import {
   FaTimes,
   FaCalendarCheck,
   FaShieldAlt,
-  FaStar
+  FaStar,
+  FaUserMd
 } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -22,12 +23,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Eye Treatments', href: '#treatments' },
-    { name: 'Doctors', href: '#doctors' },
-    { name: 'Insurance & Schemes', href: '#insurance' },
-    { name: 'Gallery', href: '#gallery' },
+    { name: 'Profile & Info', href: '#doctor-profile' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -72,26 +68,17 @@ const Navbar = () => {
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
             <div className="flex items-center gap-1 text-amber-400 font-bold bg-amber-950/80 px-3 py-0.5 rounded-full border border-amber-500/50 shadow-sm">
-              <FaStar className="text-amber-400 animate-pulse" /> 4.9★ (439+ Google Reviews)
+              <FaStar className="text-amber-400 animate-pulse" /> {hospitalInfo.stats.googleRating}★ Top Rated
             </div>
             <span className="hidden sm:inline text-slate-600">|</span>
             <div className="hidden sm:flex items-center gap-1.5 text-slate-200">
               <FaClock className="text-teal-400" /> Mon - Sat: 8:00 AM – 9:00 PM
             </div>
-            <span className="hidden lg:inline text-slate-600">|</span>
-            <a 
-              href={hospitalInfo.googleMapsLink} 
-              target="_blank" 
-              rel="noreferrer"
-              className="hidden lg:flex items-center gap-1.5 text-slate-200 hover:text-amber-300 transition font-medium"
-            >
-              <FaMapMarkerAlt className="text-rose-400 animate-bounce" /> बालिकाश्रम रोड, सावेडी, अहिल्यानगर
-            </a>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5 text-teal-300 font-medium">
-              <FaShieldAlt className="text-teal-400" /> Cashless Insurance Tie-ups
+              <FaShieldAlt className="text-teal-400" /> Cashless Available
             </div>
             <a href={`tel:${hospitalInfo.phone}`} className="hidden md:inline-flex items-center gap-1 text-slate-200 hover:text-white transition font-bold">
               <FaPhoneAlt className="text-teal-400 text-[10px]" /> Call: {hospitalInfo.phone}
@@ -108,33 +95,20 @@ const Navbar = () => {
       }`}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           
-          {/* Prominent Large HD Circular Emblem & Brand Title */}
+          {/* Brand Title */}
           <a 
             href="#home" 
             onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
             className="flex items-center gap-4 group"
           >
-            <div className="relative">
-              {/* Glowing Outer Ring */}
-              <div className="absolute -inset-1.5 rounded-full bg-gradient-to-tr from-amber-400 via-blue-600 to-teal-400 opacity-80 blur-sm group-hover:opacity-100 transition-opacity"></div>
-              
-              {/* Large HD Circular Emblem Container */}
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-white p-1 shadow-xl border-3 border-amber-400 flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/Varadlogo_emblem.png" 
-                  alt="वरद नेत्रालय HD Emblem" 
-                  className="w-full h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-300" 
-                />
-              </div>
-            </div>
-
             <div>
               <div className="flex items-center leading-none">
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">VARAD</span>
-                <span className="text-2xl sm:text-3xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1.5">NETRALAYA</span>
+                <FaUserMd className="text-3xl text-blue-600 mr-2" />
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. R.K.</span>
+                <span className="text-xl sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1.5">BORUDE</span>
               </div>
-              <p className="text-xs sm:text-sm font-extrabold text-amber-600 dark:text-amber-400 tracking-wider uppercase mt-1">
-                वरद नेत्रालय • सावेडी, अहिल्यानगर
+              <p className="text-xs sm:text-sm font-extrabold text-slate-600 dark:text-slate-400 tracking-wider uppercase mt-1">
+                Retina & Refractive Specialist
               </p>
             </div>
           </a>

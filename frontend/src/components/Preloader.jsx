@@ -36,11 +36,7 @@ const Preloader = () => {
               transition={{ duration: 0.6 }}
               className="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-white p-4 shadow-2xl border-4 border-amber-400 flex items-center justify-center relative z-10"
             >
-              <img
-                src="/Varadlogo_emblem.png"
-                alt="वरद नेत्रालय Emblem"
-                className="w-full h-full object-contain animate-pulse"
-              />
+              <FaHeartbeat className="text-6xl text-amber-500 animate-pulse" />
             </motion.div>
 
             {/* Rotating dashed ring */}
@@ -59,15 +55,15 @@ const Preloader = () => {
             className="mt-8 text-center space-y-2"
           >
             <h1 className="text-3xl sm:text-4xl font-black tracking-wide text-white font-poppins">
-              वरद <span className="text-teal-400">नेत्रालय</span>
+              Dr. R.K. <span className="text-teal-400">BORUDE</span>
             </h1>
             
             <div className="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm tracking-wider uppercase bg-slate-900/90 px-5 py-1.5 rounded-full border border-amber-500/40 shadow-md">
-              <span>— नेत्रसेवेचा आधुनिक दृष्टिकोन —</span>
+              <span>Retina & Refractive Specialist</span>
             </div>
 
             <p className="text-xs text-slate-400 tracking-wider flex items-center justify-center gap-1.5 mt-2">
-              <FaHeartbeat className="text-rose-500 animate-pulse" /> Advanced Eye Care & Surgery Center • सावेडी, अहिल्यानगर
+              <FaHeartbeat className="text-rose-500 animate-pulse" /> Ahilyanagar, Maharashtra
             </p>
           </motion.div>
 

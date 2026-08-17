@@ -12,7 +12,7 @@ const FloatingWhatsApp = () => {
   const phoneFormatted = '919876543210';
 
   const handleSendWhatsApp = (customText = null) => {
-    const textToSend = customText || userMsg || 'Hello Varad Hospital, I would like to inquire about eye treatment / appointment.';
+    const textToSend = customText || userMsg || "Hello Dr. Borude's Clinic, I would like to inquire about an appointment.";
     const encoded = encodeURIComponent(textToSend);
     window.open(`https://wa.me/${phoneFormatted}?text=${encoded}`, '_blank');
     setIsOpen(false);
@@ -50,7 +50,7 @@ const FloatingWhatsApp = () => {
                   <FaUserMd />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold font-poppins">Varad Eye Desk</h4>
+                  <h4 className="text-sm font-bold font-poppins">Dr. Borude's Clinic</h4>
                   <p className="text-[11px] text-emerald-100 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
                     Online • Typical reply in 5 mins
@@ -68,7 +68,7 @@ const FloatingWhatsApp = () => {
             {/* Chat Body */}
             <div className="p-4 bg-slate-50 dark:bg-slate-950 space-y-3 max-h-72 overflow-y-auto">
               <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm text-xs text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 max-w-[85%]">
-                👋 Hello! Welcome to Varad Eye Hospital. How can we assist your vision today?
+                👋 Hello! Welcome to Dr. Raosaheb Kundlik Borude's Clinic. How can we assist your vision today?
               </div>
 
               <div className="space-y-1.5 pt-2">

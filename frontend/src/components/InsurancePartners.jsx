@@ -33,22 +33,15 @@ const InsurancePartners = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -5 }}
-              className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800 shadow-soft hover:shadow-xl transition-all text-center flex flex-col items-center justify-between group"
+              className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md transition-all text-center flex flex-col items-center justify-between group"
             >
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-teal-500 text-white flex items-center justify-center text-xl font-bold mb-3 shadow-md group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-teal-500 text-white flex items-center justify-center text-lg font-bold mb-2 shadow-sm group-hover:scale-110 transition-transform">
                 <FaShieldAlt />
               </div>
-              <div>
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white font-poppins group-hover:text-blue-600 dark:group-hover:text-teal-400 transition-colors">
+              <div className="flex-1 flex items-center justify-center">
+                <h3 className="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-teal-400 transition-colors">
                   {partner.name}
                 </h3>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
-                  {partner.desc}
-                </p>
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 w-full flex items-center justify-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
-                <FaCheckCircle /> Cashless Desk Empaneled
               </div>
             </motion.div>
           ))}

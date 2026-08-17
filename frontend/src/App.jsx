@@ -3,19 +3,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import QuickFeatures from './components/QuickFeatures';
-import About from './components/About';
-import Services from './components/Services';
-import EyeTreatments from './components/EyeTreatments';
-import Doctors from './components/Doctors';
-import WhyChooseUs from './components/WhyChooseUs';
-import StatsCounter from './components/StatsCounter';
-import GovtSchemes from './components/GovtSchemes';
-import InsurancePartners from './components/InsurancePartners';
-import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
-import FAQSection from './components/FAQSection';
-import AppointmentSection, { AppointmentModal } from './components/AppointmentSection';
+import DoctorProfileTabs from './components/DoctorProfileTabs';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -39,19 +27,7 @@ function App() {
         {/* Hero Banner */}
         <main>
           <Hero />
-          <QuickFeatures />
-          <About />
-          <Services />
-          <EyeTreatments />
-          <Doctors />
-          <WhyChooseUs />
-          <StatsCounter />
-          <GovtSchemes />
-          <InsurancePartners />
-          <Testimonials />
-          <Gallery />
-          <FAQSection />
-          <AppointmentSection />
+          <DoctorProfileTabs />
           <ContactSection />
         </main>
 
@@ -61,7 +37,6 @@ function App() {
         {/* Floating Utilities */}
         <FloatingWhatsApp />
         <ScrollToTop />
-        <AppointmentModal />
       </div>
     </ThemeProvider>
   );
