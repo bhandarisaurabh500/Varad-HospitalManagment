@@ -78,10 +78,9 @@ const HospitalInformation = () => {
               <div className="w-full lg:w-1/3 flex justify-center">
                 <div className="relative w-72 h-96 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 transform rotate-2 hover:rotate-0 transition-transform duration-500">
                   <img 
-                    src="/photos/doctor/dr-ravsaheb-borude-poster.jpg" 
+                    src="/photos/doctor/Dr.BorudeSir.png" 
                     alt={doctor.name}
-                    className="w-full h-full object-cover object-[center_15%]" 
-                    /* object-position is adjusted to frame the face from the poster */
+                    className="w-full h-full object-cover object-[center_top]" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -149,17 +148,12 @@ const HospitalInformation = () => {
             {infrastructureData.filter(i => i.type === "Equipment" || i.type.includes("Surgery")).map((item, index) => (
               <div key={index} className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-shadow group">
                 <div className="h-48 overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
-                  {/* Using object-cover to frame equipment from the brochure */}
                   <img 
-                    src="/photos/documents/equipment-facilities.jpg" 
+                    src={item.image || "/photos/Machine/images.jpg"} 
                     alt={item.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    style={{
-                      // Pseudo-random object position for visual variety until user replaces images
-                      objectPosition: `${(index * 25) % 100}% ${(index * 15) % 100}%`
-                    }}
+                    className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-700 bg-white"
                   />
-                  <div className="absolute top-3 left-3 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <div className="absolute top-3 left-3 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                     {item.type}
                   </div>
                 </div>
@@ -182,8 +176,8 @@ const HospitalInformation = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-lg">
-              <div className="w-2/5 shrink-0">
-                <img src="/photos/facilities/operation-theatre.png" alt="Modular OTs" className="w-full h-full object-cover" />
+              <div className="w-2/5 shrink-0 bg-white p-2">
+                <img src="/photos/Machine/3 Modular Operation Theaters with Laminar Airflow.webp" alt="Modular OTs" className="w-full h-full object-cover rounded-2xl" />
               </div>
               <div className="p-6 md:p-8 flex flex-col justify-center">
                 <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">3 Modular Operation Theaters</h3>
@@ -202,8 +196,8 @@ const HospitalInformation = () => {
             </div>
 
             <div className="flex bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-lg">
-              <div className="w-2/5 shrink-0">
-                <img src="/photos/facilities/hospital-ward.png" alt="Wards" className="w-full h-full object-cover" />
+              <div className="w-2/5 shrink-0 bg-white p-2">
+                <img src="/photos/Machine/Super Deluxe Room.jpg" alt="Wards" className="w-full h-full object-cover rounded-2xl" />
               </div>
               <div className="p-6 md:p-8 flex flex-col justify-center">
                 <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">Premium Patient Rooms</h3>
@@ -212,8 +206,8 @@ const HospitalInformation = () => {
             </div>
 
             <div className="flex bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-lg">
-              <div className="w-2/5 shrink-0">
-                <img src="/photos/facilities/hospital-ward.png" alt="Lounge" className="w-full h-full object-cover" />
+              <div className="w-2/5 shrink-0 bg-white p-2">
+                <img src="/photos/Machine/AC General Ward.jpg" alt="Lounge" className="w-full h-full object-cover rounded-2xl" />
               </div>
               <div className="p-6 md:p-8 flex flex-col justify-center">
                 <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">Spacious Waiting Lounge</h3>
@@ -269,11 +263,11 @@ const HospitalInformation = () => {
 
             {/* Optical Store */}
             <div className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-700 flex flex-col">
-              <div className="h-64 bg-slate-200 dark:bg-slate-700 relative">
+              <div className="h-64 bg-slate-200 dark:bg-slate-700 relative p-4">
                 <img 
-                  src="/photos/documents/equipment-facilities.jpg" 
+                  src="/photos/Machine/Ben Franklin – Branded Optical Store.avif" 
                   alt="Ben Franklin Optical Store" 
-                  className="w-full h-full object-cover object-bottom" 
+                  className="w-full h-full object-contain bg-white rounded-xl" 
                 />
               </div>
               <div className="p-10 flex flex-col justify-center grow text-center">

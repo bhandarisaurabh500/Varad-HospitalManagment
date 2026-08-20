@@ -18,18 +18,18 @@ const tabs = [
 ];
 
 const equipmentList = [
-  { name: 'IOL Master 700', category: 'Diagnostics', img: '/photos/equipment/equipment-professional.png' },
-  { name: 'Corneal Topography Machine', category: 'Diagnostics', img: '/photos/equipment/equipment-professional.png' },
-  { name: 'ZEISS Lumera I Microscope', category: 'Surgery', img: '/photos/facilities/operation-theatre.png' },
-  { name: 'OCT + Angiography', category: 'Diagnostics', img: '/photos/equipment/equipment-professional.png' },
-  { name: 'Vitrectomy Machine', category: 'Surgery', img: '/photos/facilities/operation-theatre.png' },
-  { name: 'Green Laser', category: 'Laser', img: '/photos/services/lasik-services.png' },
-  { name: 'ZEISS Perimeter', category: 'Diagnostics', img: '/photos/equipment/equipment-professional.png' },
-  { name: 'ND Yag Laser', category: 'Laser', img: '/photos/services/lasik-services.png' },
-  { name: 'Ophthalmic Ultrasound Scanner', category: 'Diagnostics', img: '/photos/equipment/equipment-professional.png' },
-  { name: 'Cryotherapy Machine', category: 'Surgery', img: '/photos/facilities/operation-theatre.png' },
-  { name: 'Zeiss Callisto', category: 'Cataract Surgery', img: '/photos/facilities/operation-theatre.png' },
-  { name: 'Schwind Amaris 750S', category: 'LASIK', img: '/photos/services/lasik-services.png' },
+  { name: 'IOL Master 700', category: 'Diagnostics', img: '/photos/Machine/images.jpg' },
+  { name: 'Corneal Topography Machine', category: 'Diagnostics', img: '/photos/Machine/Corneal Topography Mashine.jpg' },
+  { name: 'ZEISS Lumera I Microscope', category: 'Surgical', img: '/photos/Machine/ZEISS Iumera I Microscope.jpg' },
+  { name: 'OCT + Angiography', category: 'Diagnostics', img: '/photos/Machine/OCT + Angiography.jpg' },
+  { name: 'Vitrectomy Machine', category: 'Surgical', img: '/photos/Machine/Vitrectomy Machine.jpg' },
+  { name: 'Green Laser', category: 'Therapeutic', img: '/photos/Machine/Green Laser.jpg' },
+  { name: 'ZEISS Perimeter', category: 'Diagnostics', img: '/photos/Machine/ZEISS Perimeter.jpg' },
+  { name: 'ND Yag Laser', category: 'Therapeutic', img: '/photos/Machine/ND YAG Laser.jpg' },
+  { name: 'Ophthalmic Ultrasound Scanner', category: 'Diagnostics', img: '/photos/Machine/Ophthalmic Ultrasound Scanner.jpg' },
+  { name: 'Cryotherapy Machine', category: 'Surgical', img: '/photos/Machine/Cryotherapy Machine.jpg' },
+  { name: 'Zeiss Callisto', category: 'Cataract Surgery', img: '/photos/Machine/Zeiss Callisto.png' },
+  { name: 'Schwind Amaris 750S', category: 'LASIK', img: '/photos/Machine/Schwind Amaris 750S.png' },
 ];
 
 const servicesList = [
@@ -125,7 +125,7 @@ const DoctorProfile = () => {
                 <DoctorCard
                   doctor={{
                     ...doctor,
-                    photo: '/photos/doctor/dr-ravsaheb-borude-poster.jpg',
+                    photo: '/photos/doctor/Dr.BorudeSir.png',
                     realPhoto: true,
                   }}
                   reverse={false}

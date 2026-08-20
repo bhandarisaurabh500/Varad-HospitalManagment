@@ -23,10 +23,7 @@ const InsurancePartners = () => {
           </p>
         </div>
 
-        {/* Insurance Banner Image */}
-        <div className="mb-12 flex justify-center">
-          <img src="/photos/documents/insurance-list.jpg" alt="Insurance Partners" className="max-w-full max-h-96 object-contain rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg" />
-        </div>
+
 
         {/* Partners Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
