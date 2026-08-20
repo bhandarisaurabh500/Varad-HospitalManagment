@@ -112,3 +112,7 @@
 .pulse-badge {
   animation: pulse-ring 2s infinite;
 }
+
+/* Hide scrollbar for tab nav */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

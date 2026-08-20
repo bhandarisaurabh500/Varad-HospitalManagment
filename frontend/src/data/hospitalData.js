@@ -40,10 +40,10 @@ export const quickFeatures = [
   },
   {
     id: 2,
-    title: "Expert Ophthalmologists",
-    desc: "Dr. Smita Prashant Patare & Dr. Raosaheb Kundlik Borude.",
+    title: "Expert Ophthalmologist",
+    desc: "Dr. Raosaheb Kundlik Borude.",
     icon: "FaUserMd",
-    badge: "DOS, AIOS, MOS",
+    badge: "M.B.B.S., D.O.M.S., F.I.G.O.",
     color: "from-emerald-500 to-teal-600"
   },
   {
@@ -67,7 +67,7 @@ export const quickFeatures = [
 export const aboutData = {
   title: "About Varad Netralaya",
   subtitle: "Prominent Eye Care Clinic in Savedi, Ahilyanagar (Ahmednagar)",
-  description: "Varad Netralaya (वरद नेत्रालय, सावेडी, अहिल्यानगर) is a renowned eye super-specialty clinic led by experienced senior ophthalmologists Dr. Smita Prashant Patare and Dr. Raosaheb Kundlik Borude. Located near Anita Medical, behind Hotel Parichay on Balikashram Road, we offer complete ophthalmic examinations, advanced computerized eye testing, micro-incision cataract surgeries, retina diagnostics, and cashless hospitalization.",
+  description: "Varad Netralaya (वरद नेत्रालय, सावेडी, अहिल्यानगर) is a renowned eye super-specialty clinic led by experienced senior ophthalmologist Dr. Raosaheb Kundlik Borude. Located near Anita Medical, behind Hotel Parichay on Balikashram Road, we offer complete ophthalmic examinations, advanced computerized eye testing, micro-incision cataract surgeries, retina diagnostics, and cashless hospitalization.",
   history: "Trusted by over 30,000+ patients across Ahilyanagar, Varad Netralaya has established an outstanding 4.9★ Google Rating backed by 439+ verified patient reviews for clinical precision and patient care.",
   mission: "To deliver accessible, accurate, and world-class vision care through cutting-edge diagnostic technology, surgical mastery, and compassionate patient service.",
   vision: "To remain the most trusted tertiary eye care institute in Ahilyanagar for vision preservation and sight restoration.",
@@ -160,22 +160,6 @@ export const eyeTreatmentsData = [
 
 export const doctorsData = [
   {
-    id: 1,
-    name: "Dr. Smita Prashant Patare",
-    marathiName: "डॉ. स्मिता प्रशांत पटारे",
-    title: "Senior Ophthalmic Surgeon & Consultant",
-    qualification: "DOS, AIOS, MOS",
-    specialization: "Senior Ophthalmologist - Cataract & Refractive Specialist",
-    hospitalLocation: "Varad Netralaya, Savedi, Ahilyanagar (वरद नेत्रालय, सावेडी, अहिल्यानगर)",
-    experience: "15+ Years Experience",
-    surgeries: "10,000+ Eye Surgeries",
-    available: "Mon - Sat: 8:00 AM – 9:00 PM",
-    rating: 4.9,
-    reviewsCount: 439,
-    photo: "https://images.unsplash.com/photo-1594824813570-78988029220c?auto=format&fit=crop&q=80&w=600",
-    bio: "Prominent Senior Ophthalmologist and Ophthalmic Surgeon at Varad Netralaya. Member of DOS, AIOS, and MOS with extensive expertise in computerized eye testing, micro-incision cataract surgeries, and diabetic eye care."
-  },
-  {
     id: 2,
     name: "Dr. Raosaheb Kundlik Borude",
     marathiName: "डॉ. रावसाहेब कुंडलिक बोरुडे",
@@ -196,8 +180,8 @@ export const doctorsData = [
 export const whyChooseUsData = [
   {
     id: 1,
-    title: "Dr. Smita Patare & Dr. Raosaheb Borude",
-    desc: "Renowned senior ophthalmologists (DOS, AIOS, MOS) in Savedi, Ahilyanagar.",
+    title: "Dr. Raosaheb Borude",
+    desc: "Renowned senior ophthalmologist in Savedi, Ahilyanagar.",
     icon: "FaUserCheck",
     color: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
   },
@@ -273,8 +257,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Google 4.9★ Review",
     timeAgo: "2 months ago",
-    treatment: "Stitchless Cataract Surgery (Dr. Smita Patare)",
-    comment: "Varad Netralaya is the best eye hospital in Ahilyanagar! Dr. Smita Prashant Patare explained the cataract procedure so clearly. My mother got stitchless Phaco surgery and her vision is crystal clear now. Extremely clean clinic and supportive staff.",
+    treatment: "Stitchless Cataract Surgery (Dr. Raosaheb Borude)",
+    comment: "Varad Netralaya is the best eye hospital in Ahilyanagar! Dr. Borude explained the cataract procedure so clearly. My mother got stitchless Phaco surgery and her vision is crystal clear now. Extremely clean clinic and supportive staff.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
   },
   {
@@ -297,8 +281,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Google 4.9★ Review",
     timeAgo: "1 month ago",
-    treatment: "Pediatric Vision & Astigmatism Care",
-    comment: "Great experience at Varad Netralaya! Dr. Smita Patare treated my child's vision problem with so much patience and care. Highly recommended eye clinic near Anita Medical behind Hotel Parichay.",
+    treatment: "Pediatric Vision & Astigmatism Care (Dr. Raosaheb Borude)",
+    comment: "Great experience at Varad Netralaya! Dr. Borude treated my child's vision problem with so much patience and care. Highly recommended eye clinic near Anita Medical behind Hotel Parichay.",
     photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
   }
 ];
@@ -306,31 +290,38 @@ export const testimonialsData = [
 export const galleryData = [
   {
     id: 1,
-    title: "Varad Netralaya Pediatric & Adult Eye Exam Suite",
-    category: "Facilities",
-    imageUrl: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800",
-    desc: "Modern eye diagnostic room with orange exam chairs, underwater wall mural, and automated refraction tools in Savedi, Ahilyanagar."
+    title: "Hospital Equipment & Facilities",
+    category: "Equipment",
+    desc: "State-of-the-art equipment including IOL Master 700, Corneal Topography, ZEISS Lumera Microscope, OCT + Angiography, Vitrectomy Machine, Green Laser, ZEISS Perimeter, ND Yag Laser, Modular OTs, and more.",
+    imageUrl: "/photos/hospital-equipment.jpeg"
   },
   {
     id: 2,
-    title: "Modular Ophthalmic Operation Theatre",
-    category: "Operation Theatre",
-    imageUrl: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=800",
-    desc: "HEPA air-filtered ultra-sterile phaco surgical suite."
+    title: "Insurance Partners",
+    category: "Facilities",
+    desc: "Cashless facility available with all major named insurance companies including New India Assurance, Oriental Insurance, Star Health, HDFC ERGO, and many more TPA partners.",
+    imageUrl: "/photos/insurance-partners.jpeg"
   },
   {
     id: 3,
-    title: "Computerized Eye Testing & Perimetry",
-    category: "Equipment",
-    imageUrl: "https://images.unsplash.com/photo-1581595220892-6e8e893d6dd1?auto=format&fit=crop&q=80&w=800",
-    desc: "Humphrey visual field analyzer and optical coherence tomography."
+    title: "Post-Operation Care Guidelines",
+    category: "Patients",
+    desc: "Detailed patient care instructions and post-operative guidelines in Marathi covering dos and don'ts, medicine schedules, dietary advice, and Phaco surgery benefits.",
+    imageUrl: "/photos/patient-care-guidelines.jpeg"
   },
   {
     id: 4,
-    title: "Doctors Consultation Lounge",
+    title: "Dr. Raosaheb Borude – Profile",
     category: "Doctors",
-    imageUrl: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800",
-    desc: "OPD consultation rooms for Dr. Smita Prashant Patare & Dr. Raosaheb Kundlik Borude."
+    desc: "Dr. Raosaheb Kundlik Borude – M.B.B.S., D.O.M.S., F.I.G.O. – Cataract, Glaucoma & Refractive Surgeon with extensive experience. OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri.",
+    imageUrl: "/photos/dr-borude-profile.jpeg"
+  },
+  {
+    id: 5,
+    title: "Available Services & Procedures",
+    category: "Facilities",
+    desc: "Comprehensive eye care services: Phaco surgery, Glaucoma (OCT, Perimetry), Medical & Surgical Retina, Pediatric Ophthalmology, ROP, Varad Eye Bank (PKP, TPK, DMEK, DSEK), Dry Eye Clinic, LASIK, and more.",
+    imageUrl: "/photos/available-services.jpeg"
   }
 ];
 
@@ -341,7 +332,7 @@ export const faqList = [
   },
   {
     q: "Which consulting doctors treat patients at Varad Netralaya?",
-    a: "The clinic is led by senior ophthalmologists Dr. Smita Prashant Patare (DOS, AIOS, MOS) specializing in stitchless cataract phaco surgery & pediatric vision, and Dr. Raosaheb Kundlik Borude (MOS, AIOS) specializing in retina, automated perimetry, and refractive care."
+    a: "The clinic is led by senior ophthalmologist Dr. Raosaheb Kundlik Borude (M.B.B.S., D.O.M.S., F.I.G.O.) specializing in cataract, glaucoma, refractive surgeries, retina, automated perimetry, and comprehensive eye care."
   },
   {
     q: "Is stitchless phaco cataract surgery available at Varad Netralaya?",

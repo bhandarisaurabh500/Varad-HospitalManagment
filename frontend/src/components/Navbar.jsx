@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { hospitalInfo } from '../data/hospitalData';
 import {
@@ -16,16 +17,27 @@ import {
 } from 'react-icons/fa';
 
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { darkMode, toggleDarkMode, openAppointmentModal } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('');
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Profile & Info', href: '#doctor-profile' },
+    { name: 'Home', href: '/', isRoute: true },
+    { name: 'Hospital Information', href: '/hospital-information', isRoute: true },
+    { name: 'Our Doctors', href: '#doctors' },
+    { name: 'Services', href: '#services' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  // Section tab triggers (click scrolls to doctors section AND activates the right tab)
+  const sectionTabMap = {
+    '#equipment': 'equipment',
+    '#facilities': 'facilities',
+    '#guidelines': 'guidelines',
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,19 +59,52 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (link) => {
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
+    
+    if (link.isRoute) {
+      navigate(link.href);
+      return;
+    }
+
+    // If on a different page, navigate to home first, then wait to scroll
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: link.href } });
+      return;
+    }
+
+    const tabId = sectionTabMap[link.href];
+    if (tabId) {
+      window.dispatchEvent(new CustomEvent('switch-profile-tab', { detail: tabId }));
+      const element = document.getElementById('doctors');
+      if (element) {
+        const headerOffset = 95;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    const element = document.querySelector(link.href);
     if (element) {
       const headerOffset = 95;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
+
+  // Handle scroll after redirect from another page
+  useEffect(() => {
+    if (location.state && location.state.scrollTo && location.pathname === '/') {
+      setTimeout(() => {
+        handleNavClick({ href: location.state.scrollTo, isRoute: false });
+        // Clear state
+        navigate('/', { replace: true, state: {} });
+      }, 500);
+    }
+  }, [location]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
@@ -116,12 +161,12 @@ const Navbar = () => {
           {/* Desktop Navigation Links */}
           <div className="hidden xl:flex items-center space-x-1">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const isActive = link.isRoute ? location.pathname === link.href : activeSection === link.href.substring(1);
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                  onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
                   className={`px-3 py-2 rounded-xl text-sm font-bold transition-all ${
                     isActive
                       ? 'text-blue-600 dark:text-teal-400 bg-blue-50 dark:bg-slate-800/90 shadow-sm'
@@ -174,7 +219,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
                 className="px-4 py-3 rounded-lg text-slate-700 dark:text-slate-200 font-bold hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-teal-400 flex items-center justify-between"
               >
                 <span>{link.name}</span>
