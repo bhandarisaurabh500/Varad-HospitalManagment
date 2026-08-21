@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
 
   if (loading) return null;
 
-  if (!user) return <Navigate to="/admin/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
 
   return children;
 };

@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await supabase.auth.signOut();
       setUser(null);
-      window.location.href = '/admin/login';
+      window.location.href = '/login';
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
