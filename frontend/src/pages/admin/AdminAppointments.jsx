@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
+import api from '../../services/api';
 import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock, FaPhoneAlt, FaEnvelope, FaEye, FaEdit, FaTrash, FaWhatsapp, FaEllipsisV } from 'react-icons/fa';
 
 const AdminAppointments = () => {
@@ -34,12 +35,7 @@ const AdminAppointments = () => {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: newStatus })
-        .eq('id', id);
-
-      if (error) throw error;
+      await api.put(`/appointments/${id}/status`, { status: newStatus });
       
       // Update local state
       setAppointments(appointments.map(appt => 
@@ -79,18 +75,7 @@ const AdminAppointments = () => {
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  const handleEmail = (appt) => {
-    const email = appt.patients?.users?.email || '';
-    if (!email || email.includes('noemail')) return alert('No valid email address available.');
-    
-    const patientName = appt.patients?.users?.full_name || 'Patient';
-    const apptDate = new Date(appt.appointment_date).toLocaleDateString();
-    const apptTime = appt.appointment_time;
-    
-    const subject = `Varad Netralaya - Appointment ${appt.status}`;
-    const body = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is ${appt.status} on ${apptDate} at ${apptTime}.\n\nThank you,\nVarad Netralaya`;
-    window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-  };
+
 
   const filteredAppointments = appointments.filter(appt => {
     const matchesFilter = filter === 'ALL' || appt.status === filter;
@@ -195,7 +180,6 @@ const AdminAppointments = () => {
                           value={appt.status}
                           onChange={(e) => {
                             updateStatus(appt.id, e.target.value);
-                            handleEmail({ ...appt, status: e.target.value });
                           }}
                           className={`px-3 py-1.5 rounded-full text-xs font-bold outline-none cursor-pointer appearance-none text-center ${
                             appt.status === 'PENDING' ? 'bg-orange-100 text-orange-700' :
@@ -206,7 +190,6 @@ const AdminAppointments = () => {
                         >
                           <option value="PENDING" className="bg-white text-slate-800">Pending</option>
                           <option value="CONFIRMED" className="bg-white text-slate-800">Approve</option>
-                          <option value="COMPLETED" className="bg-white text-slate-800">Completed</option>
                           <option value="CANCELLED" className="bg-white text-slate-800">Reject</option>
                         </select>
                       </td>
@@ -235,12 +218,6 @@ const AdminAppointments = () => {
                             className="p-2 bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-colors"
                             title="WhatsApp"
                           ><FaWhatsapp /></button>
-                          
-                          <button 
-                            onClick={() => handleEmail(appt)}
-                            className="p-2 bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded-lg transition-colors"
-                            title="Email"
-                          ><FaEnvelope /></button>
                         </div>
                       </td>
                     </tr>
