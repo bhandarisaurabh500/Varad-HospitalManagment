@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { doctorsData, servicesData, hospitalInfo } from '../data/hospitalData';
 import { useTheme } from '../context/ThemeContext';
+import api from '../services/api';
 import { 
   FaCalendarCheck, 
   FaUser, 
@@ -32,6 +33,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (preselectedDoctor) {
@@ -64,16 +66,41 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
-    setSubmitted(true);
-    showToast(`Appointment Request Received for ${formData.patientName}!`);
-    if (onSuccess) {
-      setTimeout(() => {
-        onSuccess();
-      }, 3000);
+    setIsSubmitting(true);
+    
+    try {
+      let appointmentTime = '10:00:00';
+      if (formData.preferredTime.includes('Afternoon')) appointmentTime = '14:00:00';
+      if (formData.preferredTime.includes('Evening')) appointmentTime = '18:00:00';
+
+      const payload = {
+        doctor_id: 1, // Defaulting to Dr. Ravsaheb Borude
+        appointment_date: formData.preferredDate,
+        appointment_time: appointmentTime,
+        patient_name: formData.patientName,
+        patient_email: formData.email || `${formData.phone}@noemail.com`,
+        patient_phone: formData.phone,
+        symptoms: formData.message || formData.treatment || 'Comprehensive Checkup',
+      };
+
+      await api.post('/appointments', payload);
+
+      setSubmitted(true);
+      showToast(`Appointment Request Received for ${formData.patientName}!`);
+      if (onSuccess) {
+        setTimeout(() => {
+          onSuccess();
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+      showToast(error.response?.data?.message || 'Failed to book appointment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -285,10 +312,11 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:scale-[1.01] transition-transform flex items-center justify-center gap-2"
+        disabled={isSubmitting}
+        className={`w-full py-4 rounded-xl ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 hover:scale-[1.01]'} text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition-transform flex items-center justify-center gap-2`}
       >
         <FaCalendarCheck />
-        <span>Confirm Appointment Request</span>
+        <span>{isSubmitting ? 'Booking...' : 'Confirm Appointment Request'}</span>
       </button>
 
       <p className="text-[11px] text-slate-400 text-center flex items-center justify-center gap-1 mt-2">
