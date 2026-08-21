@@ -355,7 +355,7 @@ export const faqList = [
 ];
 
 export const infrastructureData = [
-  { name: "IOL Master 700", type: "Equipment", image: "/photos/Machine/images.jpg" }, // Fallback for IOL since it wasn't strictly named, or we can use images.jpg
+  { name: "IOL Master 700", type: "Equipment", image: "/photos/Machine/iol-master-700.jpg" }, // Fallback for IOL since it wasn't strictly named, or we can use iol-master-700.jpg
   { name: "Corneal Topography Machine", type: "Equipment", image: "/photos/Machine/corneal-topography-mashine.jpg" },
   { name: "ZEISS Lumera I Microscope", type: "Equipment", image: "/photos/Machine/zeiss-iumera-i-microscope.jpg" },
   { name: "OCT + Angiography", type: "Equipment", image: "/photos/Machine/oct-angiography.jpg" },
@@ -431,7 +431,7 @@ export const advancedEquipmentList = [
     id: 1,
     name: "IOL Master 700",
     shortDesc: "Advanced biometry for highly accurate IOL power calculation.",
-    image: "/photos/Machine/images.jpg"
+    image: "/photos/Machine/iol-master-700.jpg"
   },
   {
     id: 2,
