@@ -335,12 +335,12 @@ const DoctorCard = ({ doctor, reverse }) => (
         <StatPill icon={<FaStar />} label={`${doctor.rating}★ Rating`} color="amber" />
       </div>
 
-      {/* Timings */}
-      <div className="mt-5 flex items-start gap-3 bg-slate-50 dark:bg-slate-800 rounded-xl p-4 border-l-4 border-blue-500">
-        <FaClock className="text-blue-500 mt-0.5 flex-shrink-0" />
+      {/* Personal Contact */}
+      <div className="mt-5 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border-l-4 border-blue-500">
+        <FaPhoneAlt className="text-blue-500 mt-0.5 flex-shrink-0" />
         <div>
-          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">OPD Timings</p>
-          <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{doctor.available}</p>
+          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">Personal Mobile</p>
+          <p className="text-sm font-bold text-slate-800 dark:text-slate-100">+91 9822315840</p>
         </div>
       </div>
 
@@ -349,15 +349,9 @@ const DoctorCard = ({ doctor, reverse }) => (
 
       {/* CTA */}
       <div className="mt-6 flex gap-3 flex-wrap">
-        <a href={`tel:+919822315840`} className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-5 py-2.5 rounded-full transition shadow">
-          <FaPhoneAlt /> Book Appointment
+        <a href={`tel:+919822315840`} className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-full transition shadow-lg">
+          <FaPhoneAlt /> Call Doctor
         </a>
-        <button
-          onClick={() => { const el = document.getElementById('contact'); if(el) el.scrollIntoView({ behavior: 'smooth' }); }}
-          className="inline-flex items-center gap-2 border-2 border-blue-600 text-blue-600 dark:text-teal-400 dark:border-teal-400 font-bold text-sm px-5 py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-slate-800 transition"
-        >
-          Contact Clinic
-        </button>
       </div>
     </div>
   </motion.div>

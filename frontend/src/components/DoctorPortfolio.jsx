@@ -185,9 +185,12 @@ const DoctorPortfolio = () => {
             </div>
 
             <div className="flex flex-wrap gap-3 mt-8">
-              <a href="tel:+919822315840" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-semibold transition">
-                <FaPhoneAlt className="text-teal-400" /> +91 98223 15840
-              </a>
+              <div className="flex flex-col gap-1 justify-center">
+                <span className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Personal Mobile</span>
+                <a href="tel:+919822315840" className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-semibold transition">
+                  <FaPhoneAlt className="text-teal-400" /> Call Doctor
+                </a>
+              </div>
               <button
                 onClick={() => openAppointmentModal("Dr. Raosaheb Kundlik Borude")}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-sm font-bold shadow-lg shadow-blue-600/30 transition"

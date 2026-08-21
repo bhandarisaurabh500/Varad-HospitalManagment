@@ -73,8 +73,8 @@ const ContactSection = () => {
               Appointment Helpline
             </h3>
             <div className="mt-2 space-y-1 text-xs">
-              <p className="text-slate-700 dark:text-slate-300">Clinic OPD: <a href={`tel:${hospitalInfo.phone}`} className="font-bold text-blue-600 dark:text-teal-400 hover:underline">{hospitalInfo.phone}</a></p>
-              <p className="text-rose-600 dark:text-rose-400 font-bold">Emergency Care: <a href={`tel:${hospitalInfo.emergencyPhone}`} className="hover:underline">{hospitalInfo.emergencyPhone}</a></p>
+              <p className="text-slate-700 dark:text-slate-300">Clinic Phone: <a href={`tel:${hospitalInfo.clinicPhone}`} className="font-bold text-blue-600 dark:text-teal-400 hover:underline">{hospitalInfo.clinicPhone}</a></p>
+              <p className="text-rose-600 dark:text-rose-400 font-bold">Appointment Booking: <a href={`tel:${hospitalInfo.appointmentPhone}`} className="hover:underline">{hospitalInfo.appointmentPhone}</a></p>
               <p className="text-slate-500">Toll-Free: {hospitalInfo.tollFree}</p>
             </div>
           </div>

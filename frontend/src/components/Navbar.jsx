@@ -124,8 +124,8 @@ const Navbar = () => {
             <div className="flex items-center gap-1.5 text-teal-300 font-medium">
               <FaShieldAlt className="text-teal-400" /> Cashless Available
             </div>
-            <a href={`tel:${hospitalInfo.phone}`} className="hidden md:inline-flex items-center gap-1 text-slate-200 hover:text-white transition font-bold">
-              <FaPhoneAlt className="text-teal-400 text-[10px]" /> Call: {hospitalInfo.phone}
+            <a href={`tel:${hospitalInfo.appointmentPhone}`} className="hidden md:inline-flex items-center gap-1 text-slate-200 hover:text-white transition font-bold">
+              <FaPhoneAlt className="text-teal-400 text-[10px]" /> Call: {hospitalInfo.appointmentPhone}
             </a>
           </div>
         </div>

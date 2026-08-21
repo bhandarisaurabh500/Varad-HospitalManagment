@@ -364,28 +364,34 @@ const AppointmentSection = () => {
             </p>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-start gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700">
-                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-lg flex-shrink-0">
-                  <FaPhoneAlt />
-                </div>
+              <div className="flex flex-col gap-4 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700">
+                
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase">Direct OPD Booking Call</h4>
-                  <a href={`tel:${hospitalInfo.phone}`} className="text-base font-bold text-blue-600 dark:text-teal-400 hover:underline">
-                    {hospitalInfo.phone}
+                  <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Appointment Mobile</h4>
+                  <a href={`tel:${hospitalInfo.appointmentPhone}`} className="text-xl font-bold text-blue-600 dark:text-teal-400 hover:underline flex items-center gap-2 mt-1">
+                    <FaPhoneAlt className="text-sm" /> {hospitalInfo.appointmentPhone}
                   </a>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-3 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200/60 dark:border-rose-900/50">
-                <div className="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center text-lg flex-shrink-0 animate-pulse">
-                  <FaPhoneAlt />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-rose-900 dark:text-rose-300 uppercase">24x7 Eye Trauma Hotline</h4>
-                  <a href={`tel:${hospitalInfo.emergencyPhone}`} className="text-base font-bold text-rose-600 dark:text-rose-400 hover:underline">
-                    {hospitalInfo.emergencyPhone}
+                <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+                  <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Clinic</h4>
+                  <a href={`tel:${hospitalInfo.clinicPhone}`} className="text-lg font-bold text-slate-800 dark:text-slate-200 hover:underline flex items-center gap-2 mt-1">
+                    <FaPhoneAlt className="text-sm" /> {hospitalInfo.clinicPhone}
                   </a>
                 </div>
+
+                <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a href={`tel:${hospitalInfo.appointmentPhone}`} className="w-full flex items-center justify-center gap-2 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold text-sm px-4 py-3 rounded-xl transition shadow">
+                    <FaPhoneAlt /> Call for Appointment
+                  </a>
+                  <a href="#appointment-form" onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('appointment-form')?.scrollIntoView({ behavior: 'smooth' });
+                  }} className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-4 py-3 rounded-xl transition shadow">
+                    <FaCalendarCheck /> Book Online
+                  </a>
+                </div>
+
               </div>
             </div>
           </div>

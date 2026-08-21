@@ -97,7 +97,7 @@ const Footer = () => {
               </p>
               <p className="flex items-center gap-2">
                 <FaPhoneAlt className="text-teal-400 text-xs flex-shrink-0" />
-                <a href={`tel:${hospitalInfo.phone}`} className="hover:text-teal-300 transition font-bold">{hospitalInfo.phone}</a>
+                <a href={`tel:${hospitalInfo.clinicPhone}`} className="hover:text-teal-300 transition font-bold">{hospitalInfo.clinicPhone}</a>
               </p>
               <p className="flex items-center gap-2">
                 <FaEnvelope className="text-teal-400 text-xs flex-shrink-0" />
