@@ -293,35 +293,35 @@ export const galleryData = [
     title: "Hospital Equipment & Facilities",
     category: "Equipment",
     desc: "State-of-the-art equipment including IOL Master 700, Corneal Topography, ZEISS Lumera Microscope, OCT + Angiography, Vitrectomy Machine, Green Laser, ZEISS Perimeter, ND Yag Laser, Modular OTs, and more.",
-    imageUrl: "/photos/hospital-equipment.jpeg"
+    imageUrl: "/photos/equipment/equipment-professional.png"
   },
   {
     id: 2,
     title: "Insurance Partners",
     category: "Facilities",
     desc: "Cashless facility available with all major named insurance companies including New India Assurance, Oriental Insurance, Star Health, HDFC ERGO, and many more TPA partners.",
-    imageUrl: "/photos/insurance-partners.jpeg"
+    imageUrl: "/photos/Machine/3 Modular Operation Theaters with Laminar Airflow.webp"
   },
   {
     id: 3,
     title: "Post-Operation Care Guidelines",
     category: "Patients",
     desc: "Detailed patient care instructions and post-operative guidelines in Marathi covering dos and don'ts, medicine schedules, dietary advice, and Phaco surgery benefits.",
-    imageUrl: "/photos/patient-care-guidelines.jpeg"
+    imageUrl: "/photos/facilities/consultation-room.png"
   },
   {
     id: 4,
     title: "Dr. Raosaheb Borude – Profile",
     category: "Doctors",
     desc: "Dr. Raosaheb Kundlik Borude – M.B.B.S., D.O.M.S., F.I.G.O. – Cataract, Glaucoma & Refractive Surgeon with extensive experience. OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri.",
-    imageUrl: "/photos/dr-borude-profile.jpeg"
+    imageUrl: "/photos/doctor/Dr.BorudeSir.png"
   },
   {
     id: 5,
     title: "Available Services & Procedures",
     category: "Facilities",
     desc: "Comprehensive eye care services: Phaco surgery, Glaucoma (OCT, Perimetry), Medical & Surgical Retina, Pediatric Ophthalmology, ROP, Varad Eye Bank (PKP, TPK, DMEK, DSEK), Dry Eye Clinic, LASIK, and more.",
-    imageUrl: "/photos/available-services.jpeg"
+    imageUrl: "/photos/services/lasik-services.png"
   }
 ];
 

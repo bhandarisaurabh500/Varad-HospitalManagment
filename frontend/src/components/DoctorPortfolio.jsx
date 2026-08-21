@@ -34,7 +34,7 @@ const DoctorPortfolio = () => {
       subtitle: "?????? ??????",
       badge: "Equipment",
       badgeColor: "bg-blue-500",
-      imageUrl: "/photos/hospital-equipment.jpeg",
+      imageUrl: "/photos/equipment/equipment-professional.png",
       desc: "IOL Master 700, ZEISS Lumera Microscope, OCT + Angiography, Vitrectomy Machine, Modular OTs with Laminar Airflow, Schwind Amaris 750S LASIK and more.",
     },
     {
@@ -43,7 +43,7 @@ const DoctorPortfolio = () => {
       subtitle: "?????? ??????",
       badge: "Services",
       badgeColor: "bg-emerald-500",
-      imageUrl: "/photos/available-services.jpeg",
+      imageUrl: "/photos/services/lasik-services.png",
       desc: "Phaco surgery, Glaucoma (OCT, Perimetry), Medical & Surgical Retina, Pediatric Ophthalmology, Varad Eye Bank, Dry Eye Clinic, LASIK and more.",
     },
     {
@@ -52,7 +52,7 @@ const DoctorPortfolio = () => {
       subtitle: "?????? ??????",
       badge: "Cashless",
       badgeColor: "bg-violet-500",
-      imageUrl: "/photos/insurance-partners.jpeg",
+      imageUrl: "/photos/Machine/3 Modular Operation Theaters with Laminar Airflow.webp",
       desc: "Cashless facility with all major TPA companies including New India Assurance, Star Health, HDFC ERGO, PMJAY, MJPJAY and 20+ more partners.",
     },
     {
@@ -61,7 +61,7 @@ const DoctorPortfolio = () => {
       subtitle: "?????? ???? ?????",
       badge: "Patient Info",
       badgeColor: "bg-rose-500",
-      imageUrl: "/photos/patient-care-guidelines.jpeg",
+      imageUrl: "/photos/facilities/consultation-room.png",
       desc: "Post-operative care instructions in Marathi, medicine schedules, dietary advice, and Phaco surgery benefits guide for patients.",
     },
   ];
@@ -88,7 +88,7 @@ const DoctorPortfolio = () => {
               <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-blue-500 via-teal-400 to-blue-700 opacity-60 blur-md" />
               <div className="relative rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl">
                 <img
-                  src="/photos/dr-borude-profile.jpeg"
+                  src="/photos/doctor/Dr.BorudeSir.png"
                   alt="Dr. Raosaheb Kundlik Borude"
                   className="w-full object-cover"
                   style={{ maxHeight: "480px", objectPosition: "top" }}
