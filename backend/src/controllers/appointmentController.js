@@ -1,20 +1,21 @@
 const { pool } = require('../config/db');
 const { isSlotBooked, generateAppointmentNo } = require('../services/appointmentService');
+const emailService = require('../services/emailService');
 
 /** POST /api/appointments - Patient books appointment */
 async function createAppointment(req, res, next) {
   try {
     const {
       doctor_id, service_id, appointment_date, appointment_time,
-      symptoms, age, gender, patient_name, patient_phone
+      symptoms, age, gender, patient_name, patient_email, patient_phone
     } = req.body;
 
     if (!doctor_id || !appointment_date || !appointment_time) {
       return res.status(422).json({ success: false, message: 'doctor_id, appointment_date, appointment_time are required.' });
     }
 
-    if (!patient_name || !patient_phone) {
-      return res.status(422).json({ success: false, message: 'Patient name and phone are required.' });
+    if (!patient_name || !patient_email || !patient_phone) {
+      return res.status(422).json({ success: false, message: 'Patient name, email, and phone are required.' });
     }
 
     let patientId = null;
@@ -23,9 +24,8 @@ async function createAppointment(req, res, next) {
     const [roles] = await pool.execute("SELECT id FROM roles WHERE name='PATIENT'");
     const roleId = roles.length ? roles[0].id : 3;
 
-    // 2. Check if user exists by phone (dummy email since it's unique)
-    const dummyEmail = `${patient_phone}@guest.com`;
-    let [users] = await pool.execute('SELECT id FROM users WHERE phone=? OR email=?', [patient_phone, dummyEmail]);
+    // 2. Check if user exists by phone or email
+    let [users] = await pool.execute('SELECT id FROM users WHERE phone=? OR email=?', [patient_phone, patient_email]);
     
     let userId;
     if (users.length > 0) {
@@ -33,7 +33,7 @@ async function createAppointment(req, res, next) {
     } else {
       const [result] = await pool.execute(
         'INSERT INTO users (role_id, full_name, email, phone, password, is_active) VALUES (?, ?, ?, ?, ?, 1)',
-        [roleId, patient_name, dummyEmail, patient_phone, 'guest_password']
+        [roleId, patient_name, patient_email, patient_phone, 'guest_password']
       );
       userId = result.insertId || result.rows?.[0]?.id || (await pool.execute('SELECT LASTVAL() AS id'))[0][0].id;
     }
@@ -71,6 +71,31 @@ async function createAppointment(req, res, next) {
         symptoms || null, age || null, gender || null,
       ]
     );
+
+    // Prepare details for emails
+    const appointmentDetails = {
+      appointment_no: appointmentNo,
+      patient_name,
+      patient_phone,
+      patient_email,
+      age,
+      gender,
+      appointment_date,
+      appointment_time,
+      symptoms,
+      created_at: new Date().toISOString()
+    };
+
+    // Send emails asynchronously (don't await them so we don't delay the response)
+    // We wrap in a try-catch to prevent email failure from affecting the appointment booking
+    setImmediate(async () => {
+      try {
+        await emailService.sendDoctorNotification(appointmentDetails);
+        await emailService.sendPatientConfirmation(appointmentDetails);
+      } catch (emailErr) {
+        console.error('Email sending failed after successful appointment creation:', emailErr);
+      }
+    });
 
     return res.status(201).json({
       success: true,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock } from 'react-icons/fa';
+import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -19,7 +19,7 @@ const AdminAppointments = () => {
         .from('appointments')
         .select(`
           id, appointment_no, appointment_date, appointment_time, status, symptoms, age, gender,
-          patients ( id, users ( full_name, phone ) )
+          patients ( id, users ( full_name, phone, email ) )
         `)
         .order('appointment_date', { ascending: false })
         .order('appointment_time', { ascending: true });
@@ -137,8 +137,15 @@ const AdminAppointments = () => {
                       </td>
                       <td className="px-6 py-4">
                         <p className="font-bold text-slate-900 dark:text-white">{appt.patients?.users?.full_name || 'Patient #' + (appt.patients?.id || 'Unknown')}</p>
-                        <p className="text-xs text-slate-500 mt-1">{appt.patients?.users?.phone || '-'}</p>
-                        <p className="text-xs text-slate-400 mt-0.5">{appt.age ? `${appt.age} yrs` : '-'} • {appt.gender || '-'}</p>
+                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                          <FaPhoneAlt className="text-slate-400 text-[10px]" /> {appt.patients?.users?.phone || '-'}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+                          <FaEnvelope className="text-slate-400 text-[10px]" /> {appt.patients?.users?.email || '-'}
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1 font-medium bg-slate-100 dark:bg-slate-800 inline-block px-2 py-0.5 rounded">
+                          {appt.age ? `${appt.age} yrs` : '-'} • {appt.gender || '-'}
+                        </p>
                       </td>
                       <td className="px-6 py-4 max-w-xs">
                         <p className="text-slate-600 dark:text-slate-300 text-sm line-clamp-2">{appt.symptoms || 'No details provided'}</p>

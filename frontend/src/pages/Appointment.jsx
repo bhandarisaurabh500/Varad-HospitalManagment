@@ -32,6 +32,7 @@ const Appointment = () => {
     appointment_date: '',
     appointment_time: '',
     patient_name: '',
+    patient_email: '',
     patient_phone: '',
     symptoms: '',
     age: '',
@@ -68,6 +69,8 @@ const Appointment = () => {
     setError('');
 
     if (!form.appointment_time) return setError('Please select a time slot.');
+    if (!form.patient_email.endsWith('@gmail.com')) return setError('Email must be a valid @gmail.com address.');
+    if (!/^\d{10}$/.test(form.patient_phone)) return setError('Phone number must be exactly 10 digits.');
 
     setSubmitting(true);
     try {
@@ -212,13 +215,22 @@ const Appointment = () => {
           )}
 
           {/* Patient Details */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 <FaUser className="inline mr-1 text-blue-500" /> Full Name *
               </label>
               <input type="text" name="patient_name" required placeholder="Patient's Full Name"
                 value={form.patient_name} onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <FaEnvelope className="inline mr-1 text-rose-500" /> Email Address *
+              </label>
+              <input type="email" name="patient_email" required placeholder="example@gmail.com"
+                value={form.patient_email} onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
