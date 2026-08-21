@@ -302,7 +302,7 @@ export const galleryData = [
     title: "Insurance Partners",
     category: "Facilities",
     desc: "Cashless facility available with all major named insurance companies including New India Assurance, Oriental Insurance, Star Health, HDFC ERGO, and many more TPA partners.",
-    imageUrl: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.webp"
+    imageUrl: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png"
   },
   {
     id: 3,
@@ -367,7 +367,7 @@ export const infrastructureData = [
   { name: "Cryotherapy Machine", type: "Equipment", image: "/photos/Machine/cryotherapy-machine.jpg" },
   { name: "Zeiss Callisto", type: "Cataract Surgery", image: "/photos/Machine/zeiss-callisto.png" },
   { name: "Schwind Amaris 750S", type: "Lasik Surgery", image: "/photos/Machine/schwind-amaris-750s.png" },
-  { name: "3 Modular Operation Theaters", type: "Facility", desc: "With Laminar Airflow", image: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.webp" },
+  { name: "3 Modular Operation Theaters", type: "Facility", desc: "With Laminar Airflow", image: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png" },
   { name: "Super Deluxe & Deluxe Rooms", type: "Facility", image: "/photos/Machine/super-deluxe-room.jpg" },
   { name: "AC General Ward", type: "Facility", desc: "Male & Female wards available", image: "/photos/Machine/ac-general-ward.jpg" },
   { name: "Ben Franklin Optical Store", type: "Facility", desc: "Branded opticals", image: "/photos/Machine/Ben Franklin – Branded Optical Store.avif" },
