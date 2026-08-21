@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaPhoneAlt, FaCalendarCheck, FaRegEye, FaMapMarkerAlt, FaFileMedical, FaBuilding, FaMicroscope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -31,9 +31,19 @@ const SectionHeading = ({ title, subtitle, icon: Icon }) => (
 );
 
 const HospitalInformation = () => {
+  const [currentVideo, setCurrentVideo] = useState(0);
+  const videos = [
+    "/photos/Eye Video/Video 1.mp4",
+    "/photos/Eye Video/Video 2.mp4"
+  ];
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleVideoEnded = () => {
+    setCurrentVideo((prev) => (prev + 1) % videos.length);
+  };
 
   const doctor = doctorsData.find((d) => d.id === 2); // Dr. Borude
 
@@ -42,9 +52,17 @@ const HospitalInformation = () => {
       
       {/* 1. HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-blue-600 dark:bg-blue-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80')] opacity-10 bg-cover bg-center mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/50 to-blue-600/90 dark:from-slate-950/80 dark:to-blue-950/90"></div>
+        <div className="absolute inset-0 bg-slate-900 overflow-hidden">
+          <video 
+            key={currentVideo}
+            src={videos[currentVideo]} 
+            autoPlay 
+            muted 
+            playsInline 
+            onEnded={handleVideoEnded}
+            className="absolute inset-0 w-full h-full object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 to-blue-900/70 dark:from-slate-900/60 dark:to-slate-900/80"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.div

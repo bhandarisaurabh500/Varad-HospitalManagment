@@ -1,47 +1,33 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  FaTachometerAlt, FaCalendarCheck, FaUserInjured, FaUserMd,
-  FaConciergeBell, FaNotesMedical, FaRobot, FaImages,
-  FaStar, FaEnvelope, FaCog, FaSignOutAlt, FaBars, FaTimes,
-  FaEye, FaHospital
+  FaTachometerAlt, FaCalendarCheck, FaUserMd,
+  FaConciergeBell, FaMicroscope, FaImages,
+  FaInfoCircle, FaShieldAlt, FaStar, FaCog, FaSignOutAlt, 
+  FaBars, FaEye, FaHospital
 } from 'react-icons/fa';
 
 const adminLinks = [
-  { to: '/admin/dashboard',        label: 'Dashboard',        icon: FaTachometerAlt },
-  { to: '/admin/doctors',          label: 'Doctors',          icon: FaUserMd },
-  { to: '/admin/patients',         label: 'Patients',         icon: FaUserInjured },
-  { to: '/admin/appointments',     label: 'Appointments',     icon: FaCalendarCheck },
-  { to: '/admin/services',         label: 'Services',         icon: FaConciergeBell },
-  { to: '/admin/medical-records',  label: 'Medical Records',  icon: FaNotesMedical },
-  { to: '/admin/ai-scanner',       label: 'AI Scanner',       icon: FaRobot },
-  { to: '/admin/gallery',          label: 'Gallery',          icon: FaImages },
-  { to: '/admin/reviews',          label: 'Reviews',          icon: FaStar },
-  { to: '/admin/messages',         label: 'Contact Messages', icon: FaEnvelope },
-];
-
-const doctorLinks = [
-  { to: '/doctor/dashboard',       label: 'Dashboard',        icon: FaTachometerAlt },
-  { to: '/doctor/appointments',    label: 'Appointments',     icon: FaCalendarCheck },
-  { to: '/doctor/patients',        label: 'Patients',         icon: FaUserInjured },
-  { to: '/doctor/medical-records', label: 'Medical Records',  icon: FaNotesMedical },
-  { to: '/doctor/ai-scanner',      label: 'AI Scanner',       icon: FaRobot },
-];
-
-const patientLinks = [
-  { to: '/patient/dashboard',      label: 'Dashboard',        icon: FaTachometerAlt },
-  { to: '/patient/appointments',   label: 'My Appointments',  icon: FaCalendarCheck },
-  { to: '/patient/profile',        label: 'My Profile',       icon: FaUserInjured },
+  { to: '/admin/dashboard',          label: 'Dashboard',           icon: FaTachometerAlt },
+  { to: '/admin/appointments',       label: 'Appointments',        icon: FaCalendarCheck },
+  { to: '/admin/profile',            label: 'Doctor Profile',      icon: FaUserMd },
+  { to: '/admin/services',           label: 'Eye Care / Services', icon: FaConciergeBell },
+  { to: '/admin/advanced-equipment', label: 'Advanced Equipment',  icon: FaMicroscope },
+  { to: '/admin/gallery',            label: 'Gallery',             icon: FaImages },
+  { to: '/admin/patient-information',label: 'Patient Information', icon: FaInfoCircle },
+  { to: '/admin/insurance',          label: 'Insurance / TPA',     icon: FaShieldAlt },
+  { to: '/admin/reviews',            label: 'Reviews',             icon: FaStar },
+  { to: '/admin/settings',           label: 'Settings',            icon: FaCog },
 ];
 
 const DashboardLayout = ({ children }) => {
-  const { user, logout, isAdmin, isDoctor } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const links = isAdmin() ? adminLinks : isDoctor() ? doctorLinks : patientLinks;
-  const roleLabel = isAdmin() ? 'Admin Panel' : isDoctor() ? 'Doctor Portal' : 'Patient Portal';
+  // We are treating all authenticated users as the Admin/Doctor
+  const roleLabel = 'Doctor Administration';
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex">
@@ -54,14 +40,14 @@ const DashboardLayout = ({ children }) => {
             <FaEye className="text-white text-lg" />
           </div>
           <div>
-            <p className="font-bold text-sm text-white leading-none">Varad Netralaya</p>
-            <p className="text-xs text-teal-400">{roleLabel}</p>
+            <p className="font-bold text-sm text-white leading-none">Dr. R.K. Borude</p>
+            <p className="text-xs text-teal-400 mt-1">{roleLabel}</p>
           </div>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-          {links.map(({ to, label, icon: Icon }) => {
+          {adminLinks.map(({ to, label, icon: Icon }) => {
             const active = location.pathname === to;
             return (
               <Link
@@ -84,11 +70,11 @@ const DashboardLayout = ({ children }) => {
         <div className="p-4 border-t border-slate-700 space-y-2">
           <div className="flex items-center gap-3 px-3 py-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold">
-              {user?.full_name?.charAt(0).toUpperCase() || 'U'}
+              D
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-bold text-white truncate">{user?.full_name}</p>
-              <p className="text-[10px] text-slate-400 truncate">{user?.role}</p>
+              <p className="text-xs font-bold text-white truncate">{user?.email || 'Dr. R.K. Borude'}</p>
+              <p className="text-[10px] text-teal-400 truncate">Administrator</p>
             </div>
           </div>
           <Link
@@ -115,7 +101,7 @@ const DashboardLayout = ({ children }) => {
       )}
 
       {/* ── Main Content ── */}
-      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
+      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen w-full overflow-hidden">
         {/* Top bar */}
         <header className="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm px-4 sm:px-6 py-4 flex items-center gap-4">
           <button
@@ -124,16 +110,16 @@ const DashboardLayout = ({ children }) => {
           >
             <FaBars />
           </button>
-          <h1 className="text-slate-800 dark:text-white font-bold text-lg flex-1">
-            {links.find(l => l.to === location.pathname)?.label || roleLabel}
+          <h1 className="text-slate-800 dark:text-white font-bold text-lg flex-1 truncate">
+            {adminLinks.find(l => l.to === location.pathname)?.label || 'Dashboard'}
           </h1>
-          <span className="text-xs text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
-            {user?.role}
+          <span className="text-xs font-bold text-teal-600 bg-teal-100 dark:bg-teal-900/30 dark:text-teal-400 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800">
+            Secure Mode
           </span>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
           {children}
         </main>
       </div>

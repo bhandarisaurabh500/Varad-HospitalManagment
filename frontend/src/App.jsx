@@ -13,9 +13,11 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Appointment from './pages/Appointment';
 import HospitalInformation from './pages/HospitalInformation';
-
+import AdvancedEquipment from './pages/AdvancedEquipment';
+import PatientHealthcare from './pages/PatientHealthcare';
 // Dashboards
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminAppointments from './pages/admin/AdminAppointments';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
@@ -38,24 +40,26 @@ function App() {
               {/* Public Routes with Navbar/Footer */}
               <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
               <Route path="/hospital-information" element={<PublicLayout><HospitalInformation /></PublicLayout>} />
+              <Route path="/advanced-equipment" element={<PublicLayout><AdvancedEquipment /></PublicLayout>} />
+              <Route path="/patient-healthcare" element={<PublicLayout><PatientHealthcare /></PublicLayout>} />
               <Route path="/login" element={<Login />} />
               <Route path="/appointment" element={<PublicLayout><Appointment /></PublicLayout>} />
 
               {/* Admin Routes */}
               <Route path="/admin/*" element={
-                <PrivateRoute roles={['ADMIN']}>
+                <PrivateRoute>
                   <DashboardLayout>
                     <Routes>
                       <Route path="dashboard" element={<AdminDashboard />} />
-                      <Route path="doctors" element={<Placeholder title="Manage Doctors" />} />
-                      <Route path="patients" element={<Placeholder title="Manage Patients" />} />
-                      <Route path="appointments" element={<Placeholder title="Manage Appointments" />} />
-                      <Route path="services" element={<Placeholder title="Manage Services" />} />
-                      <Route path="medical-records" element={<Placeholder title="Medical Records" />} />
-                      <Route path="ai-scanner" element={<AIScanner />} />
+                      <Route path="appointments" element={<AdminAppointments />} />
+                      <Route path="profile" element={<Placeholder title="Doctor Profile" />} />
+                      <Route path="services" element={<Placeholder title="Eye Care / Services" />} />
+                      <Route path="advanced-equipment" element={<Placeholder title="Advanced Equipment" />} />
                       <Route path="gallery" element={<Placeholder title="Manage Gallery" />} />
+                      <Route path="patient-information" element={<Placeholder title="Patient Information" />} />
+                      <Route path="insurance" element={<Placeholder title="Insurance / TPA" />} />
                       <Route path="reviews" element={<Placeholder title="Manage Reviews" />} />
-                      <Route path="messages" element={<Placeholder title="Contact Messages" />} />
+                      <Route path="settings" element={<Placeholder title="Settings" />} />
                       <Route path="*" element={<Navigate to="dashboard" replace />} />
                     </Routes>
                   </DashboardLayout>

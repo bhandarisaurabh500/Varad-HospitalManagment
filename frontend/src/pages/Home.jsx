@@ -1,6 +1,8 @@
 import React from 'react';
 import Hero from '../components/Hero';
-import DoctorProfile from '../components/DoctorProfile';
+import DoctorBio from '../components/DoctorBio';
+import AdvancedEquipmentHighlight from '../components/AdvancedEquipmentHighlight';
+import PatientHealthcareHighlight from '../components/PatientHealthcareHighlight';
 import Gallery from '../components/Gallery';
 import ContactSection from '../components/ContactSection';
 import AppointmentSection from '../components/AppointmentSection';
@@ -16,11 +18,13 @@ import InsurancePartners from '../components/InsurancePartners';
 const Home = () => (
   <>
     <Hero />
+    <DoctorBio />
+    <Services />
+    <AdvancedEquipmentHighlight />
+    <PatientHealthcareHighlight />
+    <WhyChooseUs />
     <QuickFeatures />
     <StatsCounter />
-    <Services />
-    <WhyChooseUs />
-    <DoctorProfile />
     <Testimonials />
     <GovtSchemes />
     <InsurancePartners />

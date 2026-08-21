@@ -26,8 +26,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/', isRoute: true },
-    { name: 'Hospital Information', href: '/hospital-information', isRoute: true },
-    { name: 'Our Doctors', href: '#doctors' },
+    { name: 'Advanced Equipment', href: '/advanced-equipment', isRoute: true },
     { name: 'Services', href: '#services' },
     { name: 'Contact', href: '#contact' },
   ];

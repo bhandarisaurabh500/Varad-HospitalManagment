@@ -9,10 +9,12 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 // Public: check available slots
 router.get('/slots', getAvailableSlots);
 
+// Public: Book appointment (Guest)
+router.post('/', createAppointment);
+
 // Authenticated
 router.use(authMiddleware);
 
-router.post('/', roleMiddleware('PATIENT'), createAppointment);
 router.get('/', getAppointments);
 router.get('/:id', getAppointmentById);
 router.put('/:id/status', roleMiddleware('ADMIN', 'DOCTOR'), updateStatus);

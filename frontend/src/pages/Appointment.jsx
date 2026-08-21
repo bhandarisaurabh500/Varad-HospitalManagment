@@ -31,6 +31,8 @@ const Appointment = () => {
     service_id: '',
     appointment_date: '',
     appointment_time: '',
+    patient_name: '',
+    patient_phone: '',
     symptoms: '',
     age: '',
     gender: '',
@@ -65,7 +67,6 @@ const Appointment = () => {
     e.preventDefault();
     setError('');
 
-    if (!isAuth()) return navigate('/login');
     if (!form.appointment_time) return setError('Please select a time slot.');
 
     setSubmitting(true);
@@ -131,12 +132,6 @@ const Appointment = () => {
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Book an Appointment</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">Schedule your consultation with our expert eye specialists.</p>
         </div>
-
-        {!isAuth() && (
-          <div className="mb-6 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 text-sm flex items-center gap-3">
-            <span>⚠️ You need to <Link to="/login" className="font-bold underline">sign in</Link> or <Link to="/login" className="font-bold underline">register</Link> to book an appointment.</span>
-          </div>
-        )}
 
         {error && (
           <div className="mb-6 p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 text-rose-600 text-sm">
@@ -216,6 +211,28 @@ const Appointment = () => {
             </div>
           )}
 
+          {/* Patient Details */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <FaUser className="inline mr-1 text-blue-500" /> Full Name *
+              </label>
+              <input type="text" name="patient_name" required placeholder="Patient's Full Name"
+                value={form.patient_name} onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <FaPhoneAlt className="inline mr-1 text-teal-500" /> Phone Number *
+              </label>
+              <input type="tel" name="patient_phone" required placeholder="10-digit mobile number"
+                value={form.patient_phone} onChange={handleChange}
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
           {/* Age & Gender */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -249,17 +266,11 @@ const Appointment = () => {
             />
           </div>
 
-          <button type="submit" disabled={submitting || !isAuth()}
+          <button type="submit" disabled={submitting}
             className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all disabled:opacity-60 flex items-center justify-center gap-2">
             <FaCalendarCheck />
             {submitting ? 'Booking…' : 'Confirm Appointment'}
           </button>
-
-          {!isAuth() && (
-            <p className="text-center text-xs text-slate-400">
-              <Link to="/login" className="text-blue-600 font-bold hover:underline">Sign in</Link> to complete booking
-            </p>
-          )}
         </form>
       </div>
     </section>

@@ -6,19 +6,49 @@ async function createAppointment(req, res, next) {
   try {
     const {
       doctor_id, service_id, appointment_date, appointment_time,
-      symptoms, age, gender,
+      symptoms, age, gender, patient_name, patient_phone
     } = req.body;
 
     if (!doctor_id || !appointment_date || !appointment_time) {
       return res.status(422).json({ success: false, message: 'doctor_id, appointment_date, appointment_time are required.' });
     }
 
-    // Get patient profile
-    const [ptRows] = await pool.execute(
-      'SELECT id FROM patients WHERE user_id=?', [req.user.id]
-    );
-    if (!ptRows.length) return res.status(404).json({ success: false, message: 'Patient profile not found.' });
-    const patientId = ptRows[0].id;
+    if (!patient_name || !patient_phone) {
+      return res.status(422).json({ success: false, message: 'Patient name and phone are required.' });
+    }
+
+    let patientId = null;
+
+    // 1. Get PATIENT role id
+    const [roles] = await pool.execute("SELECT id FROM roles WHERE name='PATIENT'");
+    const roleId = roles.length ? roles[0].id : 3;
+
+    // 2. Check if user exists by phone (dummy email since it's unique)
+    const dummyEmail = `${patient_phone}@guest.com`;
+    let [users] = await pool.execute('SELECT id FROM users WHERE phone=? OR email=?', [patient_phone, dummyEmail]);
+    
+    let userId;
+    if (users.length > 0) {
+      userId = users[0].id;
+    } else {
+      const [result] = await pool.execute(
+        'INSERT INTO users (role_id, full_name, email, phone, password, is_active) VALUES (?, ?, ?, ?, ?, 1)',
+        [roleId, patient_name, dummyEmail, patient_phone, 'guest_password']
+      );
+      userId = result.insertId || result.rows?.[0]?.id || (await pool.execute('SELECT LASTVAL() AS id'))[0][0].id;
+    }
+
+    // 3. Get or create patient record
+    let [patients] = await pool.execute('SELECT id FROM patients WHERE user_id=?', [userId]);
+    if (patients.length > 0) {
+      patientId = patients[0].id;
+    } else {
+      const [result] = await pool.execute(
+        'INSERT INTO patients (user_id, age, gender) VALUES (?, ?, ?)',
+        [userId, age || null, gender || null]
+      );
+      patientId = result.insertId || result.rows?.[0]?.id || (await pool.execute('SELECT LASTVAL() AS id'))[0][0].id;
+    }
 
     // Check double-booking
     const booked = await isSlotBooked(doctor_id, appointment_date, appointment_time);

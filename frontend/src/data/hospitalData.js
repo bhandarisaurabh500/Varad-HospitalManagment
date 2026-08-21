@@ -172,7 +172,7 @@ export const doctorsData = [
     available: "OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri",
     rating: 4.9,
     reviewsCount: 439,
-    photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=600",
+    photo: "/photos/doctor/Dr.BorudeSir.png",
     bio: "Dr. Raosaheb Borude (Ophthalmology - Pune University) is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He has served at Tulsi Eye Hospital (Nashik), Anandrishiji Hospital, and Bhairavnath Eye Hospital. He specializes in Phaco, Cataract, Glaucoma, Squint, Cornea, and Lasik surgeries."
   }
 ];
@@ -423,3 +423,154 @@ export const patientGuidelinesData = {
     "७) पारंपारिक पद्धतीने केलेली टाक्याची शस्त्रक्रियेपेक्षा फेको पद्धतीने केलेली छोट्या छेदाची बिनटाक्याची शस्त्रक्रिया फारच लाभदायक आहे."
   ]
 };
+
+export const advancedEquipmentList = [
+  {
+    id: 1,
+    name: "IOL Master 700",
+    shortDesc: "Advanced biometry for highly accurate IOL power calculation.",
+    image: "/photos/Machine/images.jpg"
+  },
+  {
+    id: 2,
+    name: "Corneal Topography Machine",
+    shortDesc: "Precise mapping of the corneal surface for diagnostic evaluation.",
+    image: "/photos/Machine/Corneal Topography Mashine.jpg"
+  },
+  {
+    id: 3,
+    name: "ZEISS Lumera I Microscope",
+    shortDesc: "Superior illumination and visualization for intricate surgical procedures.",
+    image: "/photos/Machine/ZEISS Iumera I Microscope.jpg"
+  },
+  {
+    id: 4,
+    name: "OCT + Angiography",
+    shortDesc: "High-resolution cross-sectional imaging of the retina and optic nerve.",
+    image: "/photos/Machine/OCT + Angiography.jpg"
+  },
+  {
+    id: 5,
+    name: "Vitrectomy Machine",
+    shortDesc: "Advanced surgical system for complex retinal and vitreous surgeries.",
+    image: "/photos/Machine/Vitrectomy Machine.jpg"
+  },
+  {
+    id: 6,
+    name: "Green Laser",
+    shortDesc: "Precision laser for treating retinal tears, diabetic retinopathy, and other conditions.",
+    image: "/photos/Machine/Green Laser.jpg"
+  },
+  {
+    id: 7,
+    name: "ZEISS Perimeter",
+    shortDesc: "Automated visual field testing for glaucoma detection and management.",
+    image: "/photos/Machine/ZEISS Perimeter.jpg"
+  },
+  {
+    id: 8,
+    name: "ND YAG Laser",
+    shortDesc: "Effective laser therapy for post-cataract capsulotomy and glaucoma treatments.",
+    image: "/photos/Machine/ND YAG Laser.jpg"
+  },
+  {
+    id: 9,
+    name: "Ophthalmic Ultrasound Scanner",
+    shortDesc: "Detailed ultrasound imaging for evaluating the posterior segment of the eye.",
+    image: "/photos/Machine/Ophthalmic Ultrasound Scanner.jpg"
+  },
+  {
+    id: 10,
+    name: "Cryotherapy Machine",
+    shortDesc: "Cold therapy system used in specific retinal and external eye procedures.",
+    image: "/photos/Machine/Cryotherapy Machine.jpg"
+  },
+  {
+    id: 11,
+    name: "Zeiss Callisto",
+    shortDesc: "Computer-assisted cataract surgery system for precise toric IOL alignment.",
+    image: "/photos/Machine/Zeiss Callisto.png"
+  },
+  {
+    id: 12,
+    name: "Schwind Amaris 750S",
+    shortDesc: "High-performance excimer laser for bladeless, customized LASIK refractive surgery.",
+    image: "/photos/Machine/Schwind Amaris 750S.png"
+  }
+];
+
+export const patientHealthcareData = [
+  {
+    id: "guidelines",
+    title: "Patient Care Guidelines",
+    icon: "FaUserShield",
+    points: [
+      "डॉक्टरांनी सांगितलेल्या औषधांचा आणि आय ड्रॉप्सचा वेळेवर वापर करा.",
+      "डोळ्यांना हाताने चोळू नका.",
+      "डॉक्टरांच्या सल्ल्याशिवाय कोणतेही आय ड्रॉप्स वापरू नका."
+    ]
+  },
+  {
+    id: "before-surgery",
+    title: "Before Eye Surgery",
+    icon: "FaProcedures",
+    points: [
+      "डॉक्टरांनी दिलेल्या सर्व सूचनांचे पालन करा.",
+      "नियमित औषधे घेत असल्यास डॉक्टरांना माहिती द्या.",
+      "शस्त्रक्रियेपूर्वी आवश्यक तपासण्या पूर्ण करा."
+    ]
+  },
+  {
+    id: "after-surgery",
+    title: "After Eye Surgery",
+    icon: "FaHandHoldingMedical",
+    points: [
+      "डोळ्यात पाणी, धूळ किंवा घाण जाऊ देऊ नका.",
+      "डोळ्यांना चोळू नका.",
+      "डॉक्टरांनी सांगितलेले आय ड्रॉप्स वेळेवर वापरा.",
+      "Follow-up appointment चुकवू नका."
+    ]
+  },
+  {
+    id: "eye-care-tips",
+    title: "Eye Care Tips",
+    icon: "FaEye",
+    points: [
+      "मोबाईल/कॉम्प्युटर वापरताना योग्य अंतर ठेवा.",
+      "योग्य प्रकाशात वाचन करा.",
+      "नियमित डोळ्यांची तपासणी करून घ्या.",
+      "डोळ्यांवर अनावश्यक ताण देणे टाळा."
+    ]
+  },
+  {
+    id: "medicine",
+    title: "Medicine & Eye Drops",
+    icon: "FaPills",
+    points: [
+      "डॉक्टरांनी सांगितलेल्या वेळेनुसार औषधे वापरा.",
+      "दुसऱ्या व्यक्तीचे eye drops वापरू नका.",
+      "डॉक्टरांच्या सल्ल्याशिवाय औषध बंद करू नका."
+    ]
+  },
+  {
+    id: "emergency",
+    title: "Emergency Eye Care",
+    icon: "FaAmbulance",
+    points: [
+      "अचानक दृष्टी कमी होणे",
+      "तीव्र डोळेदुखी",
+      "जास्त लालसरपणा",
+      "अचानक सूज",
+      "डोळ्याला इजा होणे"
+    ],
+    note: "खालील लक्षणे दिसल्यास त्वरित रुग्णालयाशी संपर्क साधा:"
+  },
+  {
+    id: "follow-up",
+    title: "Follow-up & Regular Check-up",
+    icon: "FaCalendarCheck",
+    points: [
+      "रुग्णांनी डॉक्टरांनी सांगितलेल्या follow-up तारखेला तपासणीसाठी उपस्थित राहावे."
+    ]
+  }
+];

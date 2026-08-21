@@ -3,20 +3,14 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 /**
- * PrivateRoute: redirects to /login if user is not authenticated.
- * @param {string[]} roles - Optional array of allowed roles. If empty, any auth user is allowed.
+ * PrivateRoute: redirects to /admin/login if user is not authenticated.
  */
-const PrivateRoute = ({ children, roles = [] }) => {
-  const { user } = useAuth();
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useAuth();
 
-  if (!user) return <Navigate to="/login" replace />;
+  if (loading) return null;
 
-  if (roles.length > 0 && !roles.includes(user.role)) {
-    // Redirect to the appropriate dashboard
-    if (user.role === 'ADMIN')   return <Navigate to="/admin/dashboard"   replace />;
-    if (user.role === 'DOCTOR')  return <Navigate to="/doctor/dashboard"  replace />;
-    if (user.role === 'PATIENT') return <Navigate to="/patient/dashboard" replace />;
-  }
+  if (!user) return <Navigate to="/admin/login" replace />;
 
   return children;
 };
