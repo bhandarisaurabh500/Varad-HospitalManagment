@@ -12,19 +12,19 @@ const DoctorPortfolio = () => {
   const [activePanel, setActivePanel] = useState(null);
 
   const specializations = [
-    { label: "Cataract (Phaco)", color: "from-blue-500 to-indigo-600" },
-    { label: "Glaucoma (OCT)", color: "from-teal-500 to-cyan-600" },
-    { label: "LASIK Surgery", color: "from-purple-500 to-violet-600" },
-    { label: "Retina Services", color: "from-rose-500 to-pink-600" },
-    { label: "Cornea Transplant", color: "from-amber-500 to-orange-600" },
-    { label: "Squint & Pediatric", color: "from-emerald-500 to-green-600" },
+    { label: "Cataract", color: "from-blue-500 to-indigo-600" },
+    { label: "Glaucoma", color: "from-teal-500 to-cyan-600" },
+    { label: "Refractive Surgery", color: "from-purple-500 to-violet-600" },
+    { label: "Phaco", color: "from-rose-500 to-pink-600" },
+    { label: "Squint", color: "from-amber-500 to-orange-600" },
+    { label: "Corneal Transplantation", color: "from-emerald-500 to-green-600" },
+    { label: "LASIK Surgery", color: "from-blue-400 to-blue-600" },
   ];
 
   const timeline = [
-    { year: "2002-2004", place: "Tulsi Eye Hospital, Nashik", role: "Ophthalmic Surgeon" },
-    { year: "2005-2006", place: "Anandrishiji Hospital", role: "Eye Specialist" },
-    { year: "2006-2024", place: "Bhairavnath Eye Hospital", role: "Senior Ophthalmologist" },
-    { year: "2024-Now", place: "Varad Netralaya, Ahilyanagar", role: "Founder & Chief Surgeon", current: true },
+    { year: "2002 – 2004", place: "Tulsi Eye Hospital, Nashik", role: "Eye Surgeon", current: false },
+    { year: "2004 – 2006", place: "Anandkrupa Hospital", role: "Ophthalmologist", current: false },
+    { year: "2006 – 2024", place: "Bhairavnath Eye Hospital", role: "Phaco, Cataract, Glaucoma, Squint, Corneal Transplantation, LASIK Surgery", current: true },
   ];
 
   const infoPanels = [
@@ -162,24 +162,30 @@ const DoctorPortfolio = () => {
               </h4>
               <div className="space-y-3">
                 {timeline.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className={`flex items-start gap-4 p-3 rounded-xl border ${item.current ? "bg-blue-500/10 border-blue-500/30" : "bg-slate-900/50 border-slate-800"}`}
-                  >
-                    <div className={`mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0 ${item.current ? "bg-teal-400" : "bg-slate-600"}`} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-slate-400 font-mono">{item.year}</p>
-                      <p className="text-sm font-bold text-white truncate">{item.place}</p>
-                      <p className="text-xs text-slate-400">{item.role}</p>
-                    </div>
-                    {item.current && (
-                      <span className="text-[10px] font-bold bg-teal-400/20 text-teal-400 px-2 py-0.5 rounded-full flex-shrink-0">CURRENT</span>
+                  <React.Fragment key={i}>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className={`flex items-start gap-4 p-3 rounded-xl border ${item.current ? "bg-blue-500/10 border-blue-500/30" : "bg-slate-900/50 border-slate-800"}`}
+                    >
+                      <div className={`mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0 ${item.current ? "bg-teal-400" : "bg-slate-600"}`} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-slate-400 font-mono">{item.year}</p>
+                        <p className="text-sm font-bold text-white truncate">{item.place}</p>
+                        <p className="text-xs text-slate-400">{item.role}</p>
+                      </div>
+                      {item.current && (
+                        <span className="text-[10px] font-bold bg-teal-400/20 text-teal-400 px-2 py-0.5 rounded-full flex-shrink-0">CURRENT</span>
+                      )}
+                    </motion.div>
+                    {i < timeline.length - 1 && (
+                      <div className="flex justify-center py-1">
+                        <span className="text-slate-600 text-xs">↓</span>
+                      </div>
                     )}
-                  </motion.div>
+                  </React.Fragment>
                 ))}
               </div>
             </div>

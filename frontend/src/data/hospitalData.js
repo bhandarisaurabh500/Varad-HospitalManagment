@@ -1,7 +1,7 @@
 export const hospitalInfo = {
-  name: "Dr. Raosaheb Kundlik Borude",
-  marathiName: "डॉ. रावसाहेब कुंडलिक बोरुडे",
-  tagline: "MOS, AIOS | Retina, Perimetry & Refractive Specialist",
+  name: "Dr. Ravsaheb Borude",
+  marathiName: "डॉ. रावसाहेब बोरुडे",
+  tagline: "Cataract, Glaucoma & Refractive Surgeon",
   logo: "/Varadlogo.png",
   doctorPersonalMobile: "+91 9822315840",
   appointmentPhone: "+91 9923890890",
@@ -162,9 +162,10 @@ export const eyeTreatmentsData = [
 export const doctorsData = [
   {
     id: 2,
-    name: "Dr. Raosaheb Kundlik Borude",
-    marathiName: "डॉ. रावसाहेब कुंडलिक बोरुडे",
+    name: "Dr. Ravsaheb Borude",
+    marathiName: "डॉ. रावसाहेब बोरुडे",
     title: "M.B.B.S., D.O.M.S., F.I.G.O.",
+    university: "Ophthalmology – Pune University",
     qualification: "Fellowship in General Ophthalmology & Phacosurgery",
     specialization: "Cataract, Glaucoma & Refractive Surgeon",
     hospitalLocation: "Varad Netralaya, Savedi, Ahilyanagar",
@@ -174,14 +175,14 @@ export const doctorsData = [
     rating: 4.9,
     reviewsCount: 439,
     photo: "/photos/doctor/Dr.BorudeSir.png",
-    bio: "Dr. Raosaheb Borude (Ophthalmology - Pune University) is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He has served at Tulsi Eye Hospital (Nashik), Anandrishiji Hospital, and Bhairavnath Eye Hospital. He specializes in Phaco, Cataract, Glaucoma, Squint, Cornea, and Lasik surgeries."
+    bio: "Dr. Ravsaheb Borude is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He specializes in Phaco, Cataract, Glaucoma, Squint, Corneal Transplantation, and LASIK Surgery."
   }
 ];
 
 export const whyChooseUsData = [
   {
     id: 1,
-    title: "Dr. Raosaheb Borude",
+    title: "Dr. Ravsaheb Borude",
     desc: "Renowned senior ophthalmologist in Savedi, Ahilyanagar.",
     icon: "FaUserCheck",
     color: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400"

@@ -324,9 +324,10 @@ const DoctorCard = ({ doctor, reverse }) => (
       </div>
       <h2 className="text-2xl lg:text-3xl font-black text-slate-900 dark:text-white font-poppins">{doctor.name}</h2>
       <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{doctor.marathiName}</p>
-      <p className="text-blue-600 dark:text-teal-400 font-semibold mt-1">{doctor.title}</p>
-      <p className="text-slate-600 dark:text-slate-300 text-sm mt-1">{doctor.qualification}</p>
-      <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">{doctor.specialization}</p>
+      <p className="text-blue-600 dark:text-teal-400 font-bold mt-1 text-lg">{doctor.title}</p>
+      <p className="text-slate-700 dark:text-slate-300 font-semibold text-sm mt-1">{doctor.university}</p>
+      <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{doctor.qualification}</p>
+      <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mt-1">{doctor.specialization}</p>
 
       {/* Stats Row */}
       <div className="flex flex-wrap gap-4 mt-5">
@@ -347,11 +348,37 @@ const DoctorCard = ({ doctor, reverse }) => (
       {/* Bio */}
       <p className="mt-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">{doctor.bio}</p>
 
+      {/* Schedule Cards */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <FaClock className="text-emerald-500" />
+            <h4 className="font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide text-xs">OPD Days</h4>
+          </div>
+          <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Tuesday, Thursday, Saturday</p>
+          <p className="text-xs text-emerald-600 dark:text-emerald-500 mt-0.5">मंगळवार, गुरुवार, शनिवार</p>
+        </div>
+        <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <FaUserMd className="text-indigo-500" />
+            <h4 className="font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wide text-xs">Operation Days</h4>
+          </div>
+          <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-400">Monday, Wednesday, Friday</p>
+          <p className="text-xs text-indigo-600 dark:text-indigo-500 mt-0.5">सोमवार, बुधवार, शुक्रवार</p>
+        </div>
+      </div>
+
       {/* CTA */}
       <div className="mt-6 flex gap-3 flex-wrap">
         <a href={`tel:+919822315840`} className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-full transition shadow-lg">
           <FaPhoneAlt /> Call Doctor
         </a>
+        <button
+          onClick={() => { const el = document.getElementById('contact'); if(el) el.scrollIntoView({ behavior: 'smooth' }); }}
+          className="inline-flex items-center gap-2 border-2 border-blue-600 text-blue-600 dark:text-teal-400 dark:border-teal-400 font-bold text-sm px-6 py-3 rounded-full hover:bg-blue-50 dark:hover:bg-slate-800 transition"
+        >
+          <FaCalendarCheck /> Book Appointment
+        </button>
       </div>
     </div>
   </motion.div>
