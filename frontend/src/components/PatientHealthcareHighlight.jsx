@@ -37,7 +37,7 @@ const PatientHealthcareHighlight = () => {
   const highlightItems = guidelines.slice(0, 3); // Take first 3 for highlight
 
   return (
-    <section className="py-20 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
+    <section id="healthcare" className="py-20 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-16">
