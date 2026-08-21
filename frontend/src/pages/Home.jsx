@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import DoctorBio from '../components/DoctorBio';
+import PremiumEyeVideo from '../components/PremiumEyeVideo';
 import AdvancedEquipmentHighlight from '../components/AdvancedEquipmentHighlight';
 import PatientHealthcareHighlight from '../components/PatientHealthcareHighlight';
 import Gallery from '../components/Gallery';
@@ -19,6 +20,7 @@ const Home = () => (
   <>
     <Hero />
     <DoctorBio />
+    <PremiumEyeVideo />
     <Services />
     <AdvancedEquipmentHighlight />
     <PatientHealthcareHighlight />

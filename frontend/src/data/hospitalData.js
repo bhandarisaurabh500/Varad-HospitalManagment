@@ -302,7 +302,7 @@ export const galleryData = [
     title: "Insurance Partners",
     category: "Facilities",
     desc: "Cashless facility available with all major named insurance companies including New India Assurance, Oriental Insurance, Star Health, HDFC ERGO, and many more TPA partners.",
-    imageUrl: "/photos/Machine/3 Modular Operation Theaters with Laminar Airflow.webp"
+    imageUrl: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.webp"
   },
   {
     id: 3,
@@ -356,20 +356,20 @@ export const faqList = [
 
 export const infrastructureData = [
   { name: "IOL Master 700", type: "Equipment", image: "/photos/Machine/images.jpg" }, // Fallback for IOL since it wasn't strictly named, or we can use images.jpg
-  { name: "Corneal Topography Machine", type: "Equipment", image: "/photos/Machine/Corneal Topography Mashine.jpg" },
-  { name: "ZEISS Lumera I Microscope", type: "Equipment", image: "/photos/Machine/ZEISS Iumera I Microscope.jpg" },
-  { name: "OCT + Angiography", type: "Equipment", image: "/photos/Machine/OCT + Angiography.jpg" },
-  { name: "Vitrectomy Machine", type: "Equipment", image: "/photos/Machine/Vitrectomy Machine.jpg" },
-  { name: "Green Laser", type: "Equipment", image: "/photos/Machine/Green Laser.jpg" },
-  { name: "ZEISS Perimeter", type: "Equipment", image: "/photos/Machine/ZEISS Perimeter.jpg" },
-  { name: "ND Yag Laser", type: "Equipment", image: "/photos/Machine/ND YAG Laser.jpg" },
-  { name: "Ophthalmic Ultrasound Scanner", type: "Equipment", image: "/photos/Machine/Ophthalmic Ultrasound Scanner.jpg" },
-  { name: "Cryotherapy Machine", type: "Equipment", image: "/photos/Machine/Cryotherapy Machine.jpg" },
-  { name: "Zeiss Callisto", type: "Cataract Surgery", image: "/photos/Machine/Zeiss Callisto.png" },
-  { name: "Schwind Amaris 750S", type: "Lasik Surgery", image: "/photos/Machine/Schwind Amaris 750S.png" },
-  { name: "3 Modular Operation Theaters", type: "Facility", desc: "With Laminar Airflow", image: "/photos/Machine/3 Modular Operation Theaters with Laminar Airflow.webp" },
-  { name: "Super Deluxe & Deluxe Rooms", type: "Facility", image: "/photos/Machine/Super Deluxe Room.jpg" },
-  { name: "AC General Ward", type: "Facility", desc: "Male & Female wards available", image: "/photos/Machine/AC General Ward.jpg" },
+  { name: "Corneal Topography Machine", type: "Equipment", image: "/photos/Machine/corneal-topography-mashine.jpg" },
+  { name: "ZEISS Lumera I Microscope", type: "Equipment", image: "/photos/Machine/zeiss-iumera-i-microscope.jpg" },
+  { name: "OCT + Angiography", type: "Equipment", image: "/photos/Machine/oct-angiography.jpg" },
+  { name: "Vitrectomy Machine", type: "Equipment", image: "/photos/Machine/vitrectomy-machine.jpg" },
+  { name: "Green Laser", type: "Equipment", image: "/photos/Machine/green-laser.jpg" },
+  { name: "ZEISS Perimeter", type: "Equipment", image: "/photos/Machine/zeiss-perimeter.jpg" },
+  { name: "ND Yag Laser", type: "Equipment", image: "/photos/Machine/nd-yag-laser.jpg" },
+  { name: "Ophthalmic Ultrasound Scanner", type: "Equipment", image: "/photos/Machine/ophthalmic-ultrasound-scanner.jpg" },
+  { name: "Cryotherapy Machine", type: "Equipment", image: "/photos/Machine/cryotherapy-machine.jpg" },
+  { name: "Zeiss Callisto", type: "Cataract Surgery", image: "/photos/Machine/zeiss-callisto.png" },
+  { name: "Schwind Amaris 750S", type: "Lasik Surgery", image: "/photos/Machine/schwind-amaris-750s.png" },
+  { name: "3 Modular Operation Theaters", type: "Facility", desc: "With Laminar Airflow", image: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.webp" },
+  { name: "Super Deluxe & Deluxe Rooms", type: "Facility", image: "/photos/Machine/super-deluxe-room.jpg" },
+  { name: "AC General Ward", type: "Facility", desc: "Male & Female wards available", image: "/photos/Machine/ac-general-ward.jpg" },
   { name: "Ben Franklin Optical Store", type: "Facility", desc: "Branded opticals", image: "/photos/Machine/Ben Franklin – Branded Optical Store.avif" },
   { name: "Varad Eye Bank", type: "Facility", desc: "Donate Eyes.. Save Lives.." },
   { name: "10 Well Equipped OPDS", type: "Facility" },
@@ -437,67 +437,67 @@ export const advancedEquipmentList = [
     id: 2,
     name: "Corneal Topography Machine",
     shortDesc: "Precise mapping of the corneal surface for diagnostic evaluation.",
-    image: "/photos/Machine/Corneal Topography Mashine.jpg"
+    image: "/photos/Machine/corneal-topography-mashine.jpg"
   },
   {
     id: 3,
     name: "ZEISS Lumera I Microscope",
     shortDesc: "Superior illumination and visualization for intricate surgical procedures.",
-    image: "/photos/Machine/ZEISS Iumera I Microscope.jpg"
+    image: "/photos/Machine/zeiss-iumera-i-microscope.jpg"
   },
   {
     id: 4,
     name: "OCT + Angiography",
     shortDesc: "High-resolution cross-sectional imaging of the retina and optic nerve.",
-    image: "/photos/Machine/OCT + Angiography.jpg"
+    image: "/photos/Machine/oct-angiography.jpg"
   },
   {
     id: 5,
     name: "Vitrectomy Machine",
     shortDesc: "Advanced surgical system for complex retinal and vitreous surgeries.",
-    image: "/photos/Machine/Vitrectomy Machine.jpg"
+    image: "/photos/Machine/vitrectomy-machine.jpg"
   },
   {
     id: 6,
     name: "Green Laser",
     shortDesc: "Precision laser for treating retinal tears, diabetic retinopathy, and other conditions.",
-    image: "/photos/Machine/Green Laser.jpg"
+    image: "/photos/Machine/green-laser.jpg"
   },
   {
     id: 7,
     name: "ZEISS Perimeter",
     shortDesc: "Automated visual field testing for glaucoma detection and management.",
-    image: "/photos/Machine/ZEISS Perimeter.jpg"
+    image: "/photos/Machine/zeiss-perimeter.jpg"
   },
   {
     id: 8,
     name: "ND YAG Laser",
     shortDesc: "Effective laser therapy for post-cataract capsulotomy and glaucoma treatments.",
-    image: "/photos/Machine/ND YAG Laser.jpg"
+    image: "/photos/Machine/nd-yag-laser.jpg"
   },
   {
     id: 9,
     name: "Ophthalmic Ultrasound Scanner",
     shortDesc: "Detailed ultrasound imaging for evaluating the posterior segment of the eye.",
-    image: "/photos/Machine/Ophthalmic Ultrasound Scanner.jpg"
+    image: "/photos/Machine/ophthalmic-ultrasound-scanner.jpg"
   },
   {
     id: 10,
     name: "Cryotherapy Machine",
     shortDesc: "Cold therapy system used in specific retinal and external eye procedures.",
-    image: "/photos/Machine/Cryotherapy Machine.jpg"
+    image: "/photos/Machine/cryotherapy-machine.jpg"
   },
   {
     id: 11,
     name: "Zeiss Callisto",
     shortDesc: "Computer-assisted cataract surgery system for precise toric IOL alignment.",
-    image: "/photos/Machine/Zeiss Callisto.png"
+    image: "/photos/Machine/zeiss-callisto.png"
   },
   {
     id: 12,
     name: "Schwind Amaris 750S",
     shortDesc: "High-performance excimer laser for bladeless, customized LASIK refractive surgery.",
-    image: "/photos/Machine/Schwind Amaris 750S.png"
+    image: "/photos/Machine/schwind-amaris-750s.png"
   }
 ];
 
