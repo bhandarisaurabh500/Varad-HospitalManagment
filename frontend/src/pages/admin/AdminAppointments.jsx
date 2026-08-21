@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock, FaPhoneAlt, FaEnvelope, FaEye, FaEdit, FaTrash, FaWhatsapp } from 'react-icons/fa';
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -50,6 +50,47 @@ const AdminAppointments = () => {
       console.error('Error updating status:', error);
       alert('Failed to update status');
     }
+  };
+
+  const deleteAppointment = async (id) => {
+    if (!window.confirm("Are you sure you want to permanently delete this appointment?")) return;
+    try {
+      const { error } = await supabase.from('appointments').delete().eq('id', id);
+      if (error) throw error;
+      setAppointments(appointments.filter(appt => appt.id !== id));
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+      alert('Failed to delete appointment');
+    }
+  };
+
+  const handleWhatsApp = (appt) => {
+    const rawPhone = appt.patients?.users?.phone || '';
+    let phone = rawPhone.replace(/\D/g, ''); // Extract only digits
+    if (!phone) return alert('No phone number available.');
+    
+    // Automatically prepend 91 if it's a 10 digit Indian number
+    if (phone.length === 10) phone = '91' + phone;
+
+    const patientName = appt.patients?.users?.full_name || 'Patient';
+    const apptDate = new Date(appt.appointment_date).toLocaleDateString();
+    const apptTime = appt.appointment_time;
+    
+    const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${appt.status}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  };
+
+  const handleEmail = (appt) => {
+    const email = appt.patients?.users?.email || '';
+    if (!email || email.includes('noemail')) return alert('No valid email address available.');
+    
+    const patientName = appt.patients?.users?.full_name || 'Patient';
+    const apptDate = new Date(appt.appointment_date).toLocaleDateString();
+    const apptTime = appt.appointment_time;
+    
+    const subject = `Varad Netralaya - Appointment ${appt.status}`;
+    const body = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is ${appt.status} on ${apptDate} at ${apptTime}.\n\nThank you,\nVarad Netralaya`;
+    window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
   };
 
   const filteredAppointments = appointments.filter(appt => {
@@ -160,34 +201,62 @@ const AdminAppointments = () => {
                           {appt.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right space-x-2">
-                        {appt.status === 'PENDING' && (
-                          <>
+                      <td className="px-6 py-4 text-right">
+                        <div className="flex flex-wrap justify-end gap-1.5 items-center">
+                          {/* View */}
+                          <button 
+                            onClick={() => alert(`View details for ${appt.appointment_no}\nPatient: ${appt.patients?.users?.full_name}\nSymptoms: ${appt.symptoms}`)}
+                            className="p-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded transition-colors"
+                            title="View Details"
+                          ><FaEye /></button>
+                          
+                          {/* Status Updates */}
+                          {appt.status !== 'CONFIRMED' && (
                             <button 
                               onClick={() => updateStatus(appt.id, 'CONFIRMED')}
-                              className="p-2 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition-colors"
-                              title="Confirm"
-                            >
-                              <FaCheck />
-                            </button>
+                              className="p-1.5 bg-blue-100 text-blue-600 hover:bg-blue-200 rounded transition-colors"
+                              title="Approve / Confirm"
+                            ><FaCheck /></button>
+                          )}
+                          {appt.status !== 'CANCELLED' && (
                             <button 
                               onClick={() => updateStatus(appt.id, 'CANCELLED')}
-                              className="p-2 bg-rose-100 text-rose-600 hover:bg-rose-200 rounded-lg transition-colors"
-                              title="Cancel"
-                            >
-                              <FaTimes />
-                            </button>
-                          </>
-                        )}
-                        {appt.status === 'CONFIRMED' && (
+                              className="p-1.5 bg-rose-100 text-rose-600 hover:bg-rose-200 rounded transition-colors"
+                              title="Reject / Cancel"
+                            ><FaTimes /></button>
+                          )}
+                          {appt.status !== 'PENDING' && (
+                            <button 
+                              onClick={() => updateStatus(appt.id, 'PENDING')}
+                              className="p-1.5 bg-orange-100 text-orange-600 hover:bg-orange-200 rounded transition-colors"
+                              title="Mark Pending"
+                            ><FaClock /></button>
+                          )}
+
+                          {/* Comms */}
                           <button 
-                            onClick={() => updateStatus(appt.id, 'COMPLETED')}
-                            className="p-2 bg-teal-100 text-teal-600 hover:bg-teal-200 rounded-lg transition-colors font-bold text-xs"
-                            title="Mark Completed"
-                          >
-                            Complete
-                          </button>
-                        )}
+                            onClick={() => handleWhatsApp(appt)}
+                            className="p-1.5 bg-green-100 text-green-600 hover:bg-green-200 rounded transition-colors"
+                            title="Send WhatsApp"
+                          ><FaWhatsapp /></button>
+                          <button 
+                            onClick={() => handleEmail(appt)}
+                            className="p-1.5 bg-indigo-100 text-indigo-600 hover:bg-indigo-200 rounded transition-colors"
+                            title="Send Email"
+                          ><FaEnvelope /></button>
+                          
+                          {/* Edit / Delete */}
+                          <button 
+                            onClick={() => alert('Edit feature is under construction.')}
+                            className="p-1.5 bg-amber-100 text-amber-600 hover:bg-amber-200 rounded transition-colors"
+                            title="Edit"
+                          ><FaEdit /></button>
+                          <button 
+                            onClick={() => deleteAppointment(appt.id)}
+                            className="p-1.5 bg-red-100 text-red-600 hover:bg-red-200 rounded transition-colors"
+                            title="Delete"
+                          ><FaTrash /></button>
+                        </div>
                       </td>
                     </tr>
                   ))
