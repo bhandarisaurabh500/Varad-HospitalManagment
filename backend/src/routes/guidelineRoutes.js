@@ -6,14 +6,15 @@ const {
   updateGuideline,
   deleteGuideline
 } = require('../controllers/guidelineController');
-const { protect, adminOnly } = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const roleMiddleware = require('../middleware/roleMiddleware');
 
 // Public route to get guidelines
 router.get('/', getGuidelines);
 
 // Protected routes (Admin only)
-router.post('/', protect, adminOnly, createGuideline);
-router.put('/:id', protect, adminOnly, updateGuideline);
-router.delete('/:id', protect, adminOnly, deleteGuideline);
+router.post('/', authMiddleware, roleMiddleware('ADMIN'), createGuideline);
+router.put('/:id', authMiddleware, roleMiddleware('ADMIN'), updateGuideline);
+router.delete('/:id', authMiddleware, roleMiddleware('ADMIN'), deleteGuideline);
 
 module.exports = router;
