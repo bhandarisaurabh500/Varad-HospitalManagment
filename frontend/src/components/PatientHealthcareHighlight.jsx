@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { patientHealthcareData } from '../data/hospitalData';
+import { supabase } from '../lib/supabase';
 import { FaHeartbeat, FaArrowRight } from 'react-icons/fa';
 import * as Icons from 'react-icons/fa';
+// Fallback data in case DB fetch fails
+import { patientHealthcareData as fallbackData } from '../data/hospitalData';
 
 const PatientHealthcareHighlight = () => {
-  const highlightItems = patientHealthcareData.slice(0, 3); // Care, Before, After
+  const [guidelines, setGuidelines] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchGuidelines();
+  }, []);
+
+  const fetchGuidelines = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('healthcare_guidelines')
+        .select('*')
+        .eq('is_active', 1)
+        .order('sort_order', { ascending: true });
+
+      if (error) throw error;
+      setGuidelines(data && data.length > 0 ? data : fallbackData);
+    } catch (error) {
+      console.error('Error fetching guidelines:', error);
+      setGuidelines(fallbackData);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const highlightItems = guidelines.slice(0, 3); // Take first 3 for highlight
 
   return (
     <section className="py-20 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
@@ -25,36 +53,42 @@ const PatientHealthcareHighlight = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {highlightItems.map((section, index) => {
-            const IconComponent = Icons[section.icon] || Icons.FaBriefcaseMedical;
-            return (
-              <motion.div
-                key={section.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center text-xl text-teal-500 shadow-sm mb-4">
-                  <IconComponent />
-                </div>
-                <h3 className="text-xl font-bold text-slate-800 dark:text-white font-poppins mb-3">
-                  {section.title}
-                </h3>
-                <ul className="space-y-2">
-                  {section.points.slice(0, 2).map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                      <Icons.FaCheckCircle className="text-teal-500 mt-1 flex-shrink-0" />
-                      <span className="line-clamp-2">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            );
-          })}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center py-10">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            {highlightItems.map((section, index) => {
+              const IconComponent = Icons[section.icon] || Icons.FaBriefcaseMedical;
+              return (
+                <motion.div
+                  key={section.id || index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-700 flex items-center justify-center text-xl text-teal-500 shadow-sm mb-4">
+                    <IconComponent />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-white font-poppins mb-3">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {section.points?.slice(0, 2).map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <Icons.FaCheckCircle className="text-teal-500 mt-1 flex-shrink-0" />
+                        <span className="line-clamp-2">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
 
         <div className="text-center">
           <Link 

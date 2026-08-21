@@ -5,7 +5,7 @@ import {
   FaTachometerAlt, FaCalendarCheck, FaUserMd,
   FaConciergeBell, FaMicroscope, FaImages,
   FaInfoCircle, FaShieldAlt, FaStar, FaCog, FaSignOutAlt, 
-  FaBars, FaEye, FaHospital
+  FaBars, FaEye, FaHospital, FaHeartbeat
 } from 'react-icons/fa';
 
 const adminLinks = [
@@ -16,6 +16,7 @@ const adminLinks = [
   { to: '/admin/advanced-equipment', label: 'Advanced Equipment',  icon: FaMicroscope },
   { to: '/admin/gallery',            label: 'Gallery',             icon: FaImages },
   { to: '/admin/patient-information',label: 'Patient Information', icon: FaInfoCircle },
+  { to: '/admin/guidelines',         label: 'Guidelines',          icon: FaHeartbeat },
   { to: '/admin/insurance',          label: 'Insurance / TPA',     icon: FaShieldAlt },
   { to: '/admin/reviews',            label: 'Reviews',             icon: FaStar },
   { to: '/admin/settings',           label: 'Settings',            icon: FaCog },

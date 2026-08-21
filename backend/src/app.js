@@ -14,6 +14,7 @@ const medicalRecordRoutes = require('./routes/medicalRecordRoutes');
 const aiRoutes            = require('./routes/aiRoutes');
 const adminRoutes         = require('./routes/adminRoutes');
 const publicRoutes        = require('./routes/publicRoutes');
+const guidelineRoutes     = require('./routes/guidelineRoutes');
 const errorMiddleware     = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -52,6 +53,7 @@ app.use('/api/medical-records', medicalRecordRoutes);
 app.use('/api/ai',              aiRoutes);
 app.use('/api/admin',           adminRoutes);
 app.use('/api',                 publicRoutes);
+app.use('/api/guidelines',      guidelineRoutes);
 
 // ── 404 handler ──────────────────────────────────────────────
 app.use((req, res) => {

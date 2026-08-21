@@ -18,6 +18,7 @@ import PatientHealthcare from './pages/PatientHealthcare';
 // Dashboards
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAppointments from './pages/admin/AdminAppointments';
+import AdminGuidelines from './pages/admin/AdminGuidelines';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
@@ -52,6 +53,7 @@ function App() {
                     <Routes>
                       <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="appointments" element={<AdminAppointments />} />
+                      <Route path="guidelines" element={<AdminGuidelines />} />
                       <Route path="profile" element={<Placeholder title="Doctor Profile" />} />
                       <Route path="services" element={<Placeholder title="Eye Care / Services" />} />
                       <Route path="advanced-equipment" element={<Placeholder title="Advanced Equipment" />} />
