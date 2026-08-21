@@ -42,7 +42,7 @@ const AdvancedEquipment = () => {
                 <img 
                   src={item.image} 
                   alt={item.name} 
-                  className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-110"
+                  className="w-full h-full object-contain bg-white p-4 transition-transform duration-700 hover:scale-110"
                   onError={(e) => {
                     e.target.src = 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=600';
                   }}

@@ -169,7 +169,7 @@ const HospitalInformation = () => {
                   <img 
                     src={item.image || "/photos/Machine/images.jpg"} 
                     alt={item.name} 
-                    className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-700 bg-white"
+                    className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700 bg-white"
                   />
                   <div className="absolute top-3 left-3 bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                     {item.type}

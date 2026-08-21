@@ -64,7 +64,11 @@ const Gallery = () => {
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
+                  ['Equipment', 'Machines'].includes(item.category) 
+                    ? 'object-contain p-4 bg-white' 
+                    : 'object-cover'
+                }`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
                 <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider">
