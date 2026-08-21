@@ -25,7 +25,12 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // ── CORS ────────────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: [
+    process.env.CLIENT_URL, 
+    'http://localhost:5173', 
+    'https://frontend-mo28yw2bp-bhandarisaurabh500s-projects.vercel.app',
+    'https://frontend-mo28yw2bp-bhandarisaurabh500s-projects.vercel.app/'
+  ],
   credentials: true,
 }));
 
