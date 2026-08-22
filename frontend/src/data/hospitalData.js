@@ -498,6 +498,12 @@ export const advancedEquipmentList = [
     name: "Schwind Amaris 750S",
     shortDesc: "High-performance excimer laser for bladeless, customized LASIK refractive surgery.",
     image: "/photos/Machine/schwind-amaris-750s.png"
+  },
+  {
+    id: 13,
+    name: "3 Modular Operation Theaters",
+    shortDesc: "World-class modular operation theaters equipped with Laminar Airflow for sterile surgeries.",
+    image: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png"
   }
 ];
 

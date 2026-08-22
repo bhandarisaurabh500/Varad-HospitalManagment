@@ -7,7 +7,8 @@ async function createAppointment(req, res, next) {
   try {
     const {
       doctor_id, service_id, appointment_date, appointment_time,
-      symptoms, age, gender, patient_name, patient_email, patient_phone
+      symptoms, age, gender, patient_name, patient_email, patient_phone,
+      patient_uid
     } = req.body;
 
     if (!doctor_id || !appointment_date || !appointment_time) {
@@ -20,34 +21,48 @@ async function createAppointment(req, res, next) {
 
     let patientId = null;
 
-    // 1. Get PATIENT role id
-    const [roles] = await pool.execute("SELECT id FROM roles WHERE name='PATIENT'");
-    const roleId = roles.length ? roles[0].id : 3;
+    // 1. Check if patient exists by patient_uid or phone
+    let query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ?';
+    let params = [patient_phone];
 
-    // 2. Check if user exists by phone or email
-    let [users] = await pool.execute('SELECT id FROM users WHERE phone=? OR email=?', [patient_phone, patient_email]);
-    
+    if (patient_uid) {
+      query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE p.patient_uid = ? OR u.phone = ?';
+      params = [patient_uid, patient_phone];
+    }
+
+    const [existingPatients] = await pool.execute(query, params);
+
     let userId;
-    if (users.length > 0) {
-      userId = users[0].id;
+    if (existingPatients.length > 0) {
+      // Returning Patient found
+      patientId = existingPatients[0].id;
+      userId = existingPatients[0].user_id;
     } else {
-      const [result] = await pool.execute(
+      // New Patient
+      // 1. Get PATIENT role id
+      const [roles] = await pool.execute("SELECT id FROM roles WHERE name='PATIENT'");
+      const roleId = roles.length ? roles[0].id : 3;
+
+      const [userResult] = await pool.execute(
         'INSERT INTO users (role_id, full_name, email, phone, password, is_active) VALUES (?, ?, ?, ?, ?, 1)',
         [roleId, patient_name, patient_email, patient_phone, 'guest_password']
       );
-      userId = result.insertId || result.rows?.[0]?.id || (await pool.execute('SELECT LASTVAL() AS id'))[0][0].id;
-    }
+      userId = userResult.insertId;
 
-    // 3. Get or create patient record
-    let [patients] = await pool.execute('SELECT id FROM patients WHERE user_id=?', [userId]);
-    if (patients.length > 0) {
-      patientId = patients[0].id;
-    } else {
-      const [result] = await pool.execute(
-        'INSERT INTO patients (user_id, age, gender) VALUES (?, ?, ?)',
-        [userId, age || null, gender || null]
+      // Generate new UHID VH-YYYY-XXXXXX
+      const year = new Date().getFullYear();
+      const randomSuffix = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
+      const newUid = `VH-${year}-${randomSuffix}`; // Temporary uid to insert
+
+      const [patientResult] = await pool.execute(
+        'INSERT INTO patients (user_id, age, gender, patient_uid) VALUES (?, ?, ?, ?)',
+        [userId, age || null, gender || null, newUid]
       );
-      patientId = result.insertId || result.rows?.[0]?.id || (await pool.execute('SELECT LASTVAL() AS id'))[0][0].id;
+      patientId = patientResult.insertId;
+
+      // Now update the UHID cleanly with the actual patientId
+      const finalUid = `VH-${year}-${String(patientId).padStart(6, '0')}`;
+      await pool.execute('UPDATE patients SET patient_uid = ? WHERE id = ?', [finalUid, patientId]);
     }
 
     // Check double-booking
@@ -176,7 +191,7 @@ async function updateStatus(req, res, next) {
     }
     await pool.execute(
       'UPDATE appointments SET status=?, notes=?, cancelled_reason=?, confirmed_by=? WHERE id=?',
-      [status, notes || null, cancelled_reason || null, req.user.id, req.params.id]
+      [status, notes || null, cancelled_reason || null, req.user ? req.user.id : null, req.params.id]
     );
 
     // Fetch appointment details to send the email

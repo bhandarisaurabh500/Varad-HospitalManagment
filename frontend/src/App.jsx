@@ -24,6 +24,9 @@ import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
 
+import PatientDirectory from './pages/admin/PatientDirectory';
+import PatientProfile from './pages/admin/PatientProfile';
+
 // Dummy wrapper for missing pages (so router works)
 const Placeholder = ({ title }) => (
   <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
@@ -59,7 +62,9 @@ function App() {
                       <Route path="services" element={<Placeholder title="Eye Care / Services" />} />
                       <Route path="advanced-equipment" element={<Placeholder title="Advanced Equipment" />} />
                       <Route path="gallery" element={<Placeholder title="Manage Gallery" />} />
-                      <Route path="patient-information" element={<Placeholder title="Patient Information" />} />
+                      <Route path="patients" element={<PatientDirectory />} />
+                      <Route path="patients/:id" element={<PatientProfile />} />
+                      <Route path="patient-information" element={<Navigate to="patients" replace />} />
                       <Route path="insurance" element={<Placeholder title="Insurance / TPA" />} />
                       <Route path="reviews" element={<Placeholder title="Manage Reviews" />} />
                       <Route path="settings" element={<AdminSettings />} />

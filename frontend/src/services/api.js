@@ -8,12 +8,15 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
+import { supabase } from '../lib/supabase';
+
 // Attach JWT token to every request
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('varad_token');
+api.interceptors.request.use(async (config) => {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token || localStorage.getItem('varad_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
-}, Promise.reject);
+}, (error) => Promise.reject(error));
 
 // Handle 401 globally (token expired)
 api.interceptors.response.use(

@@ -15,7 +15,7 @@ const adminLinks = [
   { to: '/admin/services',           label: 'Eye Care / Services', icon: FaConciergeBell },
   { to: '/admin/advanced-equipment', label: 'Advanced Equipment',  icon: FaMicroscope },
   { to: '/admin/gallery',            label: 'Gallery',             icon: FaImages },
-  { to: '/admin/patient-information',label: 'Patient Information', icon: FaInfoCircle },
+  { to: '/admin/patients',           label: 'Patient Directory',   icon: FaInfoCircle },
   { to: '/admin/guidelines',         label: 'Guidelines',          icon: FaHeartbeat },
   { to: '/admin/insurance',          label: 'Insurance / TPA',     icon: FaShieldAlt },
   { to: '/admin/reviews',            label: 'Reviews',             icon: FaStar },

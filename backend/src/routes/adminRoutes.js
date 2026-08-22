@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { getDashboard, getUsers, getAdminAppointments, getContactMessages, markMessageRead, getDoctorDashboard } = require('../controllers/adminController');
-const { getAllPatients } = require('../controllers/patientController');
+const { getAllPatients, searchPatients, getPatientById } = require('../controllers/patientController');
+const { createVisit } = require('../controllers/visitController');
+const { createPrescription, getMedicines } = require('../controllers/prescriptionController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
 
@@ -8,7 +10,14 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 router.get('/dashboard',         authMiddleware, roleMiddleware('ADMIN'), getDashboard);
 router.get('/users',             authMiddleware, roleMiddleware('ADMIN'), getUsers);
 router.get('/appointments',      authMiddleware, roleMiddleware('ADMIN'), getAdminAppointments);
-router.get('/patients',          authMiddleware, roleMiddleware('ADMIN'), getAllPatients);
+router.get('/patients',          authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), getAllPatients);
+router.get('/patients/search',   authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), searchPatients);
+router.get('/patients/:id',      authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), getPatientById);
+
+router.post('/visits',           authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), createVisit);
+router.post('/prescriptions',    authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), createPrescription);
+router.get('/medicines',         authMiddleware, roleMiddleware('ADMIN', 'DOCTOR'), getMedicines);
+
 router.get('/contact-messages',  authMiddleware, roleMiddleware('ADMIN'), getContactMessages);
 router.put('/contact-messages/:id/read', authMiddleware, roleMiddleware('ADMIN'), markMessageRead);
 

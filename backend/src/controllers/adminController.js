@@ -49,9 +49,11 @@ async function getAdminAppointments(req, res, next) {
     let query = `
       SELECT a.id, a.appointment_no, a.appointment_date, a.appointment_time, a.status,
              a.symptoms, a.age, a.gender, a.created_at,
-             u_pat.full_name AS patient_name, u_pat.phone AS patient_phone,
+             u_pat.full_name AS patient_name, u_pat.phone AS patient_phone, u_pat.email as patient_email,
+             pt.id as patient_id, pt.patient_uid,
              u_doc.full_name AS doctor_name,
-             s.name AS service_name
+             s.name AS service_name,
+             (SELECT MAX(visit_date) FROM medical_records mr WHERE mr.patient_id = a.patient_id) as last_visit
       FROM appointments a
       JOIN patients pt ON pt.id = a.patient_id
       JOIN users u_pat ON u_pat.id = pt.user_id
