@@ -30,7 +30,8 @@ app.use(cors({
     'http://localhost:5173', 
     'https://frontend-gules-one-59.vercel.app',
     'https://frontend-git-main-bhandarisaurabh500s-projects.vercel.app',
-    'https://frontend-mo28yw2bp-bhandarisaurabh500s-projects.vercel.app'
+    'https://frontend-mo28yw2bp-bhandarisaurabh500s-projects.vercel.app',
+    'https://varad-netralaya.vercel.app'
   ],
   credentials: true,
 }));
