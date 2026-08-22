@@ -20,6 +20,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminGuidelines from './pages/admin/AdminGuidelines';
 import AdminSettings from './pages/admin/AdminSettings';
+import AdminInsurance from './pages/admin/AdminInsurance';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
@@ -65,7 +66,7 @@ function App() {
                       <Route path="patients" element={<PatientDirectory />} />
                       <Route path="patients/:id" element={<PatientProfile />} />
                       <Route path="patient-information" element={<Navigate to="patients" replace />} />
-                      <Route path="insurance" element={<Placeholder title="Insurance / TPA" />} />
+                      <Route path="insurance" element={<AdminInsurance />} />
                       <Route path="reviews" element={<Placeholder title="Manage Reviews" />} />
                       <Route path="settings" element={<AdminSettings />} />
                       <Route path="*" element={<Navigate to="dashboard" replace />} />
