@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import insuranceService from '../../services/insuranceService';
-import patientService from '../../services/patientService';
+import { supabase } from '../../lib/supabase';
 
 function AdminInsurance() {
   const { isDarkMode } = useTheme();
@@ -24,14 +24,19 @@ function AdminInsurance() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [claimsRes, providersRes, patientsRes] = await Promise.all([
+      const [claimsRes, providersRes, { data: patientsData }] = await Promise.all([
         insuranceService.getAllClaims(),
         insuranceService.getProviders(),
-        patientService.getAllPatients()
+        supabase.from('patients').select('id, users(full_name)')
       ]);
       setClaims(claimsRes.claims || []);
       setProviders(providersRes.providers || []);
-      setPatients(patientsRes.patients || []);
+      
+      const formattedPatients = (patientsData || []).map(p => ({
+        id: p.id,
+        full_name: p.users?.full_name || `Patient #${p.id}`
+      }));
+      setPatients(formattedPatients);
     } catch (error) {
       console.error('Failed to fetch data', error);
     } finally {
