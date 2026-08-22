@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varad Netralaya — Admin Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8f8;--card:#fff;--text:#102a2b;--muted:#708180;--teal:#078b84;--deep:#063f43;--line:#e4eeee;--shadow:0 18px 55px rgba(8,55,57,.09)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text);line-height:1.5}button{font:inherit;cursor:pointer;border:0}a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}.sidebar{width:260px;background:#073f43;color:#d9eeeb;padding:25px 16px;position:fixed;inset:0 auto 0 0;z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 30px;font-family:Manrope;font-weight:800;font-size:17px}.logo{width:41px;height:41px;border-radius:13px;background:linear-gradient(145deg,#20b9aa,#075a60);display:grid;place-items:center;color:white;box-shadow:0 10px 25px rgba(0,0,0,.15)}.logo svg{width:23px}.brand small{display:block;font:500 10px "DM Sans";opacity:.6;margin-top:2px}
+.nav-title{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#7ca7a3;padding:12px 12px 8px}.nav a{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;font-size:13px;font-weight:600;color:#b9d4d1;margin:3px 0}.nav a:hover,.nav a.active{background:rgba(255,255,255,.1);color:#fff}.nav a.active{box-shadow:inset 3px 0 #5dd6c8}.nav .ico{width:20px;text-align:center;font-size:15px}
+.sidebar-bottom{position:absolute;left:16px;right:16px;bottom:18px;border-top:1px solid rgba(255,255,255,.1);padding-top:15px}.profile{display:flex;align-items:center;gap:10px;padding:10px}.avatar{width:38px;height:38px;border-radius:12px;background:#cdeee8;color:#076d69;display:grid;place-items:center;font-weight:800}.profile b{font-size:12px;color:white}.profile span{display:block;font-size:10px;color:#86a8a5}
+.main{margin-left:260px;width:calc(100% - 260px)}.topbar{height:78px;background:rgba(255,255,255,.82);backdrop-filter:blur(15px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:8}.crumb{font-size:12px;color:var(--muted)}.crumb strong{color:var(--text);font-size:16px;font-family:Manrope;margin-right:10px}.top-actions{display:flex;align-items:center;gap:10px}.search{width:220px;border:1px solid var(--line);background:#f8fbfb;border-radius:12px;padding:10px 13px;outline:none}.circle{width:39px;height:39px;border:1px solid var(--line);background:#fff;border-radius:12px}.content{padding:32px}.welcome{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}.welcome .eyebrow{color:var(--teal);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.welcome h1{font:800 34px Manrope;letter-spacing:-.04em;margin:5px 0}.welcome p{color:var(--muted);font-size:13px}.date{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:12px;font-size:12px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 8px 28px rgba(8,55,57,.035)}.stat-top{display:flex;justify-content:space-between;align-items:center}.stat .ico{width:41px;height:41px;border-radius:12px;background:#e7f8f4;color:var(--teal);display:grid;place-items:center}.stat small{color:var(--muted);font-size:11px}.stat h2{font:800 27px Manrope;margin:12px 0 4px}.up{font-size:11px;color:#159b78;font-weight:700}
+.grid{display:grid;grid-template-columns:1.4fr .85fr;gap:18px;margin-top:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 28px rgba(8,55,57,.035);padding:22px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.panel-head h3{font:700 16px Manrope}.panel-head a{font-size:11px;color:var(--teal);font-weight:800}.chart{height:230px;position:relative;padding:15px 10px 0}.bars{height:190px;display:flex;align-items:end;gap:12px;border-bottom:1px solid var(--line);padding:0 10px}.bar{flex:1;background:linear-gradient(180deg,#39b9aa,#0b7c7c);border-radius:7px 7px 0 0;min-height:20px;opacity:.9}.labels{display:flex;gap:12px;padding:8px 10px;color:#8a9a99;font-size:10px}.labels span{flex:1;text-align:center}
+.appointment{display:grid;grid-template-columns:1fr auto;gap:12px;padding:13px 0;border-bottom:1px solid #edf2f2;align-items:center}.appointment:last-child{border:0}.patient{display:flex;gap:10px;align-items:center}.pavatar{width:36px;height:36px;border-radius:11px;background:#edf7f5;display:grid;place-items:center;color:var(--teal);font-weight:800;font-size:12px}.patient b{display:block;font-size:12px}.patient span{font-size:10px;color:var(--muted)}.status{font-size:9px;font-weight:800;border-radius:999px;padding:5px 8px}.pending{background:#fff5dc;color:#a26b00}.confirmed{background:#e4f8f1;color:#087b65}.cancelled{background:#ffebeb;color:#b84c4c}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.quick button{background:#f8fbfb;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;transition:.2s}.quick button:hover{transform:translateY(-2px);border-color:#b7e3dc}.quick i{font-style:normal;font-size:20px}.quick b{display:block;font-size:12px;margin-top:8px}.quick span{font-size:10px;color:var(--muted)}
+.health{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.health-card{background:#f8fbfb;border-radius:15px;padding:16px}.health-card span{font-size:10px;color:var(--muted)}.health-card strong{display:block;font:700 20px Manrope;margin-top:5px}.progress{height:6px;background:#e4efee;border-radius:20px;margin-top:10px;overflow:hidden}.progress i{display:block;height:100%;background:#10a494;border-radius:20px}
+.dark{--bg:#071d1f;--card:#0c292b;--text:#e9fbf8;--muted:#98b5b2;--line:#193d3e}.dark .topbar,.dark .search,.dark .circle,.dark .panel,.dark .stat,.dark .date{background:#0b282a;color:var(--text)}.dark .search{border-color:var(--line)}.dark .quick button,.dark .health-card{background:#103234;border-color:var(--line)}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.search{display:none}}
+@media(max-width:700px){.sidebar{width:72px;padding:20px 9px}.brand div:not(.logo),.nav-title,.nav a span:not(.ico),.sidebar-bottom .profile div:not(.avatar){display:none}.brand{padding:0 6px 25px}.nav a{justify-content:center;padding:12px}.sidebar-bottom{left:8px;right:8px}.main{margin-left:72px;width:calc(100% - 72px)}.topbar{padding:0 18px}.content{padding:20px}.welcome{display:block}.date{display:inline-block;margin-top:15px}.health{grid-template-columns:1fr}.stats{gap:10px}.stat{padding:15px}.stat h2{font-size:23px}}
+@media(max-width:480px){.stats{grid-template-columns:1fr 1fr}.welcome h1{font-size:27px}.top-actions .circle:first-child{display:none}.panel{padding:16px}.quick{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6Z"/><circle cx="12" cy="12" r="2.7"/></svg></div><div>Varad Netralaya<small>ADMIN PORTAL</small></div></div>
+  <div class="nav-title">Overview</div>
+  <nav class="nav">
+    <a class="active" href="#"><span class="ico">⌂</span><span>Dashboard</span></a>
+    <a href="#"><span class="ico">◷</span><span>Appointments</span></a>
+    <a href="#"><span class="ico">♙</span><span>Patients</span></a>
+    <a href="#"><span class="ico">▤</span><span>EMR & Records</span></a>
+  </nav>
+  <div class="nav-title">Management</div>
+  <nav class="nav">
+    <a href="#"><span class="ico">◈</span><span>Insurance / TPA</span></a>
+    <a href="#"><span class="ico">☷</span><span>Guidelines</span></a>
+    <a href="#"><span class="ico">⚙</span><span>Settings</span></a>
+  </nav>
+  <div class="sidebar-bottom"><div class="profile"><div class="avatar">DB</div><div><b>Dr. Borude</b><span>Administrator</span></div></div></div>
+</aside>
+
+<div class="main">
+<header class="topbar">
+  <div class="crumb"><strong>Dashboard</strong> / Overview</div>
+  <div class="top-actions"><input class="search" placeholder="Search patients, records..."><button class="circle" title="Notifications">♢</button><button class="circle" id="theme" title="Theme">☼</button></div>
+</header>
+<main class="content">
+<section class="welcome"><div><div class="eyebrow">Good evening, Doctor</div><h1>Hospital overview</h1><p>Monitor today's activity and keep patient care moving smoothly.</p></div><div class="date">22 Aug 2026 · Saturday</div></section>
+
+<section class="stats">
+<div class="stat"><div class="stat-top"><small>Total Patients</small><div class="ico">♙</div></div><h2>1,284</h2><div class="up">↑ 8.4% <span style="color:#82908f;font-weight:500">this month</span></div></div>
+<div class="stat"><div class="stat-top"><small>Today's Appointments</small><div class="ico">◷</div></div><h2>24</h2><div class="up">↑ 4 <span style="color:#82908f;font-weight:500">vs yesterday</span></div></div>
+<div class="stat"><div class="stat-top"><small>Pending Claims</small><div class="ico">◈</div></div><h2>₹1.84L</h2><div class="up">12 claims <span style="color:#82908f;font-weight:500">to review</span></div></div>
+<div class="stat"><div class="stat-top"><small>Completed Visits</small><div class="ico">✓</div></div><h2>18</h2><div class="up">75% <span style="color:#82908f;font-weight:500">of today's schedule</span></div></div>
+</section>
+
+<section class="grid">
+<div class="panel">
+<div class="panel-head"><h3>Appointment activity</h3><a href="#">View reports →</a></div>
+<div class="chart"><div class="bars"><i class="bar" style="height:52%"></i><i class="bar" style="height:68%"></i><i class="bar" style="height:45%"></i><i class="bar" style="height:82%"></i><i class="bar" style="height:61%"></i><i class="bar" style="height:93%"></i><i class="bar" style="height:73%"></i><i class="bar" style="height:88%"></i><i class="bar" style="height:64%"></i><i class="bar" style="height:76%"></i><i class="bar" style="height:91%"></i><i class="bar" style="height:79%"></i></div><div class="labels"><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span></div></div>
+</div>
+<div class="panel">
+<div class="panel-head"><h3>Quick actions</h3></div>
+<div class="quick">
+<button onclick="alert('Connect to your existing appointment route')"><i>＋</i><b>New Appointment</b><span>Create booking</span></button>
+<button onclick="alert('Connect to your patient module')"><i>♙</i><b>Add Patient</b><span>Register patient</span></button>
+<button onclick="alert('Connect to your EMR module')"><i>▤</i><b>Medical Record</b><span>Open EMR</span></button>
+<button onclick="alert('Connect to your claims module')"><i>◈</i><b>Review Claims</b><span>12 pending</span></button>
+</div></div>
+</section>
+
+<section class="grid">
+<div class="panel"><div class="panel-head"><h3>Today's appointments</h3><a href="#">View all →</a></div>
+<div class="appointment"><div class="patient"><div class="pavatar">AS</div><div><b>Akash Sharma</b><span>10:00 AM · Cataract consultation</span></div></div><span class="status confirmed">CONFIRMED</span></div>
+<div class="appointment"><div class="patient"><div class="pavatar">PN</div><div><b>Priya Nair</b><span>11:30 AM · Eye examination</span></div></div><span class="status pending">PENDING</span></div>
+<div class="appointment"><div class="patient"><div class="pavatar">RM</div><div><b>Rahul More</b><span>01:00 PM · Retina follow-up</span></div></div><span class="status confirmed">CONFIRMED</span></div>
+<div class="appointment"><div class="patient"><div class="pavatar">SK</div><div><b>Sneha Kulkarni</b><span>03:30 PM · Glaucoma review</span></div></div><span class="status pending">PENDING</span></div>
+</div>
+<div class="panel"><div class="panel-head"><h3>Care overview</h3></div>
+<div class="health"><div class="health-card"><span>Patient satisfaction</span><strong>94%</strong><div class="progress"><i style="width:94%"></i></div></div><div class="health-card"><span>Appointments</span><strong>82%</strong><div class="progress"><i style="width:82%"></i></div></div><div class="health-card"><span>Claims processed</span><strong>76%</strong><div class="progress"><i style="width:76%"></i></div></div></div>
+</div>
+</section>
+</main>
+</div></div>
+<script>
+document.getElementById('theme').onclick=()=>{document.body.classList.toggle('dark');document.getElementById('theme').textContent=document.body.classList.contains('dark')?'☾':'☼'};
+</script>
+</body>
+</html>

@@ -1,128 +1,125 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import {
-  FaTachometerAlt, FaCalendarCheck, FaUserMd,
-  FaConciergeBell, FaMicroscope, FaImages,
-  FaInfoCircle, FaShieldAlt, FaStar, FaCog, FaSignOutAlt, 
-  FaBars, FaEye, FaHospital, FaHeartbeat
-} from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
-const adminLinks = [
-  { to: '/admin/dashboard',          label: 'Dashboard',           icon: FaTachometerAlt },
-  { to: '/admin/appointments',       label: 'Appointments',        icon: FaCalendarCheck },
-  { to: '/admin/profile',            label: 'Doctor Profile',      icon: FaUserMd },
-  { to: '/admin/services',           label: 'Eye Care / Services', icon: FaConciergeBell },
-  { to: '/admin/advanced-equipment', label: 'Advanced Equipment',  icon: FaMicroscope },
-  { to: '/admin/gallery',            label: 'Gallery',             icon: FaImages },
-  { to: '/admin/patients',           label: 'Patient Directory',   icon: FaInfoCircle },
-  { to: '/admin/guidelines',         label: 'Guidelines',          icon: FaHeartbeat },
-  { to: '/admin/insurance',          label: 'Insurance / TPA',     icon: FaShieldAlt },
-  { to: '/admin/reviews',            label: 'Reviews',             icon: FaStar },
-  { to: '/admin/settings',           label: 'Settings',            icon: FaCog },
+const navGroups = [
+  {
+    title: 'Overview',
+    links: [
+      { to: '/admin/dashboard', label: 'Dashboard', icon: '⌂' },
+      { to: '/admin/appointments', label: 'Appointments', icon: '◷' },
+      { to: '/admin/patients', label: 'Patients', icon: '♙' },
+      { to: '/admin/medical-records', label: 'EMR & Records', icon: '▤' },
+    ]
+  },
+  {
+    title: 'Management',
+    links: [
+      { to: '/admin/insurance', label: 'Insurance / TPA', icon: '◈' },
+      { to: '/admin/guidelines', label: 'Guidelines', icon: '☷' },
+      { to: '/admin/settings', label: 'Settings', icon: '⚙' },
+    ]
+  }
 ];
 
 const DashboardLayout = ({ children }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { darkMode, toggleDarkMode } = useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // We are treating all authenticated users as the Admin/Doctor
-  const roleLabel = 'Doctor Administration';
+  const userName = user?.email || 'Dr. Borude';
+
+  const currentRouteName = navGroups
+    .flatMap(g => g.links)
+    .find(l => l.to === location.pathname)?.label || 'Overview';
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex">
-      {/* ── Sidebar ── */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white flex flex-col transition-transform duration-300
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-        {/* Brand */}
-        <div className="flex items-center gap-3 p-5 border-b border-slate-700">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center">
-            <FaEye className="text-white text-lg" />
+    <div className="premium-admin">
+      <div className="layout">
+        
+        <aside className={`sidebar ${mobileMenuOpen ? 'block' : 'hidden md:block'}`} style={mobileMenuOpen ? {display: 'block', zIndex: 100} : {}}>
+          <div className="brand">
+            <div className="logo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6Z"/>
+                <circle cx="12" cy="12" r="2.7"/>
+              </svg>
+            </div>
+            <div>Varad Netralaya<small>ADMIN PORTAL</small></div>
           </div>
-          <div>
-            <p className="font-bold text-sm text-white leading-none">Dr. R.K. Borude</p>
-            <p className="text-xs text-teal-400 mt-1">{roleLabel}</p>
-          </div>
-        </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-          {adminLinks.map(({ to, label, icon: Icon }) => {
-            const active = location.pathname === to;
-            return (
-              <Link
-                key={to}
-                to={to}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all
-                  ${active
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
-                    : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+          {navGroups.map((group, idx) => (
+            <React.Fragment key={idx}>
+              <div className="nav-title">{group.title}</div>
+              <nav className="nav">
+                {group.links.map(link => (
+                  <Link 
+                    key={link.to} 
+                    to={link.to} 
+                    className={location.pathname === link.to ? 'active' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="ico">{link.icon}</span>
+                    <span>{link.label}</span>
+                  </Link>
+                ))}
+              </nav>
+            </React.Fragment>
+          ))}
+          
+          <div className="sidebar-bottom">
+            <div className="profile">
+              <div className="avatar">DB</div>
+              <div style={{ flex: 1 }}>
+                <b>{userName}</b>
+                <span>Administrator</span>
+              </div>
+              <button onClick={logout} title="Logout" style={{ color: '#ff8989', background: 'transparent' }}>
+                ⎋
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {mobileMenuOpen && (
+          <div 
+            className="md:hidden" 
+            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 90 }}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        <div className="main" style={mobileMenuOpen ? {marginLeft: 0} : {}}>
+          <header className="topbar">
+            <div className="crumb">
+              <button 
+                className="md:hidden" 
+                onClick={() => setMobileMenuOpen(true)}
+                style={{ background: 'transparent', color: 'var(--text)', fontSize: '20px', marginRight: '15px' }}
               >
-                <Icon className="text-base flex-shrink-0" />
-                <span>{label}</span>
+                ☰
+              </button>
+              <strong>Dashboard</strong> / {currentRouteName}
+            </div>
+            <div className="top-actions">
+              <input className="search" placeholder="Search patients, records..." />
+              <Link to="/" className="circle" title="View Website" style={{textDecoration:'none', color:'inherit'}}>
+                ⌂
               </Link>
-            );
-          })}
-        </nav>
-
-        {/* Bottom: User + Logout */}
-        <div className="p-4 border-t border-slate-700 space-y-2">
-          <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold">
-              D
+              <button className="circle" onClick={toggleDarkMode} title="Theme">
+                {darkMode ? '☾' : '☼'}
+              </button>
             </div>
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-white truncate">{user?.email || 'Dr. R.K. Borude'}</p>
-              <p className="text-[10px] text-teal-400 truncate">Administrator</p>
-            </div>
-          </div>
-          <Link
-            to="/"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 text-xs transition"
-          >
-            <FaHospital /> View Website
-          </Link>
-          <button
-            onClick={logout}
-            className="w-full flex items-center gap-2 px-4 py-2 rounded-lg text-rose-400 hover:text-white hover:bg-rose-600 text-xs transition font-medium"
-          >
-            <FaSignOutAlt /> Logout
-          </button>
+          </header>
+          
+          <main className="content">
+            {children}
+          </main>
         </div>
-      </aside>
-
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* ── Main Content ── */}
-      <div className="flex-1 lg:ml-64 flex flex-col min-h-screen w-full overflow-hidden">
-        {/* Top bar */}
-        <header className="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm px-4 sm:px-6 py-4 flex items-center gap-4">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            <FaBars />
-          </button>
-          <h1 className="text-slate-800 dark:text-white font-bold text-lg flex-1 truncate">
-            {adminLinks.find(l => l.to === location.pathname)?.label || 'Dashboard'}
-          </h1>
-          <span className="text-xs font-bold text-teal-600 bg-teal-100 dark:bg-teal-900/30 dark:text-teal-400 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800">
-            Secure Mode
-          </span>
-        </header>
-
-        {/* Page content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
-          {children}
-        </main>
+        
       </div>
     </div>
   );
