@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const insuranceController = require('../controllers/insuranceController');
-const { authMiddleware, isAdmin } = require('../middleware/authMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
+const roleMiddleware = require('../middleware/roleMiddleware');
+
+const isAdmin = roleMiddleware('ADMIN');
 
 // Get all providers
 router.get('/providers', authMiddleware, insuranceController.getProviders);
