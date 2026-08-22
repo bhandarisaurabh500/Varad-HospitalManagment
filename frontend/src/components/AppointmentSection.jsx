@@ -32,6 +32,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
   });
 
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,6 +51,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
+    if (apiError) setApiError('');
   };
 
   const validate = () => {
@@ -71,6 +73,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setApiError('');
     
     try {
       let appointmentTime = '10:00:00';
@@ -98,7 +101,9 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
       }
     } catch (error) {
       console.error('Error booking appointment:', error);
-      showToast(error.response?.data?.message || 'Failed to book appointment. Please try again.');
+      const errorMsg = error.response?.data?.message || 'Failed to book appointment. Please try again.';
+      setApiError(errorMsg);
+      showToast(errorMsg);
     } finally {
       setIsSubmitting(false);
     }
@@ -308,6 +313,13 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
           className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         ></textarea>
       </div>
+
+      {/* API Error Display */}
+      {apiError && (
+        <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 text-rose-600 text-xs font-semibold text-center">
+          {apiError}
+        </div>
+      )}
 
       {/* Submit Button */}
       <button
