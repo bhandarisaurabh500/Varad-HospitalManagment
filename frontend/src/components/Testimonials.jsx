@@ -9,8 +9,10 @@ import {
   FaCheckCircle,
   FaGoogle,
   FaPen,
-  FaExternalLinkAlt
+  FaExternalLinkAlt,
+  FaPlayCircle
 } from 'react-icons/fa';
+import ReactPlayer from 'react-player';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -149,6 +151,55 @@ const Testimonials = () => {
             >
               <FaChevronRight />
             </button>
+          </div>
+        </div>
+
+        {/* Video Testimonials Section */}
+        <div className="max-w-5xl mx-auto mt-24 mb-10">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <FaPlayCircle className="text-emerald-500" />
+              <span>Patient Stories</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-poppins">
+              Watch Our Patient Reviews & Hospital Tour
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 mt-2">
+              See Dr. Raosaheb Borude checking patients and real reviews from our satisfied visitors.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden group">
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <ReactPlayer 
+                  url="https://stream.jdmagicbox.com/comp/hls/9999px241.x241.160309131642.l6h1_vdsiadd0yhvilb8.m3u8" 
+                  width="100%" 
+                  height="100%" 
+                  controls={true}
+                  playing={false}
+                  light={false}
+                  config={{ file: { forceHLS: true } }}
+                />
+              </div>
+              <div className="mt-4 px-2">
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white">Patient Experience & Tour</h4>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Glimpses of Varad Netralaya and Dr. Borude</p>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200/80 dark:border-slate-800 flex flex-col justify-center text-center">
+              <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-4 text-2xl">
+                <FaPlayCircle />
+              </div>
+              <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">More Videos Coming Soon</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6">
+                We are constantly adding more patient recovery stories and detailed operation theater videos.
+              </p>
+              <button className="px-6 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold transition text-sm w-fit mx-auto">
+                Subscribe to Updates
+              </button>
+            </div>
           </div>
         </div>
 
