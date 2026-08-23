@@ -284,14 +284,14 @@ const DoctorPortfolio = () => {
                 title: "Excellence in Ophthalmology 2024",
                 badge: "Award 2024",
                 badgeColor: "bg-amber-500",
-                imageUrl: "/photos/Award/Award 2024.png",
+                imageUrl: "/photos/Award/Award-2024.png",
                 desc: "Recognized for outstanding contribution and excellence in the field of eye care, cataract surgery, and patient service in 2024."
               })}
               className="group relative rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl shadow-amber-500/10 cursor-pointer hover:scale-[1.03] transition-transform duration-300 w-full sm:max-w-md lg:max-w-lg"
               style={{ minHeight: "350px", backgroundColor: "#0f172a" }}
             >
               <img
-                src="/photos/Award/Award%202024.png"
+                src="/photos/Award/Award-2024.png"
                 alt="Award 2024"
                 className="w-full h-full object-contain absolute inset-0 group-hover:scale-105 transition-transform duration-500 p-4"
               />
