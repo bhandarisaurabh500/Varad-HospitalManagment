@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import api from '../../services/api';
-import { FaUser, FaPhoneAlt, FaEnvelope, FaCalendarAlt, FaStethoscope, FaHistory, FaPrescriptionBottleAlt, FaArrowLeft, FaPrint, FaTimes, FaPlus, FaEye } from 'react-icons/fa';
+import { FaUser, FaPhoneAlt, FaEnvelope, FaCalendarAlt, FaStethoscope, FaHistory, FaPrescriptionBottleAlt, FaArrowLeft, FaPrint, FaTimes, FaPlus } from 'react-icons/fa';
 
 const PatientProfile = () => {
   const { id } = useParams();
