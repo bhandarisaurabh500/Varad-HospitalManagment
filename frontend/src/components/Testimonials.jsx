@@ -170,23 +170,30 @@ const Testimonials = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden group">
+            <a 
+              href="https://www.justdial.com/Ahmednagar/Varad-NetralayaDr-Smita-Patare-and-Dr-Raosaheb-Borude-Behind-Parichay-Hotelnear-Savedi-Naka-Savedi/9999PX241-X241-160309131642-L6H1_BZDET/reels?vid=4290642"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden group hover:scale-[1.02] transition-transform block"
+            >
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
-                <ReactPlayer 
-                  url="https://stream.jdmagicbox.com/comp/hls/9999px241.x241.160309131642.l6h1_vdsiadd0yhvilb8.m3u8" 
-                  width="100%" 
-                  height="100%" 
-                  controls={true}
-                  playing={false}
-                  light={false}
-                  config={{ file: { forceHLS: true } }}
+                <img 
+                  src="/photos/doctor/Dr_Borude_1.png" 
+                  alt="Doctor Borude Review Video"
+                  className="w-full h-full object-cover group-hover:opacity-75 transition-opacity"
                 />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <FaPlayCircle className="text-6xl text-white drop-shadow-lg group-hover:scale-110 transition-transform" />
+                </div>
               </div>
-              <div className="mt-4 px-2">
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white">Patient Experience & Tour</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Glimpses of Varad Netralaya and Dr. Borude</p>
+              <div className="mt-4 px-2 flex justify-between items-center">
+                <div>
+                  <h4 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600">Patient Experience & Tour</h4>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Watch on Justdial</p>
+                </div>
+                <FaExternalLinkAlt className="text-slate-400" />
               </div>
-            </div>
+            </a>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200/80 dark:border-slate-800 flex flex-col justify-center text-center">
               <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-4 text-2xl">
