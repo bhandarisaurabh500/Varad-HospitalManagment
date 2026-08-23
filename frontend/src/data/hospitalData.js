@@ -324,6 +324,34 @@ export const galleryData = [
     category: "Facilities",
     desc: "Comprehensive eye care services: Phaco surgery, Glaucoma (OCT, Perimetry), Medical & Surgical Retina, Pediatric Ophthalmology, ROP, Varad Eye Bank (PKP, TPK, DMEK, DSEK), Dry Eye Clinic, LASIK, and more.",
     imageUrl: "/photos/services/lasik-services.png"
+  },
+  {
+    id: 6,
+    title: "Dr. Raosaheb Borude - Felicitating Guest",
+    category: "Doctors",
+    desc: "Dr. Raosaheb Borude felicitating a guest at Varad Netralaya.",
+    imageUrl: "/photos/doctor/Dr_Borude_1.png"
+  },
+  {
+    id: 7,
+    title: "Dr. Borude and Dr. Patare",
+    category: "Doctors",
+    desc: "Dr. Raosaheb Borude alongside Dr. Smita Patare at a hospital event.",
+    imageUrl: "/photos/doctor/Dr_Borude_2.png"
+  },
+  {
+    id: 8,
+    title: "Dr. Raosaheb Borude - Presentation",
+    category: "Doctors",
+    desc: "Dr. Borude presenting a token of appreciation to a guest.",
+    imageUrl: "/photos/doctor/Dr_Borude_3.png"
+  },
+  {
+    id: 9,
+    title: "Modular Operation Theatre",
+    category: "Operation Theatre",
+    desc: "State-of-the-art Modular Operation Theatre with Laminar Airflow for zero-infection surgeries.",
+    imageUrl: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png"
   }
 ];
 
