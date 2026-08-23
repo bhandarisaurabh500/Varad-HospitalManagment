@@ -26,14 +26,18 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // ── CORS ────────────────────────────────────────────────────
 app.use(cors({
-  origin: [
-    process.env.CLIENT_URL, 
-    'http://localhost:5173', 
-    'https://frontend-gules-one-59.vercel.app',
-    'https://frontend-git-main-bhandarisaurabh500s-projects.vercel.app',
-    'https://frontend-mo28yw2bp-bhandarisaurabh500s-projects.vercel.app',
-    'https://varad-netralaya.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Allow non-browser requests
+    if (
+      origin === process.env.CLIENT_URL || 
+      origin === 'http://localhost:5173' || 
+      origin.endsWith('.vercel.app')
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
