@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { testimonialsData, hospitalInfo } from '../data/hospitalData';
 import { 
@@ -12,7 +12,6 @@ import {
   FaExternalLinkAlt,
   FaPlayCircle
 } from 'react-icons/fa';
-import ReactPlayer from 'react-player';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,6 +23,14 @@ const Testimonials = () => {
   const prevTestimonial = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonialsData.length) % testimonialsData.length);
   };
+
+  // Auto-play the testimonials slider
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextTestimonial();
+    }, 4000); // changes every 4 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   const activeItem = testimonialsData[currentIndex];
 
@@ -42,7 +49,7 @@ const Testimonials = () => {
           </h2>
           <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-teal-400 mx-auto mt-4 rounded-full"></div>
           <p className="text-slate-600 dark:text-slate-300 mt-4 text-base sm:text-lg">
-            Real patient experiences and recovery stories from Varad Multispeciality Hospital, Ahilyanagar.
+            Real patient experiences and recovery stories about Dr. Raosaheb Borude's excellent treatments.
           </p>
 
           {/* Google Review Badge & Write Review Action */}
@@ -115,7 +122,7 @@ const Testimonials = () => {
                   </p>
 
                   <div className="pt-2 flex items-center justify-center md:justify-start gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
-                    <FaCheckCircle /> Verified Google Patient Review
+                    <FaCheckCircle /> Verified Patient Review
                   </div>
                 </div>
               </div>
@@ -170,42 +177,44 @@ const Testimonials = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <a 
-              href="https://www.justdial.com/Ahmednagar/Varad-NetralayaDr-Smita-Patare-and-Dr-Raosaheb-Borude-Behind-Parichay-Hotelnear-Savedi-Naka-Savedi/9999PX241-X241-160309131642-L6H1_BZDET/reels?vid=4290642"
-              target="_blank"
-              rel="noreferrer"
-              className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden group hover:scale-[1.02] transition-transform block"
-            >
+            {/* Inline iframe attempt for the video */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden group relative">
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
-                <img 
-                  src="/photos/doctor/Dr_Borude_1.png" 
-                  alt="Doctor Borude Review Video"
-                  className="w-full h-full object-cover group-hover:opacity-75 transition-opacity"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <FaPlayCircle className="text-6xl text-white drop-shadow-lg group-hover:scale-110 transition-transform" />
-                </div>
+                <iframe 
+                  src="https://www.justdial.com/Ahmednagar/Varad-NetralayaDr-Smita-Patare-and-Dr-Raosaheb-Borude-Behind-Parichay-Hotelnear-Savedi-Naka-Savedi/9999PX241-X241-160309131642-L6H1_BZDET/reels?vid=4290642"
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Dr Borude Review Video"
+                ></iframe>
               </div>
               <div className="mt-4 px-2 flex justify-between items-center">
                 <div>
                   <h4 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600">Patient Experience & Tour</h4>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Watch on Justdial</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Dr. Borude checking patients</p>
                 </div>
-                <FaExternalLinkAlt className="text-slate-400" />
+                <a href="https://www.justdial.com/Ahmednagar/Varad-NetralayaDr-Smita-Patare-and-Dr-Raosaheb-Borude-Behind-Parichay-Hotelnear-Savedi-Naka-Savedi/9999PX241-X241-160309131642-L6H1_BZDET/reels?vid=4290642" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600">
+                  <FaExternalLinkAlt />
+                </a>
               </div>
-            </a>
+            </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200/80 dark:border-slate-800 flex flex-col justify-center text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-4 text-2xl">
-                <FaPlayCircle />
+            {/* High Quality Image Grid for Office/OT screenshots */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-4 shadow-xl border border-slate-200/80 dark:border-slate-800 flex flex-col justify-center">
+              <div className="grid grid-cols-2 gap-4 h-full">
+                <div className="relative rounded-2xl overflow-hidden group">
+                  <img src="/photos/facilities/consultation-room.png" alt="Dr Borude Office Consultation" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                    <p className="text-white text-xs font-bold">Consultation Office</p>
+                  </div>
+                </div>
+                <div className="relative rounded-2xl overflow-hidden group">
+                  <img src="/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png" alt="Modular Operation Theatre" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                    <p className="text-white text-xs font-bold">Operation Theatre</p>
+                  </div>
+                </div>
               </div>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">More Videos Coming Soon</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6">
-                We are constantly adding more patient recovery stories and detailed operation theater videos.
-              </p>
-              <button className="px-6 py-2.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold transition text-sm w-fit mx-auto">
-                Subscribe to Updates
-              </button>
             </div>
           </div>
         </div>
@@ -228,10 +237,10 @@ const Testimonials = () => {
             ))}
           </div>
           <button 
-            onClick={() => alert("Thank you! Review system will be fully integrated soon.")}
-            className="px-6 py-2.5 rounded-full bg-slate-900 dark:bg-slate-800 hover:bg-teal-500 text-white font-semibold transition"
+            onClick={() => window.open(hospitalInfo.googleMapsLink, "_blank")}
+            className="px-6 py-2.5 rounded-full bg-slate-900 dark:bg-slate-800 hover:bg-teal-500 text-white font-semibold transition flex items-center gap-2 mx-auto"
           >
-            Submit Review
+            Submit Review <FaExternalLinkAlt className="text-xs" />
           </button>
         </div>
 
