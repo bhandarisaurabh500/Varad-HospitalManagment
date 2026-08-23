@@ -152,6 +152,31 @@ const Testimonials = () => {
           </div>
         </div>
 
+        {/* Website Rating Form */}
+        <div className="max-w-2xl mx-auto mt-20 text-center bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200/80 dark:border-slate-800">
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-poppins mb-2">
+            Rate Your Experience with Dr. Borude
+          </h3>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
+            We value your feedback. Please provide your rating directly on our website!
+          </p>
+          <div className="flex items-center justify-center gap-2 mb-6 cursor-pointer">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <FaStar 
+                key={star} 
+                className="text-4xl text-slate-200 hover:text-amber-400 hover:scale-110 transition-all active:scale-95" 
+                onClick={() => alert("Thank you for your " + star + " star rating! Your feedback helps us improve.")}
+              />
+            ))}
+          </div>
+          <button 
+            onClick={() => alert("Thank you! Review system will be fully integrated soon.")}
+            className="px-6 py-2.5 rounded-full bg-slate-900 dark:bg-slate-800 hover:bg-teal-500 text-white font-semibold transition"
+          >
+            Submit Review
+          </button>
+        </div>
+
       </div>
     </section>
   );

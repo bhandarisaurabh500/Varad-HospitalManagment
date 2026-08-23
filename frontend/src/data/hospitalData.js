@@ -260,7 +260,7 @@ export const testimonialsData = [
     source: "Google 4.9★ Review",
     timeAgo: "2 months ago",
     treatment: "Stitchless Cataract Surgery (Dr. Raosaheb Borude)",
-    comment: "Varad Netralaya is the best eye hospital in Ahilyanagar! Dr. Borude explained the cataract procedure so clearly. My mother got stitchless Phaco surgery and her vision is crystal clear now. Extremely clean clinic and supportive staff.",
+    comment: "Varad Netralaya is the best eye hospital! Doctor Borude did a great job (mast work kel). He explained the cataract procedure so clearly and the surgery was completely painless. Highly recommended for any eye treatments.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
   },
   {
@@ -271,8 +271,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Google 4.9★ Review",
     timeAgo: "4 months ago",
-    treatment: "Diabetic Retina & Computerized Testing (Dr. Raosaheb Borude)",
-    comment: "I visited Varad Netralaya for computerized eye testing and diabetic retina screening. Dr. Raosaheb Borude is a highly knowledgeable ophthalmologist. The clinic is equipped with modern eye diagnostic machines.",
+    treatment: "LASIK Surgery (Dr. Raosaheb Borude)",
+    comment: "Doctor Borude is extremely knowledgeable and highly skilled. He performed my LASIK surgery perfectly. Now I have crystal clear vision without glasses. Thank you Dr. Borude for your excellent work!",
     photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
   },
   {
@@ -283,8 +283,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Google 4.9★ Review",
     timeAgo: "1 month ago",
-    treatment: "Pediatric Vision & Astigmatism Care (Dr. Raosaheb Borude)",
-    comment: "Great experience at Varad Netralaya! Dr. Borude treated my child's vision problem with so much patience and care. Highly recommended eye clinic near Anita Medical behind Hotel Parichay.",
+    treatment: "Pediatric Vision Care (Dr. Raosaheb Borude)",
+    comment: "Amazing experience! Doctor Borude handled my child's vision issues with so much care and expertise. His treatment is spot on. Truly a mast doctor with great experience. We are very satisfied.",
     photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
   }
 ];
@@ -333,13 +333,6 @@ export const galleryData = [
     imageUrl: "/photos/doctor/Dr_Borude_1.png"
   },
   {
-    id: 7,
-    title: "Dr. Borude and Dr. Patare",
-    category: "Doctors",
-    desc: "Dr. Raosaheb Borude alongside Dr. Smita Patare at a hospital event.",
-    imageUrl: "/photos/doctor/Dr_Borude_2.png"
-  },
-  {
     id: 8,
     title: "Dr. Raosaheb Borude - Presentation",
     category: "Doctors",
@@ -352,6 +345,34 @@ export const galleryData = [
     category: "Operation Theatre",
     desc: "State-of-the-art Modular Operation Theatre with Laminar Airflow for zero-infection surgeries.",
     imageUrl: "/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png"
+  },
+  {
+    id: 10,
+    title: "Schwind Amaris 750S",
+    category: "Equipment",
+    desc: "High-performance excimer laser for bladeless, customized LASIK refractive surgery.",
+    imageUrl: "/photos/Machine/schwind-amaris-750s.png"
+  },
+  {
+    id: 11,
+    title: "Zeiss Callisto",
+    category: "Equipment",
+    desc: "Computer-assisted cataract surgery system for precise toric IOL alignment.",
+    imageUrl: "/photos/Machine/zeiss-callisto.png"
+  },
+  {
+    id: 12,
+    title: "OCT + Angiography",
+    category: "Equipment",
+    desc: "High-resolution cross-sectional imaging of the retina and optic nerve.",
+    imageUrl: "/photos/Machine/oct-angiography.jpg"
+  },
+  {
+    id: 13,
+    title: "Corneal Topography Machine",
+    category: "Equipment",
+    desc: "Precise mapping of the corneal surface for diagnostic evaluation.",
+    imageUrl: "/photos/Machine/corneal-topography-mashine.jpg"
   }
 ];
 
