@@ -262,6 +262,55 @@ const DoctorPortfolio = () => {
             ))}
           </div>
         </div>
+
+        {/* AWARDS SECTION */}
+        <div className="mt-20">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <FaAward />
+              <span>Awards & Recognitions</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-poppins">Honors for Excellence</h3>
+            <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-400 mx-auto mt-3 rounded-full" />
+          </div>
+
+          <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              onClick={() => setActivePanel({
+                title: "Excellence in Ophthalmology 2024",
+                badge: "Award 2024",
+                badgeColor: "bg-amber-500",
+                imageUrl: "/photos/Award/Award 2024.png",
+                desc: "Recognized for outstanding contribution and excellence in the field of eye care, cataract surgery, and patient service in 2024."
+              })}
+              className="group relative rounded-3xl overflow-hidden border border-amber-500/20 shadow-2xl shadow-amber-500/10 cursor-pointer hover:scale-[1.03] transition-transform duration-300 w-full sm:max-w-md lg:max-w-lg"
+              style={{ minHeight: "350px", backgroundColor: "#0f172a" }}
+            >
+              <img
+                src="/photos/Award/Award%202024.png"
+                alt="Award 2024"
+                className="w-full h-full object-contain absolute inset-0 group-hover:scale-105 transition-transform duration-500 p-4"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none" />
+              <div className="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+                Top Honor 2024
+              </div>
+              <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                <FaSearchPlus className="text-sm" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 pointer-events-none bg-gradient-to-t from-slate-950 to-transparent">
+                <h4 className="text-amber-400 font-bold text-xl font-poppins drop-shadow-md">Excellence in Ophthalmology</h4>
+                <p className="text-slate-200 text-sm mt-1 drop-shadow-md">
+                  Awarded for outstanding contribution to eye care and patient service.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* LIGHTBOX MODAL */}
