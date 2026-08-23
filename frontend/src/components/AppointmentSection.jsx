@@ -24,6 +24,8 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     patientName: '',
     phone: '',
     email: '',
+    age: '',
+    gender: 'Male',
     doctor: preselectedDoctor || '',
     treatment: preselectedTreatment || '',
     preferredDate: '',
@@ -87,6 +89,8 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
         patient_name: formData.patientName,
         patient_email: formData.email || `${formData.phone}@noemail.com`,
         patient_phone: formData.phone,
+        age: formData.age ? parseInt(formData.age, 10) : null,
+        gender: formData.gender,
         symptoms: formData.message || formData.treatment || 'Comprehensive Checkup',
       };
 
@@ -207,6 +211,40 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+        </div>
+      </div>
+
+      {/* Age & Gender Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            Age
+          </label>
+          <input
+            type="number"
+            name="age"
+            min="1"
+            max="120"
+            value={formData.age}
+            onChange={handleChange}
+            placeholder="e.g. 45"
+            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            Gender
+          </label>
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
       </div>
 
