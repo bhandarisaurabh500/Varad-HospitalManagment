@@ -30,11 +30,12 @@ async function generateAppointmentNo() {
   const year = new Date().getFullYear();
   const prefix = `APT-${year}-`;
 
+  // Find the last real appointment (ignoring fake ones that contain 'F')
   const [rows] = await pool.execute(
     `SELECT appointment_no FROM appointments
-     WHERE appointment_no LIKE ?
+     WHERE appointment_no LIKE ? AND appointment_no NOT LIKE ?
      ORDER BY id DESC LIMIT 1`,
-    [`${prefix}%`]
+    [`${prefix}%`, `${prefix}F%`]
   );
 
   let nextNum = 1;
