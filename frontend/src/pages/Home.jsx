@@ -19,7 +19,6 @@ import InsurancePartners from '../components/InsurancePartners';
 const Home = () => (
   <>
     <Hero />
-    <DoctorBio />
     <PremiumEyeVideo />
     <Services />
     <AdvancedEquipmentHighlight />

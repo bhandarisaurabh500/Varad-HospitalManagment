@@ -62,7 +62,7 @@ const Gallery = () => {
               className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-300 cursor-pointer h-64 group border border-slate-200/80 dark:border-slate-800"
             >
               <img
-                src={item.imageUrl}
+                src={encodeURI(item.imageUrl)}
                 alt={item.title}
                 className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
                   ['Equipment', 'Machines'].includes(item.category) 
@@ -104,7 +104,7 @@ const Gallery = () => {
 
                 <div className="max-h-[70vh] overflow-hidden bg-black flex items-center justify-center">
                   <img
-                    src={selectedImage.imageUrl}
+                    src={encodeURI(selectedImage.imageUrl)}
                     alt={selectedImage.title}
                     className="max-h-[70vh] w-auto object-contain"
                   />

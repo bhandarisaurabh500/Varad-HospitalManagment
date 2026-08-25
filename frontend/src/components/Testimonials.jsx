@@ -183,13 +183,13 @@ const Testimonials = () => {
             {/* 4-Photo hospital grid */}
             <div className="grid grid-cols-2 gap-4">
               <div className="relative rounded-2xl overflow-hidden group h-52">
-                <img src="/photos/doctor/Dr_Borude_1.png" alt="Dr Borude Award Ceremony" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
+                <img src="/photos/doctor/Doctor 1.png" alt="Dr Borude Award Ceremony" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
                   <p className="text-white text-xs font-bold">Dr. Borude – Award Ceremony</p>
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden group h-52">
-                <img src="/photos/doctor/Dr_Borude_3.png" alt="Dr Borude Felicitation" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
+                <img src="/photos/doctor/Doctor 2.png" alt="Dr Borude Felicitation" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
                   <p className="text-white text-xs font-bold">Dr. Borude – Felicitation</p>
                 </div>
@@ -211,27 +211,31 @@ const Testimonials = () => {
             {/* Native video player with poster */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col">
               <div className="relative w-full" style={{paddingTop: '56.25%'}}>
-                <video
+                <iframe
                   className="absolute top-0 left-0 w-full h-full object-cover"
-                  controls
-                  preload="none"
-                  poster="/photos/doctor/Dr.BorudeSir.png"
-                >
-                  <source src="https://stream.jdmagicbox.com/comp/hls/9999px241.x241.160309131642.l6h1_vdsiadd0yhvilb8.m3u8" type="application/x-mpegURL" />
-                  Your browser does not support the video tag.
-                </video>
+                  src="https://www.youtube.com/embed/a38nME-7Ocg?si=nUxtJ2LfHMWOWVsv"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
               </div>
               <div className="p-5">
                 <h4 className="text-lg font-bold text-slate-900 dark:text-white">Patient Experience & Hospital Tour</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Dr. Raosaheb Borude examining patients at Varad Netralaya.</p>
-                <a
-                  href="https://www.justdial.com/Ahmednagar/Varad-NetralayaDr-Smita-Patare-and-Dr-Raosaheb-Borude-Behind-Parichay-Hotelnear-Savedi-Naka-Savedi/9999PX241-X241-160309131642-L6H1_BZDET/reels?vid=4290642"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-3 inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline"
-                >
-                  <FaPlayCircle /> Watch full video on Justdial <FaExternalLinkAlt className="text-[9px]" />
-                </a>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Watch Dr. Raosaheb Borude examining patients at Varad Netralaya.</p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Read our patient reviews on Justdial:</span>
+                  <a href="https://jsdl.in/RSL-BXC1787681221" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
+                    <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 1
+                  </a>
+                  <a href="https://jsdl.in/RSL-QAV1787681289" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
+                    <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 2
+                  </a>
+                  <a href="https://jsdl.in/RSL-HRZ1787681340" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
+                    <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 3
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -257,7 +261,24 @@ const Testimonials = () => {
                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Your review helps other patients. Fill in the form below!</p>
               </div>
 
-              <form onSubmit={(e) => { e.preventDefault(); if (!reviewForm.name || !reviewForm.rating || !reviewForm.comment) { alert('Please fill your name, rating, and review!'); return; } window.open(hospitalInfo.googleMapsLink, '_blank'); setReviewForm(prev => ({ ...prev, submitted: true })); }} className="space-y-5">
+              <form onSubmit={(e) => { 
+                e.preventDefault(); 
+                if (!reviewForm.name || !reviewForm.rating || !reviewForm.comment) { 
+                  alert('Please fill your name, rating, and review!'); 
+                  return; 
+                } 
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                  navigator.clipboard.writeText(reviewForm.comment).then(() => {
+                    alert('आपला Review कॉपी झाला आहे! Google उघडल्यावर Paste (Ctrl+V) करून Submit करा.');
+                    window.open(hospitalInfo.googleMapsLink, '_blank'); 
+                  }).catch(() => {
+                    window.open(hospitalInfo.googleMapsLink, '_blank'); 
+                  });
+                } else {
+                  window.open(hospitalInfo.googleMapsLink, '_blank');
+                }
+                setReviewForm(prev => ({ ...prev, submitted: true })); 
+              }} className="space-y-5">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
                   <input

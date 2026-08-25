@@ -7,9 +7,12 @@ async function createAppointment(req, res, next) {
   try {
     const {
       doctor_id, service_id, appointment_date, appointment_time,
-      symptoms, age, gender, patient_name, patient_email, patient_phone,
+      symptoms, age, patient_name, patient_email, patient_phone,
       patient_uid
     } = req.body;
+
+    // Normalize gender to UPPERCASE to match DB CHECK constraint ('MALE','FEMALE','OTHER')
+    const gender = req.body.gender ? req.body.gender.toUpperCase() : null;
 
     if (!doctor_id || !appointment_date || !appointment_time) {
       return res.status(422).json({ success: false, message: 'doctor_id, appointment_date, appointment_time are required.' });

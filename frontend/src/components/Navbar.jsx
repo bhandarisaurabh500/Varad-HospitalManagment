@@ -29,6 +29,7 @@ const Navbar = () => {
     { name: 'Advanced Equipment', href: '/advanced-equipment', isRoute: true },
     { name: 'Healthcare', href: '#healthcare' },
     { name: 'Services', href: '#services' },
+    { name: 'Reviews', href: '#reviews' },
     { name: 'Contact', href: '#contact' },
   ];
 

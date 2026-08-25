@@ -14,7 +14,7 @@ export const hospitalInfo = {
   plusCode: "",
   youtubeChannel: "",
   officialVideoEmbed: "",
-  googleMapsLink: "",
+  googleMapsLink: "https://www.google.com/search?q=varad+netralaya&oq=vara&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRg5MgoIAhAuGLEDGIAEMgcIAxAAGIAEMgoIBBAuGLEDGIAEMgcIBRAAGIAEMg0IBhAAGLEDGIAEGIoFMgcIBxAAGIAEMgcICBAuGIAEMgcICRAuGIAE0gEJMjQ4NmowajE1qAIIsAIB8QWdCQbEUvOj6A&sourceid=chrome&source=chrome.rb&ie=UTF-8#sv=CAESzQEKuQEStgEKd0FKaVQ0dEpWaVltRXZKUkM4Z0xUZlRYRXFHeGg4c3Q0VVRjdURqOEZqeDF3cE84Ty1PcTBJRGhyZm1ueWdaTU9EXzhTdWRTMmtHdG4zZnlRdDNkaGZYb1E4Q0UzU2tISEhEMFEweUNzQTdtblBNaHZTeURsYk1jEhdjZUdOYXBTZk1mVFJ3Y3NQdVB1SjRRdxoiQURzcjlmUnAtRjNYUnVuV0xuQUZuVU03MHlhRTRzSC12dxIEODA1MRoBMyoAMAA4AUAAGAAggfOn6gM6AEoCEAI",
   workingHours: {
     weekdays: "OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri",
     sunday: "Closed",
@@ -330,14 +330,14 @@ export const galleryData = [
     title: "Dr. Raosaheb Borude - Felicitating Guest",
     category: "Doctors",
     desc: "Dr. Raosaheb Borude felicitating a guest at Varad Netralaya.",
-    imageUrl: "/photos/doctor/Dr_Borude_1.png"
+    imageUrl: "/photos/doctor/Doctor 1.png"
   },
   {
     id: 8,
     title: "Dr. Raosaheb Borude - Presentation",
     category: "Doctors",
     desc: "Dr. Borude presenting a token of appreciation to a guest.",
-    imageUrl: "/photos/doctor/Dr_Borude_3.png"
+    imageUrl: "/photos/doctor/Doctor 2.png"
   },
   {
     id: 9,
@@ -373,6 +373,90 @@ export const galleryData = [
     category: "Equipment",
     desc: "Precise mapping of the corneal surface for diagnostic evaluation.",
     imageUrl: "/photos/Machine/corneal-topography-mashine.jpg"
+  },
+  {
+    id: 14,
+    title: "Clinic Interior",
+    category: "Facilities",
+    desc: "Bright Teal Medical Clinic Interior.",
+    imageUrl: "/photos/Gallary/Bright Teal Medical Clinic Interior.png"
+  },
+  {
+    id: 15,
+    title: "Pediatric Eye Clinic",
+    category: "Facilities",
+    desc: "Colorful Underwater Pediatric Clinic area.",
+    imageUrl: "/photos/Gallary/Colorful Underwater Pediatric Dental Clinic.png"
+  },
+  {
+    id: 16,
+    title: "Ophthalmology Exam Room",
+    category: "Equipment",
+    desc: "Modern Aqua Ophthalmology Exam Room.",
+    imageUrl: "/photos/Gallary/Modern Aqua Ophthalmology Exam Room.png"
+  },
+  {
+    id: 17,
+    title: "Hospital Room",
+    category: "Facilities",
+    desc: "Modern Hospital Room Through Wooden Door.",
+    imageUrl: "/photos/Gallary/Modern Hospital Room Through Wooden Door.png"
+  },
+  {
+    id: 18,
+    title: "Eye Exam Room",
+    category: "Facilities",
+    desc: "Modern Mint Eye Exam Room.",
+    imageUrl: "/photos/Gallary/Modern Mint Eye Exam Room.png"
+  },
+  {
+    id: 19,
+    title: "Examination Room",
+    category: "Facilities",
+    desc: "Modern Mint Green Examination Room.",
+    imageUrl: "/photos/Gallary/Modern Mint Green Examination Room.png"
+  },
+  {
+    id: 20,
+    title: "Waiting Room",
+    category: "Facilities",
+    desc: "Modern Waiting Room with TV and Seating.",
+    imageUrl: "/photos/Gallary/Modern Waiting Room with TV and Seating.png"
+  },
+  {
+    id: 21,
+    title: "Procedure Room",
+    category: "Operation Theatre",
+    desc: "Sterile Clinical Procedure Room.",
+    imageUrl: "/photos/Gallary/Sterile Clinical Procedure Room.png"
+  },
+  {
+    id: 22,
+    title: "Eye Care Infographic",
+    category: "Patients",
+    desc: "Child Rubbing Eye Medical Infographic.",
+    imageUrl: "/photos/Eye Problems/Child Rubbing Eye Medical Infographic.png"
+  },
+  {
+    id: 23,
+    title: "Eye Care Awareness",
+    category: "Patients",
+    desc: "Eye Care Awareness Poster.",
+    imageUrl: "/photos/Eye Problems/Eye Care Awareness Poster.png"
+  },
+  {
+    id: 24,
+    title: "Hydration and Eye Health",
+    category: "Patients",
+    desc: "Hydration and Eye Health Connection Poster.",
+    imageUrl: "/photos/Eye Problems/Hydration and Eye Health Connection Poster.png"
+  },
+  {
+    id: 25,
+    title: "धूम्रपान आणि डोळ्यांचे आरोग्य",
+    category: "Patients",
+    desc: "धूम्रपान आणि डोळ्यांचे आरोग्य (Smoking and Eye Health).",
+    imageUrl: "/photos/Eye Problems/धूम्रपान आणि डोळ्यांचे आरोग्य.png"
   }
 ];
 

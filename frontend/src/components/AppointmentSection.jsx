@@ -25,11 +25,11 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     phone: '',
     email: '',
     age: '',
-    gender: 'Male',
+    gender: 'MALE',
     doctor: preselectedDoctor || '',
     treatment: preselectedTreatment || '',
     preferredDate: '',
-    preferredTime: 'Morning (9:00 AM - 12:00 PM)',
+    preferredTime: '09:00',
     message: ''
   });
 
@@ -78,9 +78,8 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     setApiError('');
     
     try {
-      let appointmentTime = '10:00:00';
-      if (formData.preferredTime.includes('Afternoon')) appointmentTime = '14:00:00';
-      if (formData.preferredTime.includes('Evening')) appointmentTime = '18:00:00';
+      // Use the selected 30-min slot directly
+      const appointmentTime = `${formData.preferredTime}:00`;
 
       const payload = {
         doctor_id: 1, // Defaulting to Dr. Ravsaheb Borude
@@ -241,9 +240,9 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
             onChange={handleChange}
             className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
           </select>
         </div>
       </div>
@@ -329,9 +328,21 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
               onChange={handleChange}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="Morning (9:00 AM - 12:00 PM)">Morning (9:00 AM - 12:00 PM)</option>
-              <option value="Afternoon (2:00 PM - 5:00 PM)">Afternoon (2:00 PM - 5:00 PM)</option>
-              <option value="Evening (5:00 PM - 8:00 PM)">Evening (5:00 PM - 8:00 PM)</option>
+              <optgroup label="🌅 Morning">
+                <option value="09:00">9:00 AM – 9:30 AM</option>
+                <option value="09:30">9:30 AM – 10:00 AM</option>
+                <option value="10:00">10:00 AM – 10:30 AM</option>
+                <option value="10:30">10:30 AM – 11:00 AM</option>
+                <option value="11:00">11:00 AM – 11:30 AM</option>
+                <option value="11:30">11:30 AM – 12:00 PM</option>
+              </optgroup>
+              <optgroup label="☀️ Afternoon">
+                <option value="14:00">2:00 PM – 2:30 PM</option>
+                <option value="14:30">2:30 PM – 3:00 PM</option>
+                <option value="15:00">3:00 PM – 3:30 PM</option>
+                <option value="15:30">3:30 PM – 4:00 PM</option>
+                <option value="16:00">4:00 PM – 4:30 PM</option>
+              </optgroup>
             </select>
           </div>
         </div>

@@ -31,15 +31,19 @@ const AdminAppointments = () => {
     }
   };
 
-  const updateStatus = async (id, newStatus) => {
+  const updateStatus = async (id, newStatus, appt) => {
     try {
       await api.put(`/appointments/${id}/status`, { status: newStatus });
       
       // Update local state
-      setAppointments(appointments.map(appt => 
-        appt.id === id ? { ...appt, status: newStatus } : appt
+      setAppointments(appointments.map(a => 
+        a.id === id ? { ...a, status: newStatus } : a
       ));
       setActionMenuId(null);
+
+      if (newStatus === 'CONFIRMED' && appt) {
+        handleWhatsApp(appt);
+      }
     } catch (error) {
       console.error('Error updating status:', error);
       alert('Failed to update status');
@@ -203,7 +207,7 @@ const AdminAppointments = () => {
                           
                           {appt.status === 'PENDING' && (
                             <button 
-                              onClick={() => updateStatus(appt.id, 'CONFIRMED')}
+                              onClick={() => updateStatus(appt.id, 'CONFIRMED', appt)}
                               className="px-2.5 py-1.5 bg-blue-100 text-blue-700 text-xs font-bold hover:bg-blue-200 rounded-md transition-colors flex items-center gap-1.5"
                               title="Approve"
                             ><FaCheck /> Approve</button>
