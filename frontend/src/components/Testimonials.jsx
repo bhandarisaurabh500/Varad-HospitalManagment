@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { testimonialsData, hospitalInfo } from '../data/hospitalData';
+import { hospitalInfo } from '../data/hospitalData';
+import api from '../services/api';
 import { 
   FaStar, 
   FaQuoteLeft, 
@@ -17,7 +18,25 @@ import {
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [testimonialsData, setTestimonialsData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [reviewForm, setReviewForm] = useState({ name: '', rating: 0, hoverRating: 0, comment: '', submitted: false });
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await api.get('/reviews');
+        if (res.data.success) {
+          setTestimonialsData(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch reviews:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReviews();
+  }, []);
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonialsData.length);
@@ -29,13 +48,16 @@ const Testimonials = () => {
 
   // Auto-play the testimonials slider
   useEffect(() => {
+    if (testimonialsData.length === 0) return;
     const timer = setInterval(() => {
       nextTestimonial();
-    }, 4000); // changes every 4 seconds
+    }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonialsData]);
 
   const activeItem = testimonialsData[currentIndex];
+
+  if (loading) return null;
 
   return (
     <section id="reviews" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
@@ -91,24 +113,24 @@ const Testimonials = () => {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
                 {/* Patient Photo & Info */}
                 <div className="md:col-span-4 text-center">
-                  <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden shadow-lg border-4 border-teal-400 mb-4 bg-slate-100">
-                    <img
-                      src={activeItem.photo}
-                      alt={activeItem.name}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden shadow-lg border-4 border-teal-400 mb-4 bg-slate-100 flex items-center justify-center">
+                    {activeItem.photo_url ? (
+                      <img
+                        src={activeItem.photo_url}
+                        alt={activeItem.reviewer_name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <FaUserCircle className="text-6xl text-slate-300" />
+                    )}
                   </div>
 
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white font-poppins">
-                    {activeItem.name}
+                    {activeItem.reviewer_name || 'Anonymous'}
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {activeItem.city} • <span className="text-slate-400">{activeItem.timeAgo}</span>
+                    {new Date(activeItem.created_at).toLocaleDateString()}
                   </p>
-
-                  <span className="inline-block mt-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-teal-400 font-semibold text-[11px]">
-                    {activeItem.treatment}
-                  </span>
                 </div>
 
                 {/* Patient Quote & Ratings */}
@@ -117,11 +139,11 @@ const Testimonials = () => {
                     {[...Array(activeItem.rating)].map((_, i) => (
                       <FaStar key={i} />
                     ))}
-                    <span className="text-xs font-bold text-slate-500 ml-2">({activeItem.source})</span>
+                    <span className="text-xs font-bold text-slate-500 ml-2">({activeItem.source || 'Website'})</span>
                   </div>
 
                   <p className="text-base sm:text-lg text-slate-700 dark:text-slate-200 italic leading-relaxed">
-                    "{activeItem.comment}"
+                    "{activeItem.review}"
                   </p>
 
                   <div className="pt-2 flex items-center justify-center md:justify-start gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -261,23 +283,22 @@ const Testimonials = () => {
                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Your review helps other patients. Fill in the form below!</p>
               </div>
 
-              <form onSubmit={(e) => { 
+              <form onSubmit={async (e) => { 
                 e.preventDefault(); 
                 if (!reviewForm.name || !reviewForm.rating || !reviewForm.comment) { 
                   alert('Please fill your name, rating, and review!'); 
                   return; 
                 } 
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                  navigator.clipboard.writeText(reviewForm.comment).then(() => {
-                    alert('आपला Review कॉपी झाला आहे! Google उघडल्यावर Paste (Ctrl+V) करून Submit करा.');
-                    window.open(hospitalInfo.googleMapsLink, '_blank'); 
-                  }).catch(() => {
-                    window.open(hospitalInfo.googleMapsLink, '_blank'); 
+                try {
+                  await api.post('/reviews', {
+                    reviewer_name: reviewForm.name,
+                    rating: reviewForm.rating,
+                    review: reviewForm.comment
                   });
-                } else {
-                  window.open(hospitalInfo.googleMapsLink, '_blank');
+                  setReviewForm(prev => ({ ...prev, submitted: true })); 
+                } catch (error) {
+                  alert('Failed to submit review. Please try again.');
                 }
-                setReviewForm(prev => ({ ...prev, submitted: true })); 
               }} className="space-y-5">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
@@ -329,10 +350,10 @@ const Testimonials = () => {
                   type="submit"
                   className="w-full px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-base shadow-lg transition flex items-center justify-center gap-2"
                 >
-                  <FaGoogle /> Submit Review on Google
+                  <FaStar /> Submit Review
                 </button>
                 <p className="text-center text-xs text-slate-400 dark:text-slate-600">
-                  After submitting, Google Maps will open so your review is posted publicly.
+                  Your review will be published after approval by the clinic.
                 </p>
               </form>
             </>

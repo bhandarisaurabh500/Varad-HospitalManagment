@@ -24,6 +24,9 @@ import AdminInsurance from './pages/admin/AdminInsurance';
 import AdminGallery from './pages/admin/AdminGallery';
 import AdminEquipment from './pages/admin/AdminEquipment';
 import AdminNotices from './pages/admin/AdminNotices';
+import AdminServices from './pages/admin/AdminServices';
+import AdminReviews from './pages/admin/AdminReviews';
+import AdminProfile from './pages/admin/AdminProfile';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
@@ -62,8 +65,9 @@ function App() {
                       <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="appointments" element={<AdminAppointments />} />
                       <Route path="guidelines" element={<AdminNotices />} />
-                      <Route path="profile" element={<Placeholder title="Doctor Profile" />} />
-                      <Route path="services" element={<Placeholder title="Eye Care / Services" />} />
+                      <Route path="profile" element={<AdminProfile />} />
+                      <Route path="services" element={<AdminServices />} />
+                      <Route path="reviews" element={<AdminReviews />} />
                       <Route path="advanced-equipment" element={<AdminEquipment />} />
                       <Route path="gallery" element={<AdminGallery />} />
                       <Route path="patients" element={<PatientDirectory />} />

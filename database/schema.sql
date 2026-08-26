@@ -302,3 +302,13 @@ CREATE TABLE IF NOT EXISTS notices (
   is_active BOOLEAN DEFAULT 1,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ============================================================
+-- SITE SETTINGS TABLE
+-- ============================================================
+CREATE TABLE IF NOT EXISTS site_settings (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  setting_key VARCHAR(100) NOT NULL UNIQUE,
+  setting_value JSON NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

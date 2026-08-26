@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { FaCalendarCheck, FaStethoscope, FaUserMd } from 'react-icons/fa';
-import { hospitalInfo, doctorsData } from '../data/hospitalData';
+import api from '../services/api';
 
 const DoctorBio = () => {
   const { openAppointmentModal } = useTheme();
-  // Using existing Dr. Borude data but keeping bio specific to new request
-  const doctor = doctorsData.find(d => d.id === 2);
+  const [doctor, setDoctor] = useState(null);
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const res = await api.get('/doctors');
+        if (res.data.success && res.data.data.length > 0) {
+          setDoctor(res.data.data[0]);
+        }
+      } catch (err) {
+        console.error('Failed to fetch doctor bio', err);
+      }
+    };
+    fetchDoctor();
+  }, []);
+
+  if (!doctor) return null;
   
   return (
     <section id="doctor-bio" className="py-20 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 transition-colors duration-300">
@@ -50,25 +65,31 @@ const DoctorBio = () => {
             </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white font-poppins">
-              Dr. R.K. Borude
+              {doctor.name}
             </h2>
             
             <h3 className="text-xl md:text-2xl font-bold text-teal-600 dark:text-teal-400">
-              Retina & Refractive Specialist
+              {doctor.specialization || 'Eye Specialist'}
             </h3>
 
             <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-300">
-              <p className="leading-relaxed">
-                Dr. R.K. Borude is a dedicated Retina & Refractive Specialist providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
-              </p>
-              <p className="leading-relaxed">
-                With a commitment to precision and safety, he provides specialized care for retinal and refractive eye conditions and helps patients achieve better vision and improved quality of life.
-              </p>
+              {doctor.about ? (
+                <p className="leading-relaxed whitespace-pre-line">{doctor.about}</p>
+              ) : (
+                <>
+                  <p className="leading-relaxed">
+                    Dr. R.K. Borude is a dedicated Retina & Refractive Specialist providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
+                  </p>
+                  <p className="leading-relaxed">
+                    With a commitment to precision and safety, he provides specialized care for retinal and refractive eye conditions and helps patients achieve better vision and improved quality of life.
+                  </p>
+                </>
+              )}
             </div>
 
             <div className="pt-6 flex flex-wrap items-center gap-4">
               <button
-                onClick={() => openAppointmentModal("Dr. R.K. Borude")}
+                onClick={() => openAppointmentModal(doctor.name)}
                 className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-base shadow-lg shadow-blue-500/25 hover:shadow-xl hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
               >
                 <FaCalendarCheck className="text-lg" />

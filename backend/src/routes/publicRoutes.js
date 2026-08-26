@@ -9,6 +9,7 @@ const roleMiddleware = require('../middleware/roleMiddleware');
 const { uploadDocument } = require('../middleware/uploadMiddleware');
 const { getEquipment, getAllEquipment, createEquipment, updateEquipment, deleteEquipment } = require('../controllers/equipmentController');
 const { getNotices, getAllNotices, createNotice, updateNotice, deleteNotice } = require('../controllers/noticeController');
+const { getServices, getServiceById, createService, updateService, deleteService } = require('../controllers/serviceController');
 
 // Gallery
 router.get('/gallery', getGallery);
@@ -39,5 +40,12 @@ router.get('/notices/all', authMiddleware, roleMiddleware('ADMIN'), getAllNotice
 router.post('/notices', authMiddleware, roleMiddleware('ADMIN'), createNotice);
 router.put('/notices/:id', authMiddleware, roleMiddleware('ADMIN'), updateNotice);
 router.delete('/notices/:id', authMiddleware, roleMiddleware('ADMIN'), deleteNotice);
+
+// Services
+router.get('/services', getServices);
+router.get('/services/:id', getServiceById);
+router.post('/services', authMiddleware, roleMiddleware('ADMIN'), createService);
+router.put('/services/:id', authMiddleware, roleMiddleware('ADMIN'), updateService);
+router.delete('/services/:id', authMiddleware, roleMiddleware('ADMIN'), deleteService);
 
 module.exports = router;

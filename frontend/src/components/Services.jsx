@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { servicesData } from '../data/hospitalData';
+import * as Icons from 'react-icons/fa';
+import api from '../services/api';
 import { useTheme } from '../context/ThemeContext';
 import { 
   FaEye, 
@@ -19,29 +20,41 @@ import {
   FaInfoCircle
 } from 'react-icons/fa';
 
-const iconMap = {
-  FaEye: FaEye,
-  GiMicroscope: FaMicroscope,
-  FaBriefcaseMedical: FaBriefcaseMedical,
-  FaSearchPlus: FaSearchPlus,
-  FaNotesMedical: FaNotesMedical,
-  FaGlasses: FaGlasses,
-  FaChild: FaChild,
-  FaDotCircle: FaDotCircle,
-  FaBaby: FaBaby,
-  FaCheckCircle: FaCheckCircle
-};
-
 const Services = () => {
   const { openAppointmentModal } = useTheme();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState(0);
+  const [servicesData, setServicesData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeModalService, setActiveModalService] = useState(null);
 
-  const filteredServices = servicesData.filter(service =>
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    service.tagline.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await api.get('/services');
+        if (res.data.success) {
+          setServicesData(res.data.data);
+          if (res.data.data.length > 0) {
+            setActiveTab(res.data.data[0].id);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch services:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  const activeService = servicesData.find(s => s.id === activeTab) || servicesData[0];
+
+  const DynamicIcon = ({ iconName, className }) => {
+    const IconComponent = Icons[iconName] || Icons.FaBriefcaseMedical;
+    return <IconComponent className={className} />;
+  };
+
+  if (loading) return null;
+  if (!servicesData || servicesData.length === 0) return null;
 
   return (
     <section id="services" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative">
@@ -57,27 +70,11 @@ const Services = () => {
             Our Eye Care Services
           </h2>
           <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-teal-400 mx-auto mt-4 rounded-full"></div>
-          <p className="text-slate-600 dark:text-slate-300 mt-4 text-base sm:text-lg">
-            Complete diagnostic, therapeutic, and surgical eye care under one roof with advanced technology.
-          </p>
-
-          {/* Search bar */}
-          <div className="mt-8 relative max-w-md mx-auto">
-            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search service (e.g. Cataract, LASIK, Retina)..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
-            />
-          </div>
         </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredServices.map((service, index) => {
-            const IconComponent = iconMap[service.icon] || FaEye;
+          {servicesData.map((service, index) => {
             return (
               <motion.div
                 key={service.id}
@@ -91,35 +88,18 @@ const Services = () => {
                 <div>
                   <div className="flex items-center justify-between mb-5">
                     <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-teal-400 flex items-center justify-center text-2xl group-hover:bg-gradient-to-tr group-hover:from-blue-600 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 shadow-sm">
-                      <IconComponent />
+                      <DynamicIcon iconName={service.icon} />
                     </div>
-                    <span className="text-[11px] font-semibold tracking-wider uppercase px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                      Sub-Specialty
-                    </span>
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white font-poppins group-hover:text-blue-600 dark:group-hover:text-teal-400 transition-colors">
-                    {service.title}
+                    {service.name}
                   </h3>
-                  <p className="text-xs font-semibold text-teal-600 dark:text-teal-400 mt-1">
-                    {service.tagline}
-                  </p>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-                    {service.desc}
+                    {service.short_desc}
                   </p>
-
-                  {/* Procedure Highlights List */}
-                  <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
-                    {service.details.slice(0, 3).map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
-                        <FaCheckCircle className="text-teal-500 text-[11px] flex-shrink-0" />
-                        <span className="truncate">{item}</span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
 
-                {/* Actions */}
                 <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                   <button
                     onClick={() => setActiveModalService(service)}
@@ -128,7 +108,7 @@ const Services = () => {
                     <FaInfoCircle /> Details
                   </button>
                   <button
-                    onClick={() => openAppointmentModal(null, service.title)}
+                    onClick={() => openAppointmentModal(null, service.name)}
                     className="px-4 py-2 rounded-full bg-blue-50 dark:bg-slate-800 hover:bg-blue-600 hover:text-white dark:hover:bg-teal-500 text-blue-600 dark:text-teal-400 font-semibold text-xs transition-colors flex items-center gap-1.5"
                   >
                     <FaCalendarCheck /> Book Care
@@ -156,29 +136,21 @@ const Services = () => {
                   <FaTimes />
                 </button>
 
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-poppins pr-8">
-                  {activeModalService.title}
-                </h3>
-                <p className="text-xs font-semibold text-teal-600 dark:text-teal-400 mt-1">
-                  {activeModalService.tagline}
-                </p>
-                <p className="text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
-                  {activeModalService.desc}
-                </p>
-
-                <div className="mt-6">
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
-                    Key Procedures & Features:
-                  </h4>
-                  <div className="space-y-2.5">
-                    {activeModalService.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl">
-                        <FaCheckCircle className="text-teal-500 mt-0.5 flex-shrink-0" />
-                        <span>{detail}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-teal-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center shadow-inner mb-4">
+                  <DynamicIcon iconName={activeModalService.icon} className="text-3xl text-teal-600 dark:text-teal-400" />
                 </div>
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white mb-2">
+                    {activeModalService.name}
+                  </h3>
+                  <p className="text-teal-600 dark:text-teal-400 font-medium">
+                    {activeModalService.short_desc}
+                  </p>
+                </div>
+                
+                <p className="text-sm text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
+                  {activeModalService.description}
+                </p>
 
                 <div className="mt-8 flex items-center justify-end gap-3">
                   <button

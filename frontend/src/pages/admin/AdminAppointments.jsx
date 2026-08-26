@@ -41,8 +41,9 @@ const AdminAppointments = () => {
       ));
       setActionMenuId(null);
 
-      if (newStatus === 'CONFIRMED' && appt) {
-        handleWhatsApp(appt);
+      // Open WhatsApp for manual send on status change
+      if (appt) {
+        handleWhatsApp(appt, newStatus);
       }
     } catch (error) {
       console.error('Error updating status:', error);
@@ -62,7 +63,7 @@ const AdminAppointments = () => {
     }
   };
 
-  const handleWhatsApp = (appt) => {
+  const handleWhatsApp = (appt, specificStatus = null) => {
     const rawPhone = appt.patient_phone || '';
     let phone = rawPhone.replace(/\D/g, ''); // Extract only digits
     if (!phone) return alert('No phone number available.');
@@ -73,8 +74,9 @@ const AdminAppointments = () => {
     const patientName = appt.patient_name || 'Patient';
     const apptDate = new Date(appt.appointment_date).toLocaleDateString();
     const apptTime = appt.appointment_time;
+    const status = specificStatus || appt.status;
     
-    const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${appt.status}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+    const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${status}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -228,10 +230,10 @@ const AdminAppointments = () => {
                             {actionMenuId === appt.id && (
                               <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-50 py-1 text-left">
                                 {appt.status !== 'PENDING' && (
-                                  <button onClick={() => updateStatus(appt.id, 'PENDING')} className="w-full px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 text-left font-medium">Mark Pending</button>
+                                  <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 text-left font-medium">Mark Pending</button>
                                 )}
                                 {appt.status !== 'CANCELLED' && (
-                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED')} className="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left font-medium">Reject</button>
+                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED', appt)} className="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left font-medium">Reject</button>
                                 )}
                                 <button onClick={() => handleWhatsApp(appt)} className="w-full px-4 py-2 text-sm text-green-600 hover:bg-green-50 text-left font-medium">WhatsApp</button>
                                 <hr className="border-slate-100 dark:border-slate-700 my-1"/>
