@@ -35,6 +35,36 @@ INSERT IGNORE INTO users (id, role_id, full_name, email, phone, password, is_act
  'sunita.patil@example.com',
  '+91 9876543211',
  '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
+ 1),
+(6, (SELECT id FROM roles WHERE name='PATIENT'),
+ 'Amit Deshmukh',
+ 'amit.deshmukh@example.com',
+ '+91 9876543212',
+ '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
+ 1),
+(7, (SELECT id FROM roles WHERE name='PATIENT'),
+ 'Neha Kulkarni',
+ 'neha.kulkarni@example.com',
+ '+91 9876543213',
+ '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
+ 1),
+(8, (SELECT id FROM roles WHERE name='PATIENT'),
+ 'Rohan Joshi',
+ 'rohan.joshi@example.com',
+ '+91 9876543214',
+ '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
+ 1),
+(9, (SELECT id FROM roles WHERE name='PATIENT'),
+ 'Priya Shinde',
+ 'priya.shinde@example.com',
+ '+91 9876543215',
+ '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
+ 1),
+(10, (SELECT id FROM roles WHERE name='PATIENT'),
+ 'Vikram Pawar',
+ 'vikram.pawar@example.com',
+ '+91 9876543216',
+ '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm',
  1);
 
 -- ============================================================
@@ -56,7 +86,12 @@ INSERT IGNORE INTO doctors (user_id, registration_no, qualification, specializat
 -- ============================================================
 INSERT IGNORE INTO patients (user_id, age, gender, blood_group, address) VALUES
 (4, 45, 'MALE',   'B+', 'Near Station, Ahilyanagar'),
-(5, 32, 'FEMALE', 'O+', 'Savedi Road, Ahilyanagar');
+(5, 32, 'FEMALE', 'O+', 'Savedi Road, Ahilyanagar'),
+(6, 28, 'MALE',   'A+', 'Bhingar, Ahilyanagar'),
+(7, 35, 'FEMALE', 'AB+', 'Kedgaon, Ahilyanagar'),
+(8, 42, 'MALE',   'O-', 'Nagar-Pune Road, Ahilyanagar'),
+(9, 29, 'FEMALE', 'B-', 'Burudgaon Road, Ahilyanagar'),
+(10, 50, 'MALE',  'O+', 'Pipeline Road, Ahilyanagar');
 
 -- ============================================================
 -- DOCTOR AVAILABILITY
