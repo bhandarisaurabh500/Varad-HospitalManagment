@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { galleryData } from '../data/hospitalData';
 import { FaImages, FaSearchPlus, FaTimes } from 'react-icons/fa';
+import api from '../services/api';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [galleryData, setGalleryData] = useState([]);
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await api.get('/gallery');
+        if (res.data.success) {
+          setGalleryData(res.data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery:', err);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   const categories = ['All', 'Operation Theatre', 'Equipment', 'Facilities', 'Doctors', 'Patients'];
 
@@ -62,7 +77,7 @@ const Gallery = () => {
               className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-300 cursor-pointer h-64 group border border-slate-200/80 dark:border-slate-800"
             >
               <img
-                src={encodeURI(item.imageUrl)}
+                src={encodeURI(item.image_url)}
                 alt={item.title}
                 className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
                   ['Equipment', 'Machines'].includes(item.category) 
@@ -75,7 +90,7 @@ const Gallery = () => {
                   {item.category}
                 </span>
                 <h3 className="text-base font-bold font-poppins">{item.title}</h3>
-                <p className="text-xs text-slate-300 mt-1 line-clamp-2">{item.desc}</p>
+                <p className="text-xs text-slate-300 mt-1 line-clamp-2">{item.description}</p>
 
                 <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-sm">
                   <FaSearchPlus />
@@ -104,7 +119,7 @@ const Gallery = () => {
 
                 <div className="max-h-[70vh] overflow-hidden bg-black flex items-center justify-center">
                   <img
-                    src={encodeURI(selectedImage.imageUrl)}
+                    src={encodeURI(selectedImage.image_url)}
                     alt={selectedImage.title}
                     className="max-h-[70vh] w-auto object-contain"
                   />
@@ -118,7 +133,7 @@ const Gallery = () => {
                     {selectedImage.title}
                   </h3>
                   <p className="text-sm text-slate-300 mt-2">
-                    {selectedImage.desc}
+                    {selectedImage.description}
                   </p>
                 </div>
               </motion.div>

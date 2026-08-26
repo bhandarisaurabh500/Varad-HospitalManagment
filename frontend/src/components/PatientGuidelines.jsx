@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { patientGuidelinesData } from '../data/hospitalData';
 import { FaHeartbeat, FaPills, FaAppleAlt, FaExclamationCircle, FaStar } from 'react-icons/fa';
+import api from '../services/api';
 
 const PatientGuidelines = () => {
   const [activeTab, setActiveTab] = useState('postOpCare');
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const res = await api.get('/notices');
+        if (res.data.success) {
+          setNotices(res.data.data.map(n => n.notice_text));
+        }
+      } catch (err) {
+        console.error('Failed to fetch notices:', err);
+      }
+    };
+    fetchNotices();
+  }, []);
 
   const tabs = [
     { id: 'postOpCare', label: 'Post-Op Care', icon: <FaHeartbeat /> },
@@ -18,7 +34,7 @@ const PatientGuidelines = () => {
       case 'postOpCare': return patientGuidelinesData.postOpCare;
       case 'medicines': return patientGuidelinesData.medicines;
       case 'diet': return patientGuidelinesData.diet;
-      case 'notices': return patientGuidelinesData.notices;
+      case 'notices': return notices.length > 0 ? notices : patientGuidelinesData.notices;
       case 'phacoBenefits': return patientGuidelinesData.phacoBenefits;
       default: return [];
     }

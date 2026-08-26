@@ -1,7 +1,6 @@
 const { pool } = require('../config/db');
 const { isSlotBooked, generateAppointmentNo } = require('../services/appointmentService');
 const emailService = require('../services/emailService');
-const whatsappService = require('../services/whatsappService');
 
 /** POST /api/appointments - Patient books appointment */
 async function createAppointment(req, res, next) {
@@ -111,7 +110,6 @@ async function createAppointment(req, res, next) {
       try {
         await emailService.sendDoctorNotification(appointmentDetails);
         await emailService.sendPatientConfirmation(appointmentDetails);
-        await whatsappService.sendPatientWhatsAppConfirmation(appointmentDetails);
       } catch (notifyErr) {
         console.error('Notification sending failed after successful appointment creation:', notifyErr);
       }
@@ -215,7 +213,6 @@ async function updateStatus(req, res, next) {
       setImmediate(async () => {
         try {
           await emailService.sendStatusUpdateEmail(appointmentDetails, status);
-          await whatsappService.sendWhatsAppStatusUpdate(appointmentDetails, status);
         } catch (notifyErr) {
           console.error('Failed to send status update notification:', notifyErr);
         }

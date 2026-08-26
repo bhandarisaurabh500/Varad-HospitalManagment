@@ -1,11 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { advancedEquipmentList } from '../data/hospitalData';
+import api from '../services/api';
 
 const AdvancedEquipment = () => {
+  const [equipmentList, setEquipmentList] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchEquipment();
   }, []);
+
+  const fetchEquipment = async () => {
+    try {
+      const res = await api.get('/equipment');
+      if (res.data.success) {
+        setEquipmentList(res.data.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch equipment:', error);
+    }
+  };
 
   return (
     <div className="pt-32 pb-20 bg-slate-50 dark:bg-slate-950 min-h-screen">
@@ -29,7 +43,7 @@ const AdvancedEquipment = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {advancedEquipmentList.map((item, index) => (
+          {equipmentList.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 30 }}
@@ -40,7 +54,7 @@ const AdvancedEquipment = () => {
             >
               <div className="h-64 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
                 <img 
-                  src={item.image} 
+                  src={item.image_url} 
                   alt={item.name} 
                   className="w-full h-full object-contain bg-white p-4 transition-transform duration-700 hover:scale-110"
                   onError={(e) => {
@@ -51,7 +65,7 @@ const AdvancedEquipment = () => {
                 <h3 className="absolute bottom-4 left-4 right-4 text-xl font-bold text-white font-poppins">{item.name}</h3>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <p className="text-slate-700 dark:text-slate-300 font-medium">{item.shortDesc}</p>
+                <p className="text-slate-700 dark:text-slate-300 font-medium">{item.short_desc}</p>
               </div>
             </motion.div>
           ))}

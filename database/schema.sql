@@ -280,3 +280,25 @@ CREATE TABLE IF NOT EXISTS contact_messages (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_contact_read (is_read)
 );
+
+-- ============================================================
+-- EQUIPMENT TABLE
+-- ============================================================
+CREATE TABLE IF NOT EXISTS equipment (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  short_desc TEXT,
+  image_url VARCHAR(255),
+  is_active BOOLEAN DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- NOTICES TABLE
+-- ============================================================
+CREATE TABLE IF NOT EXISTS notices (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  notice_text TEXT NOT NULL,
+  is_active BOOLEAN DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

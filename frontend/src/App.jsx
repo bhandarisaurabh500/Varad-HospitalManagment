@@ -21,6 +21,9 @@ import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminGuidelines from './pages/admin/AdminGuidelines';
 import AdminSettings from './pages/admin/AdminSettings';
 import AdminInsurance from './pages/admin/AdminInsurance';
+import AdminGallery from './pages/admin/AdminGallery';
+import AdminEquipment from './pages/admin/AdminEquipment';
+import AdminNotices from './pages/admin/AdminNotices';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import AIScanner from './components/dashboard/AIScanner';
@@ -58,11 +61,11 @@ function App() {
                     <Routes>
                       <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="appointments" element={<AdminAppointments />} />
-                      <Route path="guidelines" element={<AdminGuidelines />} />
+                      <Route path="guidelines" element={<AdminNotices />} />
                       <Route path="profile" element={<Placeholder title="Doctor Profile" />} />
                       <Route path="services" element={<Placeholder title="Eye Care / Services" />} />
-                      <Route path="advanced-equipment" element={<Placeholder title="Advanced Equipment" />} />
-                      <Route path="gallery" element={<Placeholder title="Manage Gallery" />} />
+                      <Route path="advanced-equipment" element={<AdminEquipment />} />
+                      <Route path="gallery" element={<AdminGallery />} />
                       <Route path="patients" element={<PatientDirectory />} />
                       <Route path="patients/:id" element={<PatientProfile />} />
                       <Route path="patient-information" element={<Navigate to="patients" replace />} />
