@@ -37,8 +37,8 @@ const DashboardLayout = ({ children }) => {
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
         {/* Brand */}
         <div className="flex items-center gap-3 p-5 border-b border-slate-700">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center">
-            <FaEye className="text-white text-lg" />
+          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm border border-slate-700/50">
+            <img src="/photos/doctor/Dr.BorudeSir.png" alt="Dr. Borude" className="w-full h-full object-cover" />
           </div>
           <div>
             <p className="font-bold text-sm text-white leading-none">Dr. R.K. Borude</p>
@@ -70,8 +70,8 @@ const DashboardLayout = ({ children }) => {
         {/* Bottom: User + Logout */}
         <div className="p-4 border-t border-slate-700 space-y-2">
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center text-white text-xs font-bold">
-              D
+            <div className="w-8 h-8 rounded-full overflow-hidden shadow-sm border border-slate-700/50">
+              <img src="/photos/doctor/Dr.BorudeSir.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
             <div className="min-w-0">
               <p className="text-xs font-bold text-white truncate">{user?.email || 'Dr. R.K. Borude'}</p>
