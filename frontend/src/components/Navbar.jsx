@@ -146,15 +146,17 @@ const Navbar = () => {
           <a 
             href="#home" 
             onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-            className="flex items-center gap-4 group"
+            className="flex items-center gap-2 sm:gap-4 group shrink-0 min-w-0"
           >
-            <div>
-              <div className="flex items-center leading-none">
-                <FaUserMd className="text-3xl text-blue-600 mr-2" />
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
-                <span className="text-xl sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1.5">BORUDE</span>
+            <div className="shrink-0 hidden xs:block">
+              <FaUserMd className="text-2xl sm:text-3xl text-blue-600" />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <div className="flex flex-wrap items-baseline leading-tight">
+                <span className="text-base sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
+                <span className="text-base sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1">BORUDE</span>
               </div>
-              <p className="text-xs sm:text-sm font-extrabold text-slate-600 dark:text-slate-400 tracking-wider uppercase mt-1">
+              <p className="text-[10px] sm:text-sm font-extrabold text-slate-600 dark:text-slate-400 tracking-wider uppercase mt-0.5 truncate">
                 Cataract, Glaucoma & Refractive Surgeon
               </p>
             </div>
@@ -182,14 +184,14 @@ const Navbar = () => {
           </div>
 
           {/* Right Utilities & CTA */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2">
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
               aria-label="Toggle Dark Mode"
-              className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-inner border border-slate-200 dark:border-slate-700"
+              className="p-2 sm:p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-inner border border-slate-200 dark:border-slate-700"
             >
-              {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
+              {darkMode ? <FaSun className="text-lg sm:text-xl" /> : <FaMoon className="text-lg sm:text-xl" />}
             </button>
 
             {/* Book Appointment CTA */}
@@ -201,13 +203,12 @@ const Navbar = () => {
               <span>Book Appointment</span>
             </button>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Open Menu"
-              className="xl:hidden p-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="xl:hidden p-2 sm:p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white"
             >
-              {mobileMenuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+              {mobileMenuOpen ? <FaTimes className="text-lg sm:text-xl" /> : <FaBars className="text-lg sm:text-xl" />}
             </button>
           </div>
         </div>
