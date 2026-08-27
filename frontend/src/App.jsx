@@ -17,6 +17,7 @@ import HospitalInformation from './pages/HospitalInformation';
 import AdvancedEquipment from './pages/AdvancedEquipment';
 import PatientHealthcare from './pages/PatientHealthcare';
 // Dashboards
+import Gallery from './pages/Gallery';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAppointments from './pages/admin/AdminAppointments';
 import AdminLeads from './pages/admin/AdminLeads';
@@ -57,6 +58,7 @@ function App() {
               <Route path="/hospital-information" element={<PublicLayout><HospitalInformation /></PublicLayout>} />
               <Route path="/advanced-equipment" element={<PublicLayout><AdvancedEquipment /></PublicLayout>} />
               <Route path="/patient-healthcare" element={<PublicLayout><PatientHealthcare /></PublicLayout>} />
+              <Route path="/gallery" element={<PublicLayout><Gallery /></PublicLayout>} />
               <Route path="/login" element={<Login />} />
               <Route path="/appointment" element={<PublicLayout><Appointment /></PublicLayout>} />
 
