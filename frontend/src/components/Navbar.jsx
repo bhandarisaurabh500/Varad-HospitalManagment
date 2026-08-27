@@ -150,7 +150,7 @@ const Navbar = () => {
             <div>
               <div className="flex items-center leading-none">
                 <FaUserMd className="text-3xl text-blue-600 mr-2" />
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Rohidas K.</span>
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
                 <span className="text-xl sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1.5">BORUDE</span>
               </div>
               <p className="text-xs sm:text-sm font-extrabold text-slate-600 dark:text-slate-400 tracking-wider uppercase mt-1">

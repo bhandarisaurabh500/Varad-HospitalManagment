@@ -55,7 +55,7 @@ const Preloader = () => {
             className="mt-8 text-center space-y-2"
           >
             <h1 className="text-3xl sm:text-4xl font-black tracking-wide text-white font-poppins">
-              Dr. Rohidas K. <span className="text-teal-400">BORUDE</span>
+              Dr. Raosaheb K. <span className="text-teal-400">BORUDE</span>
             </h1>
             
             <div className="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm tracking-wider uppercase bg-slate-900/90 px-5 py-1.5 rounded-full border border-amber-500/40 shadow-md">

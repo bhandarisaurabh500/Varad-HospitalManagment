@@ -36,7 +36,7 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <FaUserMd className="text-4xl text-blue-500 bg-white p-2 rounded-xl shadow-md" />
               <div>
-                <span className="text-xl font-bold tracking-tight text-white font-poppins">Dr. Rohidas K.</span>
+                <span className="text-xl font-bold tracking-tight text-white font-poppins">Dr. Raosaheb K.</span>
                 <span className="text-xl font-bold tracking-tight text-teal-400 ml-1">BORUDE</span>
                 <p className="text-[10px] text-amber-400 font-semibold uppercase">{hospitalInfo.tagline}</p>
               </div>
