@@ -20,6 +20,8 @@ const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [testimonialsData, setTestimonialsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [reviewForm, setReviewForm] = useState({ name: '', rating: 0, hoverRating: 0, comment: '', submitted: false });
 
   useEffect(() => {
@@ -266,11 +268,33 @@ const Testimonials = () => {
         {/* ===== Full Review Submission Form ===== */}
         <div className="max-w-2xl mx-auto mt-20 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-slate-200/80 dark:border-slate-800">
           {reviewForm.submitted ? (
-            <div className="text-center py-8">
-              <FaCheckCircle className="text-5xl text-emerald-500 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Thank You for Your Review!</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm">Google Maps was opened so you can also post it publicly for all patients to see!</p>
-              <button onClick={() => setReviewForm({ name: '', rating: 0, hoverRating: 0, comment: '', submitted: false })} className="mt-6 px-6 py-2 rounded-full bg-blue-600 text-white text-sm font-bold hover:bg-blue-700 transition">Write Another Review</button>
+            <div className="text-center py-8 space-y-4">
+              <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FaCheckCircle className="text-5xl text-emerald-500" />
+              </div>
+              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2 font-poppins">Thank You!</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-base">Your review has been submitted successfully.</p>
+              
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 mt-6 border border-slate-200 dark:border-slate-700">
+                <h4 className="font-bold text-slate-800 dark:text-white mb-2 text-lg">Would you like to share your experience on Google too?</h4>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Your Google review helps other patients find the best eye care.</p>
+                <a 
+                  href={hospitalInfo.googleMapsLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-white font-bold text-base shadow-lg transition-all"
+                >
+                  <FaGoogle className="text-rose-500" />
+                  <span>⭐ Post Review on Google</span>
+                </a>
+              </div>
+
+              <button onClick={() => {
+                setReviewForm({ name: '', rating: 0, hoverRating: 0, comment: '', submitted: false });
+                setSubmitError('');
+              }} className="mt-6 text-slate-500 hover:text-blue-600 dark:hover:text-teal-400 text-sm font-semibold underline transition">
+                Write Another Review
+              </button>
             </div>
           ) : (
             <>
@@ -283,12 +307,20 @@ const Testimonials = () => {
                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Your review helps other patients. Fill in the form below!</p>
               </div>
 
+              {submitError && (
+                <div className="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 text-rose-600 text-sm font-medium text-center">
+                  {submitError}
+                </div>
+              )}
+
               <form onSubmit={async (e) => { 
                 e.preventDefault(); 
-                if (!reviewForm.name || !reviewForm.rating || !reviewForm.comment) { 
-                  alert('Please fill your name, rating, and review!'); 
-                  return; 
-                } 
+                setSubmitError('');
+                if (!reviewForm.name.trim()) return setSubmitError('Please enter your name.');
+                if (!reviewForm.rating) return setSubmitError('Please select a rating (1-5 stars).');
+                if (!reviewForm.comment.trim() || reviewForm.comment.length < 10) return setSubmitError('Please write a reasonable review (at least 10 characters).');
+                
+                setLoadingSubmit(true);
                 try {
                   await api.post('/reviews', {
                     reviewer_name: reviewForm.name,
@@ -297,7 +329,9 @@ const Testimonials = () => {
                   });
                   setReviewForm(prev => ({ ...prev, submitted: true })); 
                 } catch (error) {
-                  alert('Failed to submit review. Please try again.');
+                  setSubmitError('Failed to submit review. Please try again.');
+                } finally {
+                  setLoadingSubmit(false);
                 }
               }} className="space-y-5">
                 <div>
@@ -348,9 +382,10 @@ const Testimonials = () => {
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-base shadow-lg transition flex items-center justify-center gap-2"
+                  disabled={loadingSubmit}
+                  className="w-full px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white font-bold text-base shadow-lg transition flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <FaStar /> Submit Review
+                  {loadingSubmit ? 'Submitting...' : <><FaStar /> Submit Review</>}
                 </button>
                 <p className="text-center text-xs text-slate-400 dark:text-slate-600">
                   Your review will be published after approval by the clinic.
