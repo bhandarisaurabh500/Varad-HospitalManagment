@@ -272,8 +272,8 @@ const Testimonials = () => {
               <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaCheckCircle className="text-5xl text-emerald-500" />
               </div>
-              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2 font-poppins">Thank You!</h3>
-              <p className="text-slate-600 dark:text-slate-300 text-base">Your review has been submitted successfully.</p>
+              <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2 font-poppins">Thank you for sharing your experience!</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-base">Your review has been submitted successfully and is awaiting approval.</p>
               
               <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 mt-6 border border-slate-200 dark:border-slate-700">
                 <h4 className="font-bold text-slate-800 dark:text-white mb-2 text-lg">Would you like to share your experience on Google too?</h4>
