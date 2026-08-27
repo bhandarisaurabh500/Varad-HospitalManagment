@@ -32,6 +32,12 @@ const AdminAppointments = () => {
   };
 
   const updateStatus = async (id, newStatus, appt) => {
+    // Open window synchronously to avoid popup blockers
+    let waWindow = null;
+    if (appt && appt.patient_phone) {
+      waWindow = window.open('', '_blank');
+    }
+
     try {
       await api.put(`/appointments/${id}/status`, { status: newStatus });
       
@@ -41,11 +47,20 @@ const AdminAppointments = () => {
       ));
       setActionMenuId(null);
 
-      // Open WhatsApp for manual send on status change
-      if (appt) {
-        handleWhatsApp(appt, newStatus);
+      // Navigate the opened window to WhatsApp
+      if (waWindow) {
+        const rawPhone = appt.patient_phone || '';
+        let phone = rawPhone.replace(/\D/g, ''); 
+        if (phone.length === 10) phone = '91' + phone;
+        
+        const patientName = appt.patient_name || 'Patient';
+        const apptDate = new Date(appt.appointment_date).toLocaleDateString();
+        const apptTime = appt.appointment_time;
+        const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${newStatus}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+        waWindow.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
       }
     } catch (error) {
+      if (waWindow) waWindow.close();
       console.error('Error updating status:', error);
       alert('Failed to update status');
     }

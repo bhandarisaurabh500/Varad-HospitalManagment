@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
+import api from '../../services/api';
 import { FaCalendarCheck, FaClock, FaCheckCircle, FaCheckDouble, FaTimesCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -21,62 +22,24 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      // Get today's date in YYYY-MM-DD
-      const todayStr = new Date().toISOString().split('T')[0];
+      // Fetch stats from backend API
+      const statsRes = await api.get('/admin/dashboard');
+      if (statsRes.data.success) {
+        setStats({
+          today: statsRes.data.data.today_appt || 0,
+          pending: statsRes.data.data.pending_appt || 0,
+          confirmed: statsRes.data.data.confirmed_appt || 0,
+          completed: statsRes.data.data.completed_appt || 0,
+          cancelled: statsRes.data.data.cancelled_appt || 0,
+        });
+      }
 
-      // Fetch all appointments for counts (ideally this should be an aggregation query)
-      const { data: allAppts, error } = await supabase
-        .from('appointments')
-        .select('*');
-
-      if (error) throw error;
-
-      let todayCount = 0;
-      let pendingCount = 0;
-      let confirmedCount = 0;
-      let completedCount = 0;
-      let cancelledCount = 0;
-
-      allAppts?.forEach(appt => {
-        if (appt.appointment_date === todayStr) todayCount++;
-        if (appt.status === 'PENDING') pendingCount++;
-        if (appt.status === 'CONFIRMED') confirmedCount++;
-        if (appt.status === 'COMPLETED') completedCount++;
-        if (appt.status === 'CANCELLED') cancelledCount++;
-      });
-
-      setStats({
-        today: todayCount,
-        pending: pendingCount,
-        confirmed: confirmedCount,
-        completed: completedCount,
-        cancelled: cancelledCount,
-      });
-
-      // Fetch recent 5 appointments
-      const { data: recent, error: recentErr } = await supabase
-        .from('appointments')
-        .select(`
-          id, appointment_no, appointment_date, appointment_time, status, symptoms,
-          patients ( 
-            id, 
-            users ( full_name, phone ) 
-          )
-        `)
-        .order('created_at', { ascending: false })
-        .limit(5);
-
-      // We have to join patients -> users manually because the foreign key is on patients.
-      // Wait, our backend schema is:
-      // appointments -> patients(id)
-      // patients -> users(id)
-      // We can fetch patients, then fetch users.
-      // Let's use the express API for complex queries if RLS isn't setup for nested joins easily.
-      // But we are moving to Supabase!
-      // I'll update to fetch via Supabase. If join fails due to my syntax, I will fix it.
-      
-      if (!recentErr) {
-        setRecentAppointments(recent || []);
+      // Fetch recent appointments using admin API
+      const apptRes = await api.get('/admin/appointments');
+      if (apptRes.data.success) {
+        // Take the top 5 most recent appointments
+        const allAppts = apptRes.data.data;
+        setRecentAppointments(allAppts.slice(0, 5));
       }
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
@@ -152,8 +115,8 @@ const AdminDashboard = () => {
                 recentAppointments.map((appt) => (
                   <tr key={appt.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4">
-                      <p className="font-bold text-slate-900 dark:text-white">{appt.patients?.users?.full_name || 'Patient #' + (appt.patients?.id || 'Unknown')}</p>
-                      <p className="text-xs text-slate-500">{appt.patients?.users?.phone || '-'}</p>
+                      <p className="font-bold text-slate-900 dark:text-white">{appt.patient_name || 'Patient #' + (appt.patient_id || 'Unknown')}</p>
+                      <p className="text-xs text-slate-500">{appt.patient_phone || '-'}</p>
                     </td>
                     <td className="px-6 py-4">
                       <p className="font-bold text-slate-700 dark:text-slate-300">{new Date(appt.appointment_date).toLocaleDateString()}</p>

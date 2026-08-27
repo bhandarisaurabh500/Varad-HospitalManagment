@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import api from '../services/api';
+import { advancedEquipmentList } from '../data/hospitalData';
 
 const AdvancedEquipment = () => {
-  const [equipmentList, setEquipmentList] = useState([]);
+  const [equipmentList, setEquipmentList] = useState(advancedEquipmentList);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -13,11 +14,12 @@ const AdvancedEquipment = () => {
   const fetchEquipment = async () => {
     try {
       const res = await api.get('/equipment');
-      if (res.data.success) {
+      if (res.data.success && res.data.data.length > 0) {
         setEquipmentList(res.data.data);
       }
     } catch (error) {
       console.error('Failed to fetch equipment:', error);
+      // Fallback to static list is handled by initial state
     }
   };
 
@@ -54,7 +56,7 @@ const AdvancedEquipment = () => {
             >
               <div className="h-64 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
                 <img 
-                  src={item.image_url} 
+                  src={item.image_url || item.image} 
                   alt={item.name} 
                   className="w-full h-full object-contain bg-white p-4 transition-transform duration-700 hover:scale-110"
                   onError={(e) => {
@@ -65,7 +67,7 @@ const AdvancedEquipment = () => {
                 <h3 className="absolute bottom-4 left-4 right-4 text-xl font-bold text-white font-poppins">{item.name}</h3>
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <p className="text-slate-700 dark:text-slate-300 font-medium">{item.short_desc}</p>
+                <p className="text-slate-700 dark:text-slate-300 font-medium">{item.short_desc || item.shortDesc}</p>
               </div>
             </motion.div>
           ))}
