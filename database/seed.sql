@@ -14,9 +14,9 @@ INSERT IGNORE INTO roles (name) VALUES ('ADMIN'), ('DOCTOR'), ('PATIENT');
 INSERT IGNORE INTO users (id, role_id, full_name, email, phone, password, is_active) VALUES
 (1, (SELECT id FROM roles WHERE name='ADMIN'),
  'Super Admin',
- 'admin@varadnetralaya.com',
+ 'admin',
  '+91 9000000001',
- '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4oRqezpzJq',
+ '$2a$12$cAu178gy9seaAPQtdPm4q.KVkNciTjAaS8oNdMNaE./M2SBDtKvvK',
  1),
 (2, (SELECT id FROM roles WHERE name='DOCTOR'),
  'Dr. Raosaheb Kundlik Borude',
@@ -209,7 +209,7 @@ INSERT IGNORE INTO reviews (patient_id, reviewer_name, rating, review, is_approv
 
 -- ============================================================
 -- DEMO CREDENTIALS SUMMARY
--- Admin:   admin@varadnetralaya.com    / Admin@123
+-- Admin:   admin    / admin@123
 -- Doctor:  dr.borude@varadnetralaya.com/ Doctor@123
 -- Patient: ramesh.sharma@example.com   / Patient@123
 -- ============================================================

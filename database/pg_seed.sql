@@ -8,7 +8,7 @@ SELECT setval('roles_id_seq', (SELECT MAX(id) FROM roles));
 
 -- USERS (passwords are bcrypt hash of 'Admin@123', 'Doctor@123', 'Patient@123')
 INSERT INTO users (id, role_id, full_name, email, phone, password, is_active) VALUES
-(1, 1, 'Super Admin', 'admin@varadnetralaya.com', '+91 9000000001', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4oRqezpzJq', 1),
+(1, 1, 'Super Admin', 'admin', '+91 9000000001', '$2a$12$cAu178gy9seaAPQtdPm4q.KVkNciTjAaS8oNdMNaE./M2SBDtKvvK', 1),
 (2, 2, 'Dr. Raosaheb Kundlik Borude', 'dr.borude@varadnetralaya.com', '+91 9822315840', '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm', 1),
 (4, 3, 'Ramesh Sharma', 'ramesh.sharma@example.com', '+91 9876543210', '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm', 1),
 (5, 3, 'Sunita Patil', 'sunita.patil@example.com', '+91 9876543211', '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWEwrkm', 1)

@@ -108,13 +108,13 @@ const Login = () => {
           {!isForgotPwd ? (
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Username or Email</label>
                 <div className="relative">
                   <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
-                    type="email" 
+                    type="text" 
                     required
-                    placeholder="doctor@varadnetralaya.com"
+                    placeholder="admin or doctor@varadnetralaya.com"
                     value={loginForm.email}
                     onChange={e => setLoginForm(p => ({ ...p, email: e.target.value }))}
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
