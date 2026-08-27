@@ -19,6 +19,7 @@ import PatientHealthcare from './pages/PatientHealthcare';
 // Dashboards
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminAppointments from './pages/admin/AdminAppointments';
+import AdminLeads from './pages/admin/AdminLeads';
 import AdminGuidelines from './pages/admin/AdminGuidelines';
 import AdminSettings from './pages/admin/AdminSettings';
 import AdminInsurance from './pages/admin/AdminInsurance';
@@ -66,6 +67,7 @@ function App() {
                     <Routes>
                       <Route path="dashboard" element={<AdminDashboard />} />
                       <Route path="appointments" element={<AdminAppointments />} />
+                      <Route path="leads" element={<AdminLeads />} />
                       <Route path="guidelines" element={<AdminNotices />} />
                       <Route path="profile" element={<AdminProfile />} />
                       <Route path="services" element={<AdminServices />} />

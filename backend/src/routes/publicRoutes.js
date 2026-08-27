@@ -10,6 +10,7 @@ const { uploadDocument } = require('../middleware/uploadMiddleware');
 const { getEquipment, getAllEquipment, createEquipment, updateEquipment, deleteEquipment } = require('../controllers/equipmentController');
 const { getNotices, getAllNotices, createNotice, updateNotice, deleteNotice } = require('../controllers/noticeController');
 const { getServices, getServiceById, createService, updateService, deleteService } = require('../controllers/serviceController');
+const { saveLead, getLeads, updateLeadStatus, deleteLead } = require('../controllers/leadController');
 
 // Gallery
 router.get('/gallery', getGallery);
@@ -47,5 +48,11 @@ router.get('/services/:id', getServiceById);
 router.post('/services', authMiddleware, roleMiddleware('ADMIN'), createService);
 router.put('/services/:id', authMiddleware, roleMiddleware('ADMIN'), updateService);
 router.delete('/services/:id', authMiddleware, roleMiddleware('ADMIN'), deleteService);
+
+// Leads
+router.post('/leads', saveLead);
+router.get('/leads', authMiddleware, roleMiddleware('ADMIN'), getLeads);
+router.put('/leads/:id', authMiddleware, roleMiddleware('ADMIN'), updateLeadStatus);
+router.delete('/leads/:id', authMiddleware, roleMiddleware('ADMIN'), deleteLead);
 
 module.exports = router;

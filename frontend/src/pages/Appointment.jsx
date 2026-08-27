@@ -64,6 +64,29 @@ const Appointment = () => {
     }
   }, [form.doctor_id, form.appointment_date]);
 
+  // Auto-save lead logic
+  useEffect(() => {
+    const saveLead = async () => {
+      // Only save if we have at least a phone number with a reasonable length
+      if (form.patient_phone && form.patient_phone.length >= 10 && !submitted) {
+        try {
+          await api.post('/leads', {
+            patient_name: form.patient_name || 'Unknown',
+            phone: form.patient_phone,
+            email: form.patient_email,
+            form_data: form
+          });
+        } catch (error) {
+          // Silent fail for leads
+          console.error('Failed to save lead', error);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(saveLead, 1500); // 1.5s debounce
+    return () => clearTimeout(timeoutId);
+  }, [form.patient_name, form.patient_phone, form.patient_email, form.doctor_id, form.service_id, form.appointment_date, form.appointment_time, form.symptoms, form.age, form.gender, submitted]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm(p => ({ ...p, [name]: value }));

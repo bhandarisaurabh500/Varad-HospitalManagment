@@ -5,12 +5,13 @@ import {
   FaTachometerAlt, FaCalendarCheck, FaUserMd,
   FaConciergeBell, FaMicroscope, FaImages,
   FaInfoCircle, FaShieldAlt, FaStar, FaCog, FaSignOutAlt, 
-  FaBars, FaEye, FaHospital, FaHeartbeat
+  FaBars, FaEye, FaHospital, FaHeartbeat, FaPhoneAlt
 } from 'react-icons/fa';
 
 const adminLinks = [
   { to: '/admin/dashboard',          label: 'Dashboard',           icon: FaTachometerAlt },
   { to: '/admin/appointments',       label: 'Appointments',        icon: FaCalendarCheck },
+  { to: '/admin/leads',              label: 'Incomplete Bookings', icon: FaPhoneAlt },
   { to: '/admin/profile',            label: 'Doctor Profile',      icon: FaUserMd },
   { to: '/admin/services',           label: 'Eye Care / Services', icon: FaConciergeBell },
   { to: '/admin/advanced-equipment', label: 'Advanced Equipment',  icon: FaMicroscope },

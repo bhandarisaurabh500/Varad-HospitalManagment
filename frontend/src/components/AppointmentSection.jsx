@@ -47,6 +47,29 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     }
   }, [preselectedDoctor, preselectedTreatment]);
 
+  // Auto-save lead logic
+  useEffect(() => {
+    const saveLead = async () => {
+      // Only save if we have at least a phone number with a reasonable length
+      if (formData.phone && formData.phone.length >= 10 && !submitted) {
+        try {
+          await api.post('/leads', {
+            patient_name: formData.patientName || 'Unknown',
+            phone: formData.phone,
+            email: formData.email,
+            form_data: formData
+          });
+        } catch (error) {
+          // Silent fail for leads
+          console.error('Failed to save lead', error);
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(saveLead, 1500); // 1.5s debounce
+    return () => clearTimeout(timeoutId);
+  }, [formData.patientName, formData.phone, formData.email, formData.doctor, formData.treatment, formData.preferredDate, formData.preferredTime, formData.message, submitted]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
