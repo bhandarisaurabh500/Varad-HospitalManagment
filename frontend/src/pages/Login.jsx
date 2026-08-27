@@ -59,7 +59,7 @@ const Login = () => {
           <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl mb-8 border border-white/20">
             <FaUserMd />
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 leading-tight">Dr. R.K. Borude</h1>
+          <h1 className="text-5xl font-extrabold mb-4 leading-tight">Dr. Rohidas K. Borude</h1>
           <h2 className="text-2xl font-medium text-teal-300 mb-6">CATARACT, GLAUCOMA & REFRACTIVE SURGEON</h2>
           <div className="w-16 h-1 bg-teal-400 mb-6 rounded-full" />
           <p className="text-xl text-blue-100 font-light tracking-wide">Professional Eye Care Management</p>

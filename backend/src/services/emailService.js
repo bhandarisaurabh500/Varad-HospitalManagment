@@ -100,7 +100,7 @@ async function sendDoctorNotification(appointmentDetails) {
       </div>
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
+        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. Rohidas K. Borude</p>
         <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
@@ -110,7 +110,7 @@ async function sendDoctorNotification(appointmentDetails) {
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
       to: DOCTOR_EMAIL,
-      subject: `New Appointment Request \u2014 Dr. R.K. Borude`,
+      subject: `New Appointment Request \u2014 Dr. Rohidas K. Borude`,
       html: html,
     });
     console.log('Doctor notification email sent:', info.messageId);
@@ -161,7 +161,7 @@ async function sendPatientConfirmation(appointmentDetails) {
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Doctor:</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</td>
+              <td style="padding: 8px 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. Rohidas K. Borude</td>
             </tr>
             <tr><td colspan="2"><hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;" /></td></tr>
             <tr>
@@ -192,7 +192,7 @@ async function sendPatientConfirmation(appointmentDetails) {
       </div>
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
+        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. Rohidas K. Borude</p>
         <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
@@ -202,7 +202,7 @@ async function sendPatientConfirmation(appointmentDetails) {
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
       to: patient_email,
-      subject: `Appointment Request Received \u2014 Dr. R.K. Borude`,
+      subject: `Appointment Request Received \u2014 Dr. Rohidas K. Borude`,
       html: html,
     });
     console.log('Patient confirmation email sent:', info.messageId);
@@ -279,7 +279,7 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-size: 14px;">Doctor:</td>
-              <td style="padding: 8px 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</td>
+              <td style="padding: 8px 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. Rohidas K. Borude</td>
             </tr>
             <tr><td colspan="2"><hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;" /></td></tr>
             <tr>
@@ -305,7 +305,7 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
       </div>
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
+        <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. Rohidas K. Borude</p>
         <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
@@ -315,7 +315,7 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
       to: patient_email,
-      subject: `Appointment Status Updated: ${statusText} — Dr. R.K. Borude`,
+      subject: `Appointment Status Updated: ${statusText} — Dr. Rohidas K. Borude`,
       html: html,
     });
     console.log('Status update email sent:', info.messageId);
