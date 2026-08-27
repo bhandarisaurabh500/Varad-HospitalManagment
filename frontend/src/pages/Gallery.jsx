@@ -92,7 +92,7 @@ const Gallery = () => {
                 <img 
                   src={photo.src} 
                   alt={photo.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${activeTab === 'awards' ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
                 />
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">

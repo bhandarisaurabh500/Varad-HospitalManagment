@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { hospitalInfo, doctorsData } from '../data/hospitalData';
@@ -10,10 +10,12 @@ import {
   FaCheckCircle,
   FaAward
 } from 'react-icons/fa';
+import DoctorProfileModal from './DoctorProfileModal';
 
 const Hero = () => {
   const { openAppointmentModal } = useTheme();
   const doctor = doctorsData.find(d => d.id === 2); // Dr. Borude
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
     <section id="home" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
@@ -94,13 +96,13 @@ const Hero = () => {
                 <span>Book Appointment</span>
               </button>
               
-              <a
-                href="#doctor-profile"
+              <button
+                onClick={() => setIsProfileOpen(true)}
                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 text-slate-700 dark:text-slate-300 font-bold text-base shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
               >
                 <FaUserMd className="text-lg text-blue-500" />
                 <span>View Profile</span>
-              </a>
+              </button>
             </div>
 
           </motion.div>
@@ -144,6 +146,7 @@ const Hero = () => {
         </div>
       </div>
 
+      <DoctorProfileModal isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
     </section>
   );
 };
