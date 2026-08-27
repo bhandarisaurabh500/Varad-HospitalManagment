@@ -51,17 +51,6 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
               Cataract, Glaucoma & Refractive Surgeon
             </p>
 
-            {/* Patient Care Photo */}
-            <div className="w-full mt-auto rounded-2xl overflow-hidden shadow-lg border-2 border-white dark:border-slate-700 relative group shrink-0">
-              <img 
-                src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" 
-                alt="Patient Care" 
-                className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent flex items-end p-4">
-                <span className="text-white font-medium text-sm">Advanced Patient Care</span>
-              </div>
-            </div>
           </div>
 
           {/* Right Column - Details */}

@@ -3,14 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCameraRetro, FaTrophy } from 'react-icons/fa';
 
 const galleryPhotos = [
+  { src: '/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png', title: 'Advanced Patient Care' },
   { src: '/photos/Gallary/Bright Teal Medical Clinic Interior.png', title: 'Clinic Interior' },
-  { src: '/photos/Gallary/Colorful Underwater Pediatric Dental Clinic.png', title: 'Pediatric Care' },
+  { src: '/photos/Gallary/Modern Waiting Room with TV and Seating.png', title: 'Waiting Area' },
   { src: '/photos/Gallary/Modern Aqua Ophthalmology Exam Room.png', title: 'Exam Room' },
   { src: '/photos/Gallary/Modern Hospital Room Through Wooden Door.png', title: 'Hospital Room' },
   { src: '/photos/Gallary/Modern Mint Eye Exam Room.png', title: 'Eye Exam Room' },
   { src: '/photos/Gallary/Modern Mint Green Examination Room.png', title: 'Examination Room' },
-  { src: '/photos/Gallary/Modern Waiting Room with TV and Seating.png', title: 'Waiting Area' },
   { src: '/photos/Gallary/Sterile Clinical Procedure Room.png', title: 'Procedure Room' },
+  { src: '/photos/Gallary/Colorful Underwater Pediatric Dental Clinic.png', title: 'Pediatric Care' },
 ];
 
 const awardsPhotos = [
