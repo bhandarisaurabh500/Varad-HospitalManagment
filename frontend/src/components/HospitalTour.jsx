@@ -20,16 +20,10 @@ const HospitalTour = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* 4-Photo hospital grid */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="relative rounded-2xl overflow-hidden group h-52">
-            <img src="/photos/doctor/Doctor 1.png" alt="Dr Borude Award Ceremony" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
+          <div className="relative rounded-2xl overflow-hidden group h-52 col-span-2">
+            <img src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" alt="Advanced Patient Care" className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
-              <p className="text-white text-xs font-bold">Dr. Borude – Award Ceremony</p>
-            </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden group h-52">
-            <img src="/photos/doctor/Doctor 2.png" alt="Dr Borude Felicitation" className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
-              <p className="text-white text-xs font-bold">Dr. Borude – Felicitation</p>
+              <p className="text-white text-xs font-bold">Advanced Patient Care</p>
             </div>
           </div>
           <div className="relative rounded-2xl overflow-hidden group h-52">

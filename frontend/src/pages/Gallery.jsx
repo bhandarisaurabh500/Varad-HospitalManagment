@@ -4,7 +4,6 @@ import { FaTimes, FaCameraRetro, FaTrophy } from 'react-icons/fa';
 import HospitalTour from '../components/HospitalTour';
 
 const galleryPhotos = [
-  { src: '/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png', title: 'Advanced Patient Care' },
   { src: '/photos/Gallary/Bright Teal Medical Clinic Interior.png', title: 'Clinic Interior' },
   { src: '/photos/Gallary/Modern Waiting Room with TV and Seating.png', title: 'Waiting Area' },
   { src: '/photos/Gallary/Modern Aqua Ophthalmology Exam Room.png', title: 'Exam Room' },
@@ -16,6 +15,8 @@ const galleryPhotos = [
 ];
 
 const awardsPhotos = [
+  { src: '/photos/doctor/Doctor 1.png', title: 'Dr. Borude – Award Ceremony' },
+  { src: '/photos/doctor/Doctor 2.png', title: 'Dr. Borude – Felicitation' },
   { src: '/photos/Award/Award-2024.png', title: 'Excellence Award 2024' },
 ];
 
