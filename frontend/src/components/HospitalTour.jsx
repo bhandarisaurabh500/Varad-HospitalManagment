@@ -18,25 +18,12 @@ const HospitalTour = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* 4-Photo hospital grid */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative rounded-2xl overflow-hidden group h-52 col-span-2">
-            <img src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" alt="Advanced Patient Care" className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
-              <p className="text-white text-xs font-bold">Advanced Patient Care</p>
-            </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden group h-52">
-            <img src="/photos/facilities/consultation-room.png" alt="Consultation Office" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
-              <p className="text-white text-xs font-bold">Consultation Office</p>
-            </div>
-          </div>
-          <div className="relative rounded-2xl overflow-hidden group h-52">
-            <img src="/photos/Machine/3-modular-operation-theaters-with-laminar-airflow.png" alt="Operation Theatre" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-3">
-              <p className="text-white text-xs font-bold">Modular Operation Theatre</p>
-            </div>
+        {/* Patient Care Photo */}
+        <div className="relative rounded-3xl overflow-hidden group h-full min-h-[300px] shadow-xl border border-slate-200/80 dark:border-slate-800">
+          <img src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" alt="Advanced Patient Care" className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5">
+            <h4 className="text-white text-lg font-bold">Advanced Patient Care</h4>
+            <p className="text-white/80 text-sm mt-1">Dr. Raosaheb Borude examining a patient</p>
           </div>
         </div>
 
