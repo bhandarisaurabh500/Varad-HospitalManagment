@@ -1,6 +1,6 @@
 export const hospitalInfo = {
   name: "Dr. Ravsaheb Borude",
-  marathiName: "डॉ. रावसाहेब बोरुडे",
+  marathiName: "Dr. Raosaheb Borude",
   tagline: "Cataract, Glaucoma & Refractive Surgeon",
   logo: "/Varadlogo.png",
   doctorPersonalMobile: "+91 9822315840",
@@ -163,8 +163,8 @@ export const doctorsData = [
   {
     id: 2,
     name: "Dr. Ravsaheb Borude",
-    marathiName: "डॉ. रावसाहेब बोरुडे",
-    title: "M.B.B.S., D.O.M.S., F.I.G.O.",
+    marathiName: "Dr. Raosaheb Borude",
+    title: "Chief Surgeon, D.O.M.S., F.I.G.O.",
     university: "Ophthalmology – Pune University",
     qualification: "Fellowship in General Ophthalmology & Phacosurgery",
     specialization: "Cataract, Glaucoma & Refractive Surgeon",
