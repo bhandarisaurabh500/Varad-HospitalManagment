@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCameraRetro, FaTrophy } from 'react-icons/fa';
+import HospitalTour from '../components/HospitalTour';
 
 const galleryPhotos = [
   { src: '/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png', title: 'Advanced Patient Care' },
@@ -135,6 +136,10 @@ const Gallery = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <HospitalTour />
+      </div>
     </div>
   );
 };
