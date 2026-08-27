@@ -646,8 +646,11 @@ export const patientHealthcareData = [
     title: "Patient Care Guidelines",
     icon: "FaUserShield",
     points: [
+      "Use medicines and eye drops on time as prescribed by the doctor.",
       "डॉक्टरांनी सांगितलेल्या औषधांचा आणि आय ड्रॉप्सचा वेळेवर वापर करा.",
+      "Do not rub your eyes with your hands.",
       "डोळ्यांना हाताने चोळू नका.",
+      "Do not use any eye drops without doctor's advice.",
       "डॉक्टरांच्या सल्ल्याशिवाय कोणतेही आय ड्रॉप्स वापरू नका."
     ]
   },
@@ -656,8 +659,11 @@ export const patientHealthcareData = [
     title: "Before Eye Surgery",
     icon: "FaProcedures",
     points: [
+      "Follow all instructions given by the doctor.",
       "डॉक्टरांनी दिलेल्या सर्व सूचनांचे पालन करा.",
+      "Inform the doctor if you are taking any regular medication.",
       "नियमित औषधे घेत असल्यास डॉक्टरांना माहिती द्या.",
+      "Complete all necessary tests before the surgery.",
       "शस्त्रक्रियेपूर्वी आवश्यक तपासण्या पूर्ण करा."
     ]
   },
@@ -666,9 +672,13 @@ export const patientHealthcareData = [
     title: "After Eye Surgery",
     icon: "FaHandHoldingMedical",
     points: [
+      "Do not let water, dust, or dirt enter your eyes.",
       "डोळ्यात पाणी, धूळ किंवा घाण जाऊ देऊ नका.",
+      "Do not rub your eyes.",
       "डोळ्यांना चोळू नका.",
+      "Use the eye drops on time as prescribed by the doctor.",
       "डॉक्टरांनी सांगितलेले आय ड्रॉप्स वेळेवर वापरा.",
+      "Do not miss your follow-up appointment.",
       "Follow-up appointment चुकवू नका."
     ]
   },
@@ -677,9 +687,13 @@ export const patientHealthcareData = [
     title: "Eye Care Tips",
     icon: "FaEye",
     points: [
+      "Maintain a proper distance while using a mobile or computer.",
       "मोबाईल/कॉम्प्युटर वापरताना योग्य अंतर ठेवा.",
+      "Read in adequate lighting.",
       "योग्य प्रकाशात वाचन करा.",
+      "Get your eyes checked regularly.",
       "नियमित डोळ्यांची तपासणी करून घ्या.",
+      "Avoid unnecessary strain on the eyes.",
       "डोळ्यांवर अनावश्यक ताण देणे टाळा."
     ]
   },
@@ -688,8 +702,11 @@ export const patientHealthcareData = [
     title: "Medicine & Eye Drops",
     icon: "FaPills",
     points: [
+      "Use medicines according to the time prescribed by the doctor.",
       "डॉक्टरांनी सांगितलेल्या वेळेनुसार औषधे वापरा.",
+      "Do not use another person's eye drops.",
       "दुसऱ्या व्यक्तीचे eye drops वापरू नका.",
+      "Do not stop medication without doctor's advice.",
       "डॉक्टरांच्या सल्ल्याशिवाय औषध बंद करू नका."
     ]
   },
@@ -698,19 +715,25 @@ export const patientHealthcareData = [
     title: "Emergency Eye Care",
     icon: "FaAmbulance",
     points: [
+      "Sudden loss of vision",
       "अचानक दृष्टी कमी होणे",
+      "Severe eye pain",
       "तीव्र डोळेदुखी",
+      "Excessive redness",
       "जास्त लालसरपणा",
+      "Sudden swelling",
       "अचानक सूज",
+      "Eye injury",
       "डोळ्याला इजा होणे"
     ],
-    note: "खालील लक्षणे दिसल्यास त्वरित रुग्णालयाशी संपर्क साधा:"
+    note: "Contact the hospital immediately if you experience the following symptoms: \nखालील लक्षणे दिसल्यास त्वरित रुग्णालयाशी संपर्क साधा:"
   },
   {
     id: "follow-up",
     title: "Follow-up & Regular Check-up",
     icon: "FaCalendarCheck",
     points: [
+      "Patients must be present for check-ups on the follow-up date given by the doctor.",
       "रुग्णांनी डॉक्टरांनी सांगितलेल्या follow-up तारखेला तपासणीसाठी उपस्थित राहावे."
     ]
   }
