@@ -41,7 +41,12 @@ const Appointment = () => {
 
   // Load doctors and services
   useEffect(() => {
-    api.get('/doctors').then(r => setDoctors(r.data.data)).catch(() => {});
+    api.get('/doctors').then(r => {
+      setDoctors(r.data.data);
+      if (r.data.data.length > 0) {
+        setForm(p => ({ ...p, doctor_id: r.data.data[0].id }));
+      }
+    }).catch(() => {});
     api.get('/services').then(r => setServices(r.data.data)).catch(() => {});
   }, []);
 
@@ -152,7 +157,6 @@ const Appointment = () => {
               </label>
               <select name="doctor_id" required value={form.doctor_id} onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">— Any Available Doctor —</option>
                 {doctors.map(d => (
                   <option key={d.id} value={d.id}>{d.name} — {d.specialization}</option>
                 ))}

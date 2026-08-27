@@ -257,11 +257,10 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
             <FaUserMd className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs" />
             <select
               name="doctor"
-              value={formData.doctor}
+              value={formData.doctor || (doctorsData.length > 0 ? doctorsData[0].name : '')}
               onChange={handleChange}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="">Any Available Senior Specialist</option>
               {doctorsData.map(doc => (
                 <option key={doc.id} value={doc.name}>
                   {doc.name} ({doc.title.split(' ')[0]})
