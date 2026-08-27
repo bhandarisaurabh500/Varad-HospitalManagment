@@ -78,7 +78,7 @@ const DoctorBio = () => {
               ) : (
                 <>
                   <p className="leading-relaxed">
-                    Dr. R.K. Borude is a dedicated Retina & Refractive Specialist providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
+                    Dr. R.K. Borude is a dedicated Cataract, Glaucoma & Refractive Surgeon providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
                   </p>
                   <p className="leading-relaxed">
                     With a commitment to precision and safety, he provides specialized care for retinal and refractive eye conditions and helps patients achieve better vision and improved quality of life.

@@ -115,7 +115,7 @@ const AdminProfile = () => {
                 value={formData.specialization}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
-                placeholder="e.g. Retina & Refractive Specialist"
+                placeholder="e.g. Cataract, Glaucoma & Refractive Surgeon"
               />
             </div>
             <div>

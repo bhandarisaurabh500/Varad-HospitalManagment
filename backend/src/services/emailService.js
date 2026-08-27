@@ -101,7 +101,7 @@ async function sendDoctorNotification(appointmentDetails) {
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
-        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Retina & Refractive Specialist</p>
+        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
   `;
@@ -193,7 +193,7 @@ async function sendPatientConfirmation(appointmentDetails) {
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
-        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Retina & Refractive Specialist</p>
+        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
   `;
@@ -306,7 +306,7 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
       
       <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
         <p style="margin: 0; color: #0f172a; font-weight: bold; font-size: 14px;">Dr. R.K. Borude</p>
-        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Retina & Refractive Specialist</p>
+        <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">Ophthalmologist | Cataract, Glaucoma & Refractive Surgeon</p>
       </div>
     </div>
   `;

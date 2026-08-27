@@ -59,7 +59,7 @@ const Preloader = () => {
             </h1>
             
             <div className="flex items-center justify-center gap-2 text-amber-300 font-bold text-xs sm:text-sm tracking-wider uppercase bg-slate-900/90 px-5 py-1.5 rounded-full border border-amber-500/40 shadow-md">
-              <span>Retina & Refractive Specialist</span>
+              <span>Cataract, Glaucoma & Refractive Surgeon</span>
             </div>
 
             <p className="text-xs text-slate-400 tracking-wider flex items-center justify-center gap-1.5 mt-2">
