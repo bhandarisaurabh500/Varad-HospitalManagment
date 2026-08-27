@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { doctorsData, servicesData, hospitalInfo } from '../data/hospitalData';
 import { useTheme } from '../context/ThemeContext';
@@ -78,6 +78,51 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     }
     if (apiError) setApiError('');
   };
+
+  const availableSlots = useMemo(() => {
+    const allSlots = [
+      { value: "09:00", label: "9:00 AM – 9:30 AM", group: "🌅 Morning" },
+      { value: "09:30", label: "9:30 AM – 10:00 AM", group: "🌅 Morning" },
+      { value: "10:00", label: "10:00 AM – 10:30 AM", group: "🌅 Morning" },
+      { value: "10:30", label: "10:30 AM – 11:00 AM", group: "🌅 Morning" },
+      { value: "11:00", label: "11:00 AM – 11:30 AM", group: "🌅 Morning" },
+      { value: "11:30", label: "11:30 AM – 12:00 PM", group: "🌅 Morning" },
+      { value: "14:00", label: "2:00 PM – 2:30 PM", group: "☀️ Afternoon" },
+      { value: "14:30", label: "2:30 PM – 3:00 PM", group: "☀️ Afternoon" },
+      { value: "15:00", label: "3:00 PM – 3:30 PM", group: "☀️ Afternoon" },
+      { value: "15:30", label: "3:30 PM – 4:00 PM", group: "☀️ Afternoon" },
+      { value: "16:00", label: "4:00 PM – 4:30 PM", group: "☀️ Afternoon" },
+    ];
+
+    if (!formData.preferredDate) return allSlots;
+
+    const today = new Date();
+    const selectedDate = new Date(formData.preferredDate);
+    
+    // Check if selected date is today
+    if (selectedDate.toDateString() === today.toDateString()) {
+      const currentHour = today.getHours();
+      const currentMinute = today.getMinutes();
+      const currentTimeInMinutes = currentHour * 60 + currentMinute;
+      
+      return allSlots.filter(slot => {
+        const [slotHour, slotMinute] = slot.value.split(':').map(Number);
+        const slotTimeInMinutes = slotHour * 60 + slotMinute;
+        return slotTimeInMinutes > currentTimeInMinutes;
+      });
+    }
+
+    return allSlots;
+  }, [formData.preferredDate]);
+
+  useEffect(() => {
+    if (availableSlots.length > 0 && !availableSlots.some(slot => slot.value === formData.preferredTime)) {
+      setFormData(prev => ({ ...prev, preferredTime: availableSlots[0].value }));
+    } else if (availableSlots.length === 0) {
+      setFormData(prev => ({ ...prev, preferredTime: '' }));
+    }
+  }, [availableSlots]);
+
 
   const validate = () => {
     const newErrors = {};
@@ -348,23 +393,25 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
               name="preferredTime"
               value={formData.preferredTime}
               onChange={handleChange}
+              disabled={availableSlots.length === 0}
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <optgroup label="🌅 Morning">
-                <option value="09:00">9:00 AM – 9:30 AM</option>
-                <option value="09:30">9:30 AM – 10:00 AM</option>
-                <option value="10:00">10:00 AM – 10:30 AM</option>
-                <option value="10:30">10:30 AM – 11:00 AM</option>
-                <option value="11:00">11:00 AM – 11:30 AM</option>
-                <option value="11:30">11:30 AM – 12:00 PM</option>
-              </optgroup>
-              <optgroup label="☀️ Afternoon">
-                <option value="14:00">2:00 PM – 2:30 PM</option>
-                <option value="14:30">2:30 PM – 3:00 PM</option>
-                <option value="15:00">3:00 PM – 3:30 PM</option>
-                <option value="15:30">3:30 PM – 4:00 PM</option>
-                <option value="16:00">4:00 PM – 4:30 PM</option>
-              </optgroup>
+              {availableSlots.length === 0 ? (
+                <option value="">No slots available today</option>
+              ) : (
+                <>
+                  <optgroup label="🌅 Morning">
+                    {availableSlots.filter(s => s.group.includes('Morning')).map(slot => (
+                      <option key={slot.value} value={slot.value}>{slot.label}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="☀️ Afternoon">
+                    {availableSlots.filter(s => s.group.includes('Afternoon')).map(slot => (
+                      <option key={slot.value} value={slot.value}>{slot.label}</option>
+                    ))}
+                  </optgroup>
+                </>
+              )}
             </select>
           </div>
         </div>
