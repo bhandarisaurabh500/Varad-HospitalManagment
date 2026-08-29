@@ -4,7 +4,6 @@ import DoctorBio from '../components/DoctorBio';
 import PremiumEyeVideo from '../components/PremiumEyeVideo';
 import AdvancedEquipmentHighlight from '../components/AdvancedEquipmentHighlight';
 import PatientHealthcareHighlight from '../components/PatientHealthcareHighlight';
-import Gallery from '../components/Gallery';
 import ContactSection from '../components/ContactSection';
 import AppointmentSection from '../components/AppointmentSection';
 import StatsCounter from '../components/StatsCounter';
@@ -30,7 +29,6 @@ const Home = () => (
     <GovtSchemes />
     <InsurancePartners />
     <AppointmentSection />
-    <Gallery />
     <FAQSection />
     <ContactSection />
   </>
