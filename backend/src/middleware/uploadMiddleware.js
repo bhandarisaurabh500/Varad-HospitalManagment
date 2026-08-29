@@ -9,31 +9,9 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
-// ── Document uploads (AI scanner, patient docs)
-const documentStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dest = path.join(__dirname, '../../uploads/documents');
-    ensureDir(dest);
-    cb(null, dest);
-  },
-  filename: (req, file, cb) => {
-    const unique = `${Date.now()}-${Math.round(Math.random() * 1e6)}`;
-    cb(null, `scan-${unique}${path.extname(file.originalname)}`);
-  },
-});
+// ── Memory Storage for Cloud Uploads (Supabase)
+const storage = multer.memoryStorage();
 
-// ── Medical record uploads
-const medicalStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const dest = path.join(__dirname, '../../uploads/medical-records');
-    ensureDir(dest);
-    cb(null, dest);
-  },
-  filename: (req, file, cb) => {
-    const unique = `${Date.now()}-${Math.round(Math.random() * 1e6)}`;
-    cb(null, `record-${unique}${path.extname(file.originalname)}`);
-  },
-});
 
 const fileFilter = (req, file, cb) => {
   if (ALLOWED_MIME.includes(file.mimetype)) {
@@ -45,7 +23,7 @@ const fileFilter = (req, file, cb) => {
 
 const limits = { fileSize: MAX_SIZE_MB * 1024 * 1024 };
 
-const uploadDocument   = multer({ storage: documentStorage,  fileFilter, limits });
-const uploadMedical    = multer({ storage: medicalStorage,   fileFilter, limits });
+const uploadDocument   = multer({ storage, fileFilter, limits });
+const uploadMedical    = multer({ storage, fileFilter, limits });
 
 module.exports = { uploadDocument, uploadMedical };

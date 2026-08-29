@@ -1,6 +1,7 @@
 const path = require('path');
 const { pool } = require('../config/db');
 const { scanDocument } = require('../services/ai/aiService');
+const { uploadToSupabase } = require('../services/storageService');
 
 /** POST /api/ai/scan-document */
 async function scanDocumentHandler(req, res, next) {
@@ -9,15 +10,15 @@ async function scanDocumentHandler(req, res, next) {
       return res.status(422).json({ success: false, message: 'No file uploaded.' });
     }
 
-    const filePath = req.file.path;
+    const fileBuffer = req.file.buffer;
     const mimeType = req.file.mimetype;
     const originalName = req.file.originalname;
 
     // Run OCR / AI extraction
-    const extracted = await scanDocument(filePath, mimeType);
+    const extracted = await scanDocument(fileBuffer, mimeType);
 
-    // Store scan record in DB (NOT verified yet)
-    const storedPath = `/uploads/documents/${req.file.filename}`;
+    // Store scan record in DB by uploading to Supabase
+    const storedPath = await uploadToSupabase(fileBuffer, originalName, mimeType, 'documents');
     const [result] = await pool.execute(
       `INSERT INTO ai_scans (scanned_by, original_file, file_mime, raw_text, extracted_data, confidence, ai_provider, is_verified)
        VALUES (?,?,?,?,?,?,?,0)`,

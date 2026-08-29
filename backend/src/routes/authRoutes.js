@@ -14,10 +14,34 @@ router.post('/register',
 
 router.post('/login',
   [
-    body('email').isEmail(),
-    body('password').notEmpty(),
+    body('email').notEmpty().withMessage('Username or email is required'),
+    body('password').notEmpty().withMessage('Password is required'),
   ],
   login
+);
+
+router.post('/forgot-password',
+  [
+    body('email').notEmpty().withMessage('Username or email is required')
+  ],
+  require('../controllers/authController').forgotPassword
+);
+
+router.post('/verify-otp',
+  [
+    body('email').notEmpty().withMessage('Username or email is required'),
+    body('otp').isLength({ min: 6, max: 6 }).withMessage('Valid 6-digit OTP is required')
+  ],
+  require('../controllers/authController').verifyOtp
+);
+
+router.post('/reset-password',
+  [
+    body('email').notEmpty().withMessage('Username or email is required'),
+    body('otp').isLength({ min: 6, max: 6 }).withMessage('Valid 6-digit OTP is required'),
+    body('newPassword').isLength({ min: 6 }).withMessage('Password must be at least 6 chars')
+  ],
+  require('../controllers/authController').resetPassword
 );
 
 router.get('/me', authMiddleware, getMe);

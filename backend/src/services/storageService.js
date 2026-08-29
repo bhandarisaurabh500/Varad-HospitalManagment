@@ -1,0 +1,83 @@
+const { createClient } = require('@supabase/supabase-js');
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.warn('⚠️ Supabase credentials are missing. Cloud storage uploads will fail.');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const BUCKET_NAME = 'varad-hospital-storage';
+
+/**
+ * Uploads a file buffer to Supabase Storage
+ * @param {Buffer} fileBuffer - The file buffer from multer memory storage
+ * @param {string} originalName - Original filename
+ * @param {string} mimeType - File MIME type
+ * @param {string} folder - Destination folder (e.g., 'medical-records', 'documents')
+ * @returns {Promise<string>} - The public URL of the uploaded file
+ */
+async function uploadToSupabase(fileBuffer, originalName, mimeType, folder = '') {
+  try {
+    const ext = path.extname(originalName);
+    const uniqueFilename = `${Date.now()}-${uuidv4().substring(0, 8)}${ext}`;
+    const filePath = folder ? `${folder}/${uniqueFilename}` : uniqueFilename;
+
+    const { data, error } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(filePath, fileBuffer, {
+        contentType: mimeType,
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    // Get public URL
+    const { data: publicUrlData } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(filePath);
+
+    return publicUrlData.publicUrl;
+  } catch (err) {
+    console.error('Supabase upload error:', err);
+    throw new Error('Failed to upload file to cloud storage.');
+  }
+}
+
+/**
+ * Deletes a file from Supabase Storage using its public URL
+ * @param {string} fileUrl - The full public URL of the file
+ */
+async function deleteFromSupabase(fileUrl) {
+  try {
+    if (!fileUrl || !fileUrl.includes(BUCKET_NAME)) return;
+
+    // Extract file path from URL
+    // e.g. https://.../storage/v1/object/public/varad-hospital-storage/folder/file.jpg
+    const baseUrl = `${supabaseUrl}/storage/v1/object/public/${BUCKET_NAME}/`;
+    if (!fileUrl.startsWith(baseUrl)) return;
+
+    const filePath = fileUrl.replace(baseUrl, '');
+    
+    const { error } = await supabase.storage
+      .from(BUCKET_NAME)
+      .remove([filePath]);
+
+    if (error) throw error;
+  } catch (err) {
+    console.error('Supabase delete error:', err);
+  }
+}
+
+module.exports = {
+  uploadToSupabase,
+  deleteFromSupabase,
+  supabase,
+};

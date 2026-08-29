@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import api from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -8,11 +8,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check active sessions and sets the user
     const checkSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user ?? null);
+        const token = localStorage.getItem('varad_token');
+        const localUser = localStorage.getItem('varad_user');
+        
+        if (token && localUser) {
+          setUser(JSON.parse(localUser));
+        } else {
+          setUser(null);
+        }
       } catch (error) {
         console.error('Error fetching session:', error);
       } finally {
@@ -21,34 +26,26 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkSession();
-
-    // Listen for changes on auth state (sign in, sign out, etc.)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) throw error;
+      const res = await api.post('/auth/login', { email, password });
       
-      setUser(data.user);
-      return { success: true, user: data.user };
+      if (res.data.success) {
+        localStorage.setItem('varad_token', res.data.token);
+        localStorage.setItem('varad_user', JSON.stringify(res.data.user));
+        setUser(res.data.user);
+        return { success: true, user: res.data.user };
+      }
+      return { success: false, message: 'Invalid credentials.' };
     } catch (err) {
       console.error(err);
-      return { success: false, message: 'Invalid email or password.' };
+      return { 
+        success: false, 
+        message: err.response?.data?.message || 'Invalid username/email or password.' 
+      };
     } finally {
       setLoading(false);
     }
@@ -57,7 +54,8 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     setLoading(true);
     try {
-      await supabase.auth.signOut();
+      localStorage.removeItem('varad_token');
+      localStorage.removeItem('varad_user');
       setUser(null);
       window.location.href = '/login';
     } catch (error) {
@@ -67,28 +65,44 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const resetPasswordForEmail = async (email) => {
+  const requestOtp = async (email) => {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/admin/dashboard',
-      });
-      if (error) throw error;
-      return { success: true };
+      const res = await api.post('/auth/forgot-password', { email });
+      return { success: true, message: res.data.message };
     } catch (err) {
-      return { success: false, message: err.message };
+      return { success: false, message: err.response?.data?.message || err.message };
+    }
+  };
+
+  const verifyOtp = async (email, otp) => {
+    try {
+      const res = await api.post('/auth/verify-otp', { email, otp });
+      return { success: true, message: res.data.message };
+    } catch (err) {
+      return { success: false, message: err.response?.data?.message || err.message };
+    }
+  };
+
+  const resetPassword = async (email, otp, newPassword) => {
+    try {
+      const res = await api.post('/auth/reset-password', { email, otp, newPassword });
+      return { success: true, message: res.data.message };
+    } catch (err) {
+      return { success: false, message: err.response?.data?.message || err.message };
     }
   };
 
   const isAuth = () => !!user;
-
-  // The prompt states only the Doctor is allowed and no one else.
-  // Thus, if someone is authenticated, they are the admin/doctor.
   const isAdmin = () => isAuth();
   const isDoctor = () => isAuth();
-  const isPatient = () => false; // Disabled as per requirements
+  const isPatient = () => false;
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, resetPasswordForEmail, isAdmin, isDoctor, isPatient, isAuth }}>
+    <AuthContext.Provider value={{ 
+      user, loading, login, logout, 
+      requestOtp, verifyOtp, resetPassword, 
+      isAdmin, isDoctor, isPatient, isAuth 
+    }}>
       {!loading && children}
     </AuthContext.Provider>
   );

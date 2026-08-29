@@ -63,11 +63,11 @@ async function login(req, res, next) {
 
     const [rows] = await pool.execute(
       `SELECT u.id, u.full_name, u.email, u.phone, u.password, u.is_active,
-              r.name AS role, u.profile_pic
+              r.name AS role, u.profile_pic, u.username
        FROM users u
        JOIN roles r ON r.id = u.role_id
-       WHERE u.email = ?`,
-      [email]
+       WHERE u.email = ? OR u.username = ?`,
+      [email, email]
     );
 
     if (rows.length === 0) {
@@ -127,4 +127,117 @@ function signToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
 }
 
-module.exports = { register, login, getMe };
+/** POST /api/auth/forgot-password */
+async function forgotPassword(req, res, next) {
+  try {
+    const { email } = req.body;
+    
+    // Find user by email or username
+    const [rows] = await pool.execute(
+      'SELECT id, email, username FROM users WHERE email = ? OR username = ?',
+      [email, email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const user = rows[0];
+    
+    // Generate a 6 digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Expiry: 10 minutes from now
+    const expiry = new Date(Date.now() + 10 * 60 * 1000);
+    
+    // Use Postgres TO_TIMESTAMP function to safely store the datetime in UTC
+    await pool.execute(
+      'UPDATE users SET reset_otp = ?, reset_otp_expiry = TO_TIMESTAMP(?, \'YYYY-MM-DD HH24:MI:SS\') WHERE id = ?',
+      [
+        otp, 
+        expiry.toISOString().replace('T', ' ').substring(0, 19), 
+        user.id
+      ]
+    );
+
+    // If it's the admin, the admin might have 'admin' as username but a specific email to send to.
+    // Use user.email if it contains '@', else use process.env.DOCTOR_EMAIL
+    const targetEmail = user.email.includes('@') ? user.email : (process.env.DOCTOR_EMAIL || 'bhandarisaurabh500@gmail.com');
+
+    const { sendOtpEmail } = require('../services/emailService');
+    await sendOtpEmail(targetEmail, otp);
+
+    return res.json({ success: true, message: 'OTP sent to your registered email.' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/** POST /api/auth/verify-otp */
+async function verifyOtp(req, res, next) {
+  try {
+    const { email, otp } = req.body;
+
+    const [rows] = await pool.execute(
+      'SELECT id, reset_otp, reset_otp_expiry FROM users WHERE email = ? OR username = ?',
+      [email, email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const user = rows[0];
+
+    if (!user.reset_otp || user.reset_otp !== otp) {
+      return res.status(400).json({ success: false, message: 'Invalid OTP.' });
+    }
+
+    if (new Date(user.reset_otp_expiry) < new Date()) {
+      return res.status(400).json({ success: false, message: 'OTP has expired.' });
+    }
+
+    return res.json({ success: true, message: 'OTP verified successfully.' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/** POST /api/auth/reset-password */
+async function resetPassword(req, res, next) {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    const [rows] = await pool.execute(
+      'SELECT id, reset_otp, reset_otp_expiry FROM users WHERE email = ? OR username = ?',
+      [email, email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const user = rows[0];
+
+    if (!user.reset_otp || user.reset_otp !== otp) {
+      return res.status(400).json({ success: false, message: 'Invalid OTP.' });
+    }
+
+    if (new Date(user.reset_otp_expiry) < new Date()) {
+      return res.status(400).json({ success: false, message: 'OTP has expired.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await pool.execute(
+      'UPDATE users SET password = ?, reset_otp = NULL, reset_otp_expiry = NULL WHERE id = ?',
+      [hashedPassword, user.id]
+    );
+
+    return res.json({ success: true, message: 'Password reset successfully.' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { register, login, getMe, forgotPassword, verifyOtp, resetPassword };

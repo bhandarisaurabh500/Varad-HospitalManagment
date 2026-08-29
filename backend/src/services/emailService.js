@@ -326,8 +326,54 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
   }
 }
 
+/**
+ * Send OTP for forgot password
+ */
+async function sendOtpEmail(email, otp) {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn('EMAIL_USER or EMAIL_PASS is not set. Skipping OTP email.');
+    return;
+  }
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+      <div style="background-color: #0f172a; padding: 20px; text-align: center;">
+        <h2 style="color: #ffffff; margin: 0; font-size: 20px;">Password Reset Request</h2>
+      </div>
+      <div style="padding: 30px; background-color: #ffffff; text-align: center;">
+        <p style="color: #475569; font-size: 16px; line-height: 1.5; margin-top: 0;">
+          You requested to reset your password. Use the OTP below to proceed. This OTP is valid for 10 minutes.
+        </p>
+        <div style="margin: 30px 0;">
+          <span style="font-size: 32px; font-weight: bold; letter-spacing: 4px; color: #0284c7; background-color: #f0f9ff; padding: 15px 30px; border-radius: 8px; border: 1px dashed #bae6fd;">
+            ${otp}
+          </span>
+        </div>
+        <p style="color: #64748b; font-size: 14px;">
+          If you didn't request this, you can safely ignore this email.
+        </p>
+      </div>
+    </div>
+  `;
+
+  try {
+    const info = await transporter.sendMail({
+      from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: `Password Reset OTP - Varad Netralaya`,
+      html: html,
+    });
+    console.log('OTP email sent:', info.messageId);
+    return info;
+  } catch (error) {
+    console.error('Failed to send OTP email:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   sendDoctorNotification,
   sendPatientConfirmation,
-  sendStatusUpdateEmail
+  sendStatusUpdateEmail,
+  sendOtpEmail
 };

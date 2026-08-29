@@ -69,7 +69,7 @@ A complete full-stack web application for Varad Netralaya, featuring a patient p
 
 You can log in to the system using the following demo accounts:
 
-- **Admin**: `admin@varadnetralaya.com` | Password: `Admin@123`
+- **Admin**: `admin` | Password: `admin@123`
 - **Doctor**: `dr.borude@varadnetralaya.com` | Password: `Doctor@123`
 - **Patient**: `ramesh.sharma@example.com` | Password: `Patient@123`
 

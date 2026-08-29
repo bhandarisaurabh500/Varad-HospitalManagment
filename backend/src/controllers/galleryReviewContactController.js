@@ -1,5 +1,5 @@
 const { pool } = require('../config/db');
-
+const { uploadToSupabase } = require('../services/storageService');
 /* ─── GALLERY ─── */
 async function getGallery(req, res, next) {
   try {
@@ -16,7 +16,12 @@ async function getGallery(req, res, next) {
 async function createGalleryItem(req, res, next) {
   try {
     const { title, description, category, sort_order } = req.body;
-    const image_url = req.file ? `/uploads/documents/${req.file.filename}` : req.body.image_url;
+    let image_url = req.body.image_url;
+
+    if (req.file) {
+      image_url = await uploadToSupabase(req.file.buffer, req.file.originalname, req.file.mimetype, 'gallery');
+    }
+
     if (!image_url) return res.status(422).json({ success: false, message: 'Image is required.' });
     await pool.execute(
       'INSERT INTO gallery (title, description, image_url, category, sort_order) VALUES (?,?,?,?,?)',

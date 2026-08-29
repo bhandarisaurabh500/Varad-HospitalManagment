@@ -5,15 +5,19 @@ import { useAuth } from '../context/AuthContext';
 import { FaEye, FaEyeSlash, FaLock, FaEnvelope, FaUserMd } from 'react-icons/fa';
 
 const Login = () => {
-  const { login, resetPasswordForEmail, loading } = useAuth();
+  const { login, requestOtp, verifyOtp, resetPassword, loading } = useAuth();
   const navigate = useNavigate();
   const [showPwd, setShowPwd] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [isForgotPwd, setIsForgotPwd] = useState(false);
+  
+  // view: 'login' | 'request-otp' | 'verify-otp' | 'reset-password'
+  const [view, setView] = useState('login');
 
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [resetEmail, setResetEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,16 +31,45 @@ const Login = () => {
     }
   };
 
+  const handleRequestOtp = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    const res = await requestOtp(resetEmail);
+    if (res.success) {
+      setSuccess('OTP sent to your registered email.');
+      setView('verify-otp');
+    } else {
+      setError(res.message || 'Failed to send OTP.');
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    const res = await verifyOtp(resetEmail, otp);
+    if (res.success) {
+      setSuccess('OTP verified. Please enter your new password.');
+      setView('reset-password');
+    } else {
+      setError(res.message || 'Invalid OTP.');
+    }
+  };
+
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    const res = await resetPasswordForEmail(resetEmail);
+    const res = await resetPassword(resetEmail, otp, newPassword);
     if (res.success) {
-      setSuccess('Password reset link sent to your email.');
-      setIsForgotPwd(false);
+      setSuccess('Password reset successfully. Please login.');
+      setView('login');
+      setResetEmail('');
+      setOtp('');
+      setNewPassword('');
     } else {
-      setError(res.message || 'Failed to send reset email.');
+      setError(res.message || 'Failed to reset password.');
     }
   };
 
@@ -78,8 +111,12 @@ const Login = () => {
             <div className="lg:hidden w-16 h-16 bg-gradient-to-br from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-lg">
               <FaUserMd />
             </div>
-            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Doctor Login</h2>
-            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Welcome back, Dr. Borude</p>
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">
+              {view === 'login' ? 'Doctor Login' : 'Reset Password'}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+              {view === 'login' ? 'Welcome back, Dr. Borude' : 'Follow the steps to reset'}
+            </p>
           </div>
 
           <AnimatePresence mode="wait">
@@ -105,7 +142,7 @@ const Login = () => {
             )}
           </AnimatePresence>
 
-          {!isForgotPwd ? (
+          {view === 'login' && (
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Username or Email</label>
@@ -159,7 +196,7 @@ const Login = () => {
 
                 <button 
                   type="button"
-                  onClick={() => { setIsForgotPwd(true); setError(''); setSuccess(''); }}
+                  onClick={() => { setView('request-otp'); setError(''); setSuccess(''); }}
                   className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
                 >
                   Forgot Password?
@@ -174,19 +211,21 @@ const Login = () => {
                 {loading ? 'Authenticating...' : 'Login to Dashboard'}
               </button>
             </form>
-          ) : (
-            <form onSubmit={handleResetPassword} className="space-y-5">
+          )}
+
+          {view === 'request-otp' && (
+            <form onSubmit={handleRequestOtp} className="space-y-5">
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 text-center">
-                Enter your email address and we'll send you a link to reset your password.
+                Enter your username or email address and we'll send you an OTP to reset your password.
               </p>
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Username or Email</label>
                 <div className="relative">
                   <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
-                    type="email" 
+                    type="text" 
                     required
-                    placeholder="doctor@varadnetralaya.com"
+                    placeholder="admin or doctor@varadnetralaya.com"
                     value={resetEmail}
                     onChange={e => setResetEmail(e.target.value)}
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -199,15 +238,91 @@ const Login = () => {
                 disabled={loading}
                 className="w-full py-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-lg hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors disabled:opacity-70"
               >
-                {loading ? 'Sending...' : 'Send Reset Link'}
+                {loading ? 'Sending...' : 'Send OTP'}
               </button>
 
               <button 
                 type="button"
-                onClick={() => { setIsForgotPwd(false); setError(''); setSuccess(''); }}
+                onClick={() => { setView('login'); setError(''); setSuccess(''); }}
                 className="w-full py-4 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
               >
                 Back to Login
+              </button>
+            </form>
+          )}
+
+          {view === 'verify-otp' && (
+            <form onSubmit={handleVerifyOtp} className="space-y-5">
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 text-center">
+                Please enter the 6-digit OTP sent to your email.
+              </p>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">OTP</label>
+                <div className="relative">
+                  <input
+                    type="text" 
+                    required
+                    maxLength={6}
+                    placeholder="123456"
+                    value={otp}
+                    onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
+                    className="w-full px-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center tracking-widest text-xl font-bold"
+                  />
+                </div>
+              </div>
+              
+              <button
+                type="submit" 
+                disabled={loading || otp.length !== 6}
+                className="w-full py-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-lg hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors disabled:opacity-70"
+              >
+                {loading ? 'Verifying...' : 'Verify OTP'}
+              </button>
+
+              <button 
+                type="button"
+                onClick={() => { setView('request-otp'); setError(''); setSuccess(''); }}
+                className="w-full py-4 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+              >
+                Resend OTP
+              </button>
+            </form>
+          )}
+
+          {view === 'reset-password' && (
+            <form onSubmit={handleResetPassword} className="space-y-5">
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 text-center">
+                Enter your new password below.
+              </p>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">New Password</label>
+                <div className="relative">
+                  <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type={showPwd ? 'text' : 'password'} 
+                    required
+                    minLength={6}
+                    placeholder="••••••••"
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                    className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPwd(p => !p)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  >
+                    {showPwd ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+              
+              <button
+                type="submit" 
+                disabled={loading}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg hover:shadow-lg transition-all disabled:opacity-70"
+              >
+                {loading ? 'Saving...' : 'Reset Password'}
               </button>
             </form>
           )}

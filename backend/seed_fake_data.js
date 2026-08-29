@@ -18,10 +18,10 @@ async function seedFakeData() {
     const patientRoleId = roles.length ? roles[0].id : 3;
 
     let apptNoStart = 10;
-
+    
     for (let i = 0; i < FAKE_PATIENTS.length; i++) {
       const p = FAKE_PATIENTS[i];
-
+      
       // 1. Create User
       const [userResult] = await pool.execute(
         'INSERT INTO users (role_id, full_name, email, phone, password, is_active) VALUES (?, ?, ?, ?, ?, 1)',
@@ -69,7 +69,7 @@ async function seedFakeData() {
         `INSERT INTO prescription_items (prescription_id, medicine_name, dosage, duration, instructions) VALUES (?, ?, ?, ?, ?)`,
         [prescriptionId, 'Refresh Tears Eye Drops', '1 drop twice a day', '15 Days', 'Use before sleeping']
       );
-
+      
       await pool.execute(
         `INSERT INTO prescription_items (prescription_id, medicine_name, dosage, duration, instructions) VALUES (?, ?, ?, ?, ?)`,
         [prescriptionId, 'Moxicip Eye Drops', '1 drop thrice a day', '7 Days', 'Keep eyes closed for 2 mins after applying']
@@ -86,4 +86,4 @@ async function seedFakeData() {
   }
 }
 
-seedFakeData();; dn
+seedFakeData();;dn
