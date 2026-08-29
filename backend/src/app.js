@@ -16,6 +16,9 @@ const aiRoutes            = require('./routes/aiRoutes');
 const adminRoutes         = require('./routes/adminRoutes');
 const publicRoutes        = require('./routes/publicRoutes');
 const guidelineRoutes     = require('./routes/guidelineRoutes');
+const { getClinicSettings, updateClinicSettings } = require('./controllers/clinicSettingsController');
+const authMiddleware      = require('./middleware/authMiddleware');
+const roleMiddleware      = require('./middleware/roleMiddleware');
 const errorMiddleware     = require('./middleware/errorMiddleware');
 
 const app = express();
@@ -67,6 +70,8 @@ app.use('/api/ai',              aiRoutes);
 app.use('/api/admin',           adminRoutes);
 app.use('/api',                 publicRoutes);
 app.use('/api/guidelines',      guidelineRoutes);
+app.get('/api/clinic-settings',  authMiddleware, roleMiddleware('ADMIN'), getClinicSettings);
+app.put('/api/clinic-settings',  authMiddleware, roleMiddleware('ADMIN'), updateClinicSettings);
 
 // ── 404 handler ──────────────────────────────────────────────
 app.use((req, res) => {

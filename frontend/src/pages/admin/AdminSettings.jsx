@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import api from '../../services/api';
 import { FaSave, FaPhoneAlt } from 'react-icons/fa';
 
 const AdminSettings = () => {
@@ -17,18 +17,11 @@ const AdminSettings = () => {
   const fetchSettings = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('clinic_settings')
-        .select('*')
-        .eq('id', 1)
-        .single();
-
-      if (error && error.code !== 'PGRST116') throw error; // ignore no rows error initially
-      
-      if (data) {
+      const res = await api.get('/clinic-settings');
+      if (res.data.success && res.data.data) {
         setSettings({
-          appointment_mobile: data.appointment_mobile || '',
-          clinic_phone: data.clinic_phone || ''
+          appointment_mobile: res.data.data.appointment_mobile || '',
+          clinic_phone: res.data.data.clinic_phone || ''
         });
       }
     } catch (error) {
@@ -42,16 +35,10 @@ const AdminSettings = () => {
     e.preventDefault();
     try {
       setSaving(true);
-      const { error } = await supabase
-        .from('clinic_settings')
-        .upsert({ 
-          id: 1, 
-          appointment_mobile: settings.appointment_mobile,
-          clinic_phone: settings.clinic_phone
-        });
-
-      if (error) throw error;
-      alert('Settings updated successfully!');
+      const res = await api.put('/clinic-settings', settings);
+      if (res.data.success) {
+        alert('Settings updated successfully!');
+      }
     } catch (error) {
       console.error('Error saving settings:', error);
       alert('Failed to save settings.');
