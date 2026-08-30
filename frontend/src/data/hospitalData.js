@@ -22,7 +22,7 @@ export const hospitalInfo = {
   },
   stats: {
     happyPatients: "10,000+",
-    successfulSurgeries: "8,500+",
+    successfulSurgeries: "Proven",
     experiencedDoctors: "22+ Years Experience",
     yearsOfExperience: "22+",
     googleRating: "4.9",
@@ -170,7 +170,7 @@ export const doctorsData = [
     specialization: "Cataract, Glaucoma & Refractive Surgeon",
     hospitalLocation: "Varad Netralaya, Savedi, Ahilyanagar",
     experience: "22+ Years Experience (Since 2002)",
-    surgeries: "8,500+ Eye Surgeries",
+    surgeries: "Expert in Eye Surgeries",
     available: "OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri",
     rating: 4.9,
     reviewsCount: 439,

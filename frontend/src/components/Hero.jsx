@@ -136,8 +136,8 @@ const Hero = () => {
                   <FaEye />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold font-poppins">8,500+ Surgeries</h4>
-                  <p className="text-[11px] text-slate-600 dark:text-slate-300">Successful Outcomes</p>
+                  <h4 className="text-xs font-bold font-poppins">Experienced Eye Surgeon</h4>
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300">Cataract, Glaucoma & Refractive Surgery</p>
                 </div>
               </motion.div>
             </div>
