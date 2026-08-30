@@ -90,6 +90,13 @@ async function createAppointment(req, res, next) {
       ]
     );
 
+    // Remove from partial_leads (incomplete bookings) since it is now successfully booked
+    try {
+      await pool.execute('DELETE FROM partial_leads WHERE phone = ?', [patient_phone]);
+    } catch (err) {
+      console.error('Failed to remove partial lead:', err);
+    }
+
     // Prepare details for emails
     const appointmentDetails = {
       appointment_no: appointmentNo,
