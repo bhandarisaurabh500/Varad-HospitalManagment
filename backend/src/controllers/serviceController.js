@@ -47,8 +47,8 @@ async function updateService(req, res, next) {
 /** DELETE /api/services/:id - Admin */
 async function deleteService(req, res, next) {
   try {
-    await pool.execute('UPDATE services SET is_active=0 WHERE id=?', [req.params.id]);
-    return res.json({ success: true, message: 'Service deactivated.' });
+    await pool.execute('DELETE FROM services WHERE id=?', [req.params.id]);
+    return res.json({ success: true, message: 'Service deleted.' });
   } catch (err) { next(err); }
 }
 

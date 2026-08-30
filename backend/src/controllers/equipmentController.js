@@ -39,7 +39,7 @@ async function updateEquipment(req, res, next) {
 
 async function deleteEquipment(req, res, next) {
   try {
-    await pool.execute('UPDATE equipment SET is_active=0 WHERE id=?', [req.params.id]);
+    await pool.execute('DELETE FROM equipment WHERE id=?', [req.params.id]);
     return res.json({ success: true, message: 'Equipment removed.' });
   } catch (err) { next(err); }
 }

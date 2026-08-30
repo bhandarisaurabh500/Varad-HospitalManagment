@@ -39,7 +39,7 @@ async function updateNotice(req, res, next) {
 
 async function deleteNotice(req, res, next) {
   try {
-    await pool.execute('UPDATE notices SET is_active=0 WHERE id=?', [req.params.id]);
+    await pool.execute('DELETE FROM notices WHERE id=?', [req.params.id]);
     return res.json({ success: true, message: 'Notice removed.' });
   } catch (err) { next(err); }
 }
