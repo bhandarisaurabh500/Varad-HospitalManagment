@@ -43,7 +43,7 @@ const DoctorBio = () => {
               <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950">
                 <img 
                   src={doctor.photo} 
-                  alt="Dr. Raosaheb K. Borude" 
+                  alt="Dr. Raosaheb K. BORUDE" 
                   className="w-full h-auto object-cover object-top"
                   style={{ maxHeight: '550px' }}
                 />
@@ -78,7 +78,7 @@ const DoctorBio = () => {
               ) : (
                 <>
                   <p className="leading-relaxed">
-                    Dr. Raosaheb K. Borude is a dedicated Cataract, Glaucoma & Refractive Surgeon providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
+                    Dr. Raosaheb K. BORUDE is a dedicated Cataract, Glaucoma & Refractive Surgeon providing advanced and comprehensive eye-care services. He focuses on accurate diagnosis, modern treatment techniques and patient-centered care.
                   </p>
                   <p className="leading-relaxed">
                     With a commitment to precision and safety, he provides specialized care for retinal and refractive eye conditions and helps patients achieve better vision and improved quality of life.

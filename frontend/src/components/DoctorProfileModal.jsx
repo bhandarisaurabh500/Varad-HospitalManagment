@@ -41,12 +41,12 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
             <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white dark:border-slate-700 shadow-xl mb-6 bg-blue-100">
               <img 
                 src="/photos/doctor/Dr.BorudeSir.png" 
-                alt="Dr. Raosaheb Borude" 
+                alt="Dr. Raosaheb K. BORUDE" 
                 className="w-full h-full object-cover"
               />
             </div>
             
-            <h2 className="text-3xl font-black text-blue-950 dark:text-white text-center mb-2">Dr. Raosaheb Borude</h2>
+            <h2 className="text-3xl font-black text-blue-950 dark:text-white text-center mb-2">Dr. Raosaheb K. BORUDE</h2>
             <p className="text-teal-600 dark:text-teal-400 font-bold text-center mb-6 px-4 py-1.5 bg-teal-50 dark:bg-teal-900/30 rounded-full text-sm">
               Cataract, Glaucoma & Refractive Surgeon
             </p>

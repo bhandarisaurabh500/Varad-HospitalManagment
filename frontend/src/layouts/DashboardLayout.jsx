@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
             <img src="/photos/doctor/Dr.BorudeSir.png" alt="Dr. Borude" className="w-full h-full object-cover" />
           </div>
           <div>
-            <p className="font-bold text-sm text-white leading-none">Dr. Raosaheb K. Borude</p>
+            <p className="font-bold text-sm text-white leading-none">Dr. Raosaheb K. BORUDE</p>
             <p className="text-xs text-teal-400 mt-1">{roleLabel}</p>
           </div>
         </div>
@@ -75,7 +75,7 @@ const DashboardLayout = ({ children }) => {
               <img src="/photos/doctor/Dr.BorudeSir.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-bold text-white truncate">{user?.email || 'Dr. Raosaheb K. Borude'}</p>
+              <p className="text-xs font-bold text-white truncate">{user?.email || 'Dr. Raosaheb K. BORUDE'}</p>
               <p className="text-[10px] text-teal-400 truncate">Administrator</p>
             </div>
           </div>

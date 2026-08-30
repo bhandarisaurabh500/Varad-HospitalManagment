@@ -23,7 +23,7 @@ const HospitalTour = () => {
           <img src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" alt="Advanced Patient Care" className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5">
             <h4 className="text-white text-lg font-bold">Advanced Patient Care</h4>
-            <p className="text-white/80 text-sm mt-1">Dr. Raosaheb Borude examining a patient</p>
+            <p className="text-white/80 text-sm mt-1">Dr. Raosaheb K. BORUDE examining a patient</p>
           </div>
         </div>
 
@@ -42,7 +42,7 @@ const HospitalTour = () => {
           </div>
           <div className="p-5">
             <h4 className="text-lg font-bold text-slate-900 dark:text-white">Patient Experience & Hospital Tour</h4>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Watch Dr. Raosaheb Borude examining patients at Varad Netralaya.</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Watch Dr. Raosaheb K. BORUDE examining patients at Varad Netralaya.</p>
             <div className="mt-4 flex flex-col gap-2">
               <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Read our patient reviews on Justdial:</span>
               <a href="https://jsdl.in/RSL-BXC1787681221" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">

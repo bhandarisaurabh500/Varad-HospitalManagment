@@ -68,7 +68,7 @@ const FloatingWhatsApp = () => {
             {/* Chat Body */}
             <div className="p-4 bg-slate-50 dark:bg-slate-950 space-y-3 max-h-72 overflow-y-auto">
               <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm text-xs text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 max-w-[85%]">
-                👋 Hello! Welcome to Dr. Raosaheb Kundlik Borude's Clinic. How can we assist your vision today?
+                👋 Hello! Welcome to Dr. Raosaheb K. BORUDE's Clinic. How can we assist your vision today?
               </div>
 
               <div className="space-y-1.5 pt-2">

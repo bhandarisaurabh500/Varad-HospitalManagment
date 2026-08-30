@@ -150,7 +150,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
       const appointmentTime = `${formData.preferredTime}:00`;
 
       const payload = {
-        doctor_id: 1, // Defaulting to Dr. Ravsaheb Borude
+        doctor_id: 1, // Defaulting to Dr. Raosaheb K. BORUDE
         appointment_date: formData.preferredDate,
         appointment_time: appointmentTime,
         patient_name: formData.patientName,

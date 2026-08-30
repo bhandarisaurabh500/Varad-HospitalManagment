@@ -89,7 +89,7 @@ const DoctorPortfolio = () => {
               <div className="relative rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl">
                 <img
                   src="/photos/doctor/Dr.BorudeSir.png"
-                  alt="Dr. Raosaheb Kundlik Borude"
+                  alt="Dr. Raosaheb K. BORUDE"
                   className="w-full object-cover"
                   style={{ maxHeight: "480px", objectPosition: "top" }}
                 />
@@ -131,7 +131,7 @@ const DoctorPortfolio = () => {
 
             <h2 className="text-4xl sm:text-5xl font-extrabold text-white font-poppins leading-tight">
               Dr. Raosaheb<br />
-              <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">Kundlik Borude</span>
+              <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">K. BORUDE</span>
             </h2>
             <p className="text-slate-400 text-lg mt-1">??. ???????? ??????? ??????</p>
 
@@ -198,7 +198,7 @@ const DoctorPortfolio = () => {
                 </a>
               </div>
               <button
-                onClick={() => openAppointmentModal("Dr. Raosaheb Kundlik Borude")}
+                onClick={() => openAppointmentModal("Dr. Raosaheb K. BORUDE")}
                 className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white text-sm font-bold shadow-lg shadow-blue-600/30 transition"
               >
                 <FaCalendarCheck /> Book Appointment

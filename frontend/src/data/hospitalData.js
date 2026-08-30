@@ -1,6 +1,6 @@
 export const hospitalInfo = {
-  name: "Dr. Ravsaheb Borude",
-  marathiName: "Dr. Raosaheb Borude",
+  name: "Dr. Raosaheb K. BORUDE",
+  marathiName: "Dr. Raosaheb K. BORUDE",
   tagline: "Cataract, Glaucoma & Refractive Surgeon",
   logo: "/Varadlogo.png",
   doctorPersonalMobile: "+91 9822315840",
@@ -42,7 +42,7 @@ export const quickFeatures = [
   {
     id: 2,
     title: "Expert Ophthalmologist",
-    desc: "Dr. Raosaheb Kundlik Borude.",
+    desc: "Dr. Raosaheb K. BORUDE.",
     icon: "FaUserMd",
     badge: "M.B.B.S., D.O.M.S., F.I.G.O.",
     color: "from-emerald-500 to-teal-600"
@@ -68,7 +68,7 @@ export const quickFeatures = [
 export const aboutData = {
   title: "About Varad Netralaya",
   subtitle: "Prominent Eye Care Clinic in Savedi, Ahilyanagar (Ahmednagar)",
-  description: "Varad Netralaya (वरद नेत्रालय, सावेडी, अहिल्यानगर) is a renowned eye super-specialty clinic led by experienced senior ophthalmologist Dr. Raosaheb Kundlik Borude. Located near Anita Medical, behind Hotel Parichay on Balikashram Road, we offer complete ophthalmic examinations, advanced computerized eye testing, micro-incision cataract surgeries, retina diagnostics, and cashless hospitalization.",
+  description: "Varad Netralaya (वरद नेत्रालय, सावेडी, अहिल्यानगर) is a renowned eye super-specialty clinic led by experienced senior ophthalmologist Dr. Raosaheb K. BORUDE. Located near Anita Medical, behind Hotel Parichay on Balikashram Road, we offer complete ophthalmic examinations, advanced computerized eye testing, micro-incision cataract surgeries, retina diagnostics, and cashless hospitalization.",
   history: "Trusted by over 30,000+ patients across Ahilyanagar, Varad Netralaya has established an outstanding 4.9★ Google Rating backed by 439+ verified patient reviews for clinical precision and patient care.",
   mission: "To deliver accessible, accurate, and world-class vision care through cutting-edge diagnostic technology, surgical mastery, and compassionate patient service.",
   vision: "To remain the most trusted tertiary eye care institute in Ahilyanagar for vision preservation and sight restoration.",
@@ -162,8 +162,8 @@ export const eyeTreatmentsData = [
 export const doctorsData = [
   {
     id: 2,
-    name: "Dr. Ravsaheb Borude",
-    marathiName: "Dr. Raosaheb Borude",
+    name: "Dr. Raosaheb K. BORUDE",
+    marathiName: "Dr. Raosaheb K. BORUDE",
     title: "Chief Surgeon, D.O.M.S., F.I.G.O.",
     university: "Ophthalmology – Pune University",
     qualification: "Fellowship in General Ophthalmology & Phacosurgery",
@@ -175,14 +175,14 @@ export const doctorsData = [
     rating: 4.9,
     reviewsCount: 439,
     photo: "/photos/doctor/Dr.BorudeSir.png",
-    bio: "Dr. Ravsaheb Borude is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He specializes in Phaco, Cataract, Glaucoma, Squint, Corneal Transplantation, and LASIK Surgery."
+    bio: "Dr. Raosaheb K. BORUDE is a highly experienced Cataract, Glaucoma & Refractive Surgeon. He specializes in Phaco, Cataract, Glaucoma, Squint, Corneal Transplantation, and LASIK Surgery."
   }
 ];
 
 export const whyChooseUsData = [
   {
     id: 1,
-    title: "Dr. Ravsaheb Borude",
+    title: "Dr. Raosaheb K. BORUDE",
     desc: "Renowned senior ophthalmologist in Savedi, Ahilyanagar.",
     icon: "FaUserCheck",
     color: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
@@ -259,8 +259,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Justdial 5★ Review",
     timeAgo: "April 9",
-    treatment: "Eye Treatment (Dr. Raosaheb Borude)",
-    comment: "I had an excellent experience at Varad Netralaya. The treatment by Dr. Raosaheb Borude was top-notch & very nice communication & treatment with patient. Dr Raosaheb Borude giving best treatment from last 24 years. Highly recommended! 1st Eye super speciality hospital in ahmednagar.",
+    treatment: "Eye Treatment (Dr. Raosaheb K. BORUDE)",
+    comment: "I had an excellent experience at Varad Netralaya. The treatment by Dr. Raosaheb K. BORUDE was top-notch & very nice communication & treatment with patient. Dr Raosaheb K. BORUDE giving best treatment from last 24 years. Highly recommended! 1st Eye super speciality hospital in ahmednagar.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
   },
   {
@@ -271,8 +271,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Justdial 5★ Review",
     timeAgo: "January 29",
-    treatment: "Consultation (Dr. Raosaheb Borude)",
-    comment: "Varad Netralaya is a great place for eye care. Dr. Raosaheb Borude is a very knowledgeable doctor. They explain everything clearly. The clinic is well connected, making it easy to get appointments. I highly recommend them for any eye problems!",
+    treatment: "Consultation (Dr. Raosaheb K. BORUDE)",
+    comment: "Varad Netralaya is a great place for eye care. Dr. Raosaheb K. BORUDE is a very knowledgeable doctor. They explain everything clearly. The clinic is well connected, making it easy to get appointments. I highly recommend them for any eye problems!",
     photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
   },
   {
@@ -283,8 +283,8 @@ export const testimonialsData = [
     rating: 5,
     source: "Justdial 5★ Review",
     timeAgo: "July 18",
-    treatment: "Cataract Surgery (Dr. Raosaheb Borude)",
-    comment: "Dr. Raosaheb Borude performed my mother's eye surgery very well and provided good guidelines and consultation. Thank you. Outstanding care and thorough examinations.",
+    treatment: "Cataract Surgery (Dr. Raosaheb K. BORUDE)",
+    comment: "Dr. Raosaheb K. BORUDE performed my mother's eye surgery very well and provided good guidelines and consultation. Thank you. Outstanding care and thorough examinations.",
     photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
   }
 ];
@@ -313,9 +313,9 @@ export const galleryData = [
   },
   {
     id: 4,
-    title: "Dr. Raosaheb Borude – Profile",
+    title: "Dr. Raosaheb K. BORUDE – Profile",
     category: "Doctors",
-    desc: "Dr. Raosaheb Kundlik Borude – M.B.B.S., D.O.M.S., F.I.G.O. – Cataract, Glaucoma & Refractive Surgeon with extensive experience. OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri.",
+    desc: "Dr. Raosaheb K. BORUDE – M.B.B.S., D.O.M.S., F.I.G.O. – Cataract, Glaucoma & Refractive Surgeon with extensive experience. OPD: Tue, Thu, Sat | Surgery: Mon, Wed, Fri.",
     imageUrl: "/photos/doctor/Dr.BorudeSir.png"
   },
   {
@@ -327,14 +327,14 @@ export const galleryData = [
   },
   {
     id: 6,
-    title: "Dr. Raosaheb Borude - Felicitating Guest",
+    title: "Dr. Raosaheb K. BORUDE - Felicitating Guest",
     category: "Doctors",
-    desc: "Dr. Raosaheb Borude felicitating a guest at Varad Netralaya.",
+    desc: "Dr. Raosaheb K. BORUDE felicitating a guest at Varad Netralaya.",
     imageUrl: "/photos/doctor/Doctor 1.png"
   },
   {
     id: 8,
-    title: "Dr. Raosaheb Borude - Presentation",
+    title: "Dr. Raosaheb K. BORUDE - Presentation",
     category: "Doctors",
     desc: "Dr. Borude presenting a token of appreciation to a guest.",
     imageUrl: "/photos/doctor/Doctor 2.png"
@@ -467,7 +467,7 @@ export const faqList = [
   },
   {
     q: "Which consulting doctors treat patients at Varad Netralaya?",
-    a: "The clinic is led by senior ophthalmologist Dr. Raosaheb Kundlik Borude (M.B.B.S., D.O.M.S., F.I.G.O.) specializing in cataract, glaucoma, refractive surgeries, retina, automated perimetry, and comprehensive eye care."
+    a: "The clinic is led by senior ophthalmologist Dr. Raosaheb K. BORUDE (M.B.B.S., D.O.M.S., F.I.G.O.) specializing in cataract, glaucoma, refractive surgeries, retina, automated perimetry, and comprehensive eye care."
   },
   {
     q: "Is stitchless phaco cataract surgery available at Varad Netralaya?",

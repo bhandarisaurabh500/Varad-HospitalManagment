@@ -43,7 +43,7 @@ const Footer = () => {
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Dr. Raosaheb Kundlik Borude is a highly experienced Cataract, Glaucoma & Refractive Surgeon dedicated to providing modern, compassionate eye care.
+              Dr. Raosaheb K. BORUDE is a highly experienced Cataract, Glaucoma & Refractive Surgeon dedicated to providing modern, compassionate eye care.
             </p>
           </div>
 
@@ -114,7 +114,7 @@ const Footer = () => {
 
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-4">
-          <p>© {currentYear} Dr. Raosaheb Kundlik Borude. All Rights Reserved.</p>
+          <p>© {currentYear} Dr. Raosaheb K. BORUDE. All Rights Reserved.</p>
           <Link to="/login" className="bg-slate-800 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center gap-2 shadow-sm">
             <FaUserMd /> Admin Panel
           </Link>

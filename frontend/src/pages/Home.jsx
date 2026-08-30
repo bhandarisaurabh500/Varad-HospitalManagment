@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import DoctorBio from '../components/DoctorBio';
 import PremiumEyeVideo from '../components/PremiumEyeVideo';
 import AdvancedEquipmentHighlight from '../components/AdvancedEquipmentHighlight';
-import PatientHealthcareHighlight from '../components/PatientHealthcareHighlight';
+import PatientGuidelines from '../components/PatientGuidelines';
 import ContactSection from '../components/ContactSection';
 import AppointmentSection from '../components/AppointmentSection';
 import StatsCounter from '../components/StatsCounter';
@@ -21,7 +21,7 @@ const Home = () => (
     <PremiumEyeVideo />
     <Services />
     <AdvancedEquipmentHighlight />
-    <PatientHealthcareHighlight />
+    <PatientGuidelines />
     <WhyChooseUs />
     <QuickFeatures />
     <StatsCounter />

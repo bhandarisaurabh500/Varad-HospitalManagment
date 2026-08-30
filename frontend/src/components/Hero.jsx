@@ -55,7 +55,7 @@ const Hero = () => {
 
             {/* Subheading */}
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-              Dr. Raosaheb Kundlik Borude is a highly experienced Cataract, Glaucoma & Refractive Surgeon dedicated to providing modern, compassionate eye care.
+              Dr. Raosaheb K. BORUDE is a highly experienced Cataract, Glaucoma & Refractive Surgeon dedicated to providing modern, compassionate eye care.
             </p>
 
             {/* Feature Checkmarks */}

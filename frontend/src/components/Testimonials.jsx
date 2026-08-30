@@ -77,7 +77,7 @@ const Testimonials = () => {
           </h2>
           <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-teal-400 mx-auto mt-4 rounded-full"></div>
           <p className="text-slate-600 dark:text-slate-300 mt-4 text-base sm:text-lg">
-            Real patient experiences and recovery stories about Dr. Raosaheb Borude's excellent treatments.
+            Real patient experiences and recovery stories about Dr. Raosaheb K. BORUDE's excellent treatments.
           </p>
 
           {/* Google Review Badge & Write Review Action */}
