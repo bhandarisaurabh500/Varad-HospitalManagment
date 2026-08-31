@@ -173,9 +173,16 @@ async function deletePatient(req, res, next) {
     const userId = patient[0].user_id;
 
     // Delete dependent records to avoid FK constraints (if CASCADE is not set)
-    await pool.execute('DELETE FROM medicines WHERE patient_id = ?', [patientId]);
+    // 1. Delete prescription items (depends on prescriptions)
+    await pool.execute('DELETE FROM prescription_items WHERE prescription_id IN (SELECT id FROM prescriptions WHERE patient_id = ?)', [patientId]);
+    
+    // 2. Delete prescriptions
     await pool.execute('DELETE FROM prescriptions WHERE patient_id = ?', [patientId]);
+    
+    // 3. Delete medical records / visits
     await pool.execute('DELETE FROM medical_records WHERE patient_id = ?', [patientId]);
+    
+    // 4. Delete appointments
     await pool.execute('DELETE FROM appointments WHERE patient_id = ?', [patientId]);
     
     // Delete the patient record
