@@ -34,14 +34,12 @@ const AdminReviews = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this review?')) {
-      try {
-        await api.delete(`/reviews/${id}`);
-        toast.success('Review deleted successfully');
-        fetchReviews();
-      } catch (error) {
-        toast.error('Failed to delete review');
-      }
+    try {
+      await api.delete(`/reviews/${id}`);
+      toast.success('Review deleted successfully');
+      fetchReviews();
+    } catch (error) {
+      toast.error('Failed to delete review');
     }
   };
 

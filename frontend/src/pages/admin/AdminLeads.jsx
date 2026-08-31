@@ -35,14 +35,12 @@ const AdminLeads = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this lead?')) {
-      try {
-        await api.delete(`/leads/${id}`);
-        toast.success('Lead deleted');
-        fetchLeads();
-      } catch (error) {
-        toast.error('Failed to delete lead');
-      }
+    try {
+      await api.delete(`/leads/${id}`);
+      toast.success('Lead deleted');
+      fetchLeads();
+    } catch (error) {
+      toast.error('Failed to delete lead');
     }
   };
 

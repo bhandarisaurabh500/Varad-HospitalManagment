@@ -85,14 +85,12 @@ const AdminServices = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to disable/delete this service?')) {
-      try {
-        await api.delete(`/services/${id}`);
-        toast.success('Service disabled successfully');
-        fetchServices();
-      } catch (error) {
-        toast.error('Failed to delete service');
-      }
+    try {
+      await api.delete(`/services/${id}`);
+      toast.success('Service disabled successfully');
+      fetchServices();
+    } catch (error) {
+      toast.error('Failed to delete service');
     }
   };
 
