@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { hospitalInfo } from '../data/hospitalData';
+import { hospitalInfo, testimonialsData as fallbackTestimonials } from '../data/hospitalData';
 import api from '../services/api';
 import { 
   FaStar, 
@@ -29,11 +29,14 @@ const Testimonials = () => {
     const fetchReviews = async () => {
       try {
         const res = await api.get('/reviews');
-        if (res.data.success) {
+        if (res.data.success && res.data.data.length > 0) {
           setTestimonialsData(res.data.data);
+        } else {
+          setTestimonialsData(fallbackTestimonials);
         }
       } catch (err) {
         console.error('Failed to fetch reviews:', err);
+        setTestimonialsData(fallbackTestimonials);
       } finally {
         setLoading(false);
       }
@@ -42,10 +45,12 @@ const Testimonials = () => {
   }, []);
 
   const nextTestimonial = () => {
+    if (testimonialsData.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % testimonialsData.length);
   };
 
   const prevTestimonial = () => {
+    if (testimonialsData.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + testimonialsData.length) % testimonialsData.length);
   };
 
@@ -102,9 +107,12 @@ const Testimonials = () => {
 
         {/* Testimonial Slider Block */}
         <div className="max-w-4xl mx-auto relative">
+          {!activeItem ? (
+            <div className="flex justify-center p-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-teal-500"></div></div>
+          ) : (
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeItem.id}
+              key={activeItem.id || currentIndex}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -156,6 +164,7 @@ const Testimonials = () => {
               </div>
             </motion.div>
           </AnimatePresence>
+          )}
 
           {/* Slider Controls */}
           <div className="flex items-center justify-center gap-4 mt-8">

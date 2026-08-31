@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.DEV 
-  ? (import.meta.env.VITE_API_URL || 'http://localhost:5000/api')
-  : '/api';
+// Use relative path for all environments.
+// - Local dev: Vite proxy routes /api to http://localhost:5000
+// - Production: vercel.json routes /api to the backend function
+const BASE_URL = '/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
