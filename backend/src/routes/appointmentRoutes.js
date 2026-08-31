@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {
   createAppointment, getAppointments, getAppointmentById,
-  updateStatus, rescheduleAppointment, cancelAppointment, getAvailableSlots
+  updateStatus, rescheduleAppointment, deleteAppointment, getAvailableSlots
 } = require('../controllers/appointmentController');
 const authMiddleware = require('../middleware/authMiddleware');
 const roleMiddleware = require('../middleware/roleMiddleware');
@@ -21,6 +21,6 @@ router.use(authMiddleware);
 router.get('/', getAppointments);
 router.get('/:id', getAppointmentById);
 router.put('/:id/reschedule', roleMiddleware('ADMIN', 'DOCTOR', 'PATIENT'), rescheduleAppointment);
-router.delete('/:id', cancelAppointment);
+router.delete('/:id', deleteAppointment);
 
 module.exports = router;

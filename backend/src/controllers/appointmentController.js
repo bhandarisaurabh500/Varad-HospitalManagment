@@ -263,15 +263,11 @@ async function rescheduleAppointment(req, res, next) {
   }
 }
 
-/** DELETE /api/appointments/:id - Cancel */
-async function cancelAppointment(req, res, next) {
+/** DELETE /api/appointments/:id - Permanently delete appointment */
+async function deleteAppointment(req, res, next) {
   try {
-    const { reason } = req.body;
-    await pool.execute(
-      'UPDATE appointments SET status="CANCELLED", cancelled_reason=? WHERE id=?',
-      [reason || null, req.params.id]
-    );
-    return res.json({ success: true, message: 'Appointment cancelled.' });
+    await pool.execute('DELETE FROM appointments WHERE id=?', [req.params.id]);
+    return res.json({ success: true, message: 'Appointment permanently deleted.' });
   } catch (err) {
     next(err);
   }
@@ -307,4 +303,4 @@ async function getAvailableSlots(req, res, next) {
   }
 }
 
-module.exports = { createAppointment, getAppointments, getAppointmentById, updateStatus, rescheduleAppointment, cancelAppointment, getAvailableSlots };
+module.exports = { createAppointment, getAppointments, getAppointmentById, updateStatus, rescheduleAppointment, deleteAppointment, getAvailableSlots };
