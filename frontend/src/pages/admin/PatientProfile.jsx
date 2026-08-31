@@ -527,6 +527,7 @@ const PatientProfile = () => {
             </div>
           </div>
         </div>
+      )}
       {/* Visit Modal */}
       {showVisitModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
