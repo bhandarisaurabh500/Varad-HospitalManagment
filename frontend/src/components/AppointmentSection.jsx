@@ -327,7 +327,8 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
               name="doctor"
               value={formData.doctor || (doctorsData.length > 0 ? doctorsData[0].name : '')}
               onChange={handleChange}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled
+              className="appearance-none w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm text-slate-500 dark:text-slate-400 cursor-not-allowed focus:outline-none"
             >
               {doctorsData.map(doc => (
                 <option key={doc.id} value={doc.name}>
