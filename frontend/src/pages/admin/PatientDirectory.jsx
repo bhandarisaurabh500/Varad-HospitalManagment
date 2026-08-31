@@ -33,8 +33,13 @@ const PatientDirectory = () => {
       await api.delete(`/admin/patients/${id}`);
       setPatients(patients.filter(p => p.patient_id !== id));
     } catch (error) {
-      console.error('Error deleting patient:', error);
-      alert('Failed to delete patient');
+      if (error.response && error.response.status === 404) {
+        // Already deleted
+        setPatients(patients.filter(p => p.patient_id !== id));
+      } else {
+        console.error('Error deleting patient:', error);
+        alert('Failed to delete patient');
+      }
     }
   };
 
