@@ -160,4 +160,36 @@ async function searchPatients(req, res, next) {
   } catch (err) { next(err); }
 }
 
-module.exports = { getProfile, updateProfile, getPatientAppointments, getAllPatients, getPatientById, searchPatients };
+/** DELETE /api/admin/patients/:id - Delete a patient completely */
+async function deletePatient(req, res, next) {
+  try {
+    const patientId = req.params.id;
+    
+    // Fetch the user_id for this patient
+    const [patient] = await pool.execute('SELECT user_id FROM patients WHERE id = ?', [patientId]);
+    if (patient.length === 0) {
+      return res.status(404).json({ success: false, message: 'Patient not found' });
+    }
+    const userId = patient[0].user_id;
+
+    // Delete dependent records to avoid FK constraints (if CASCADE is not set)
+    await pool.execute('DELETE FROM medicines WHERE patient_id = ?', [patientId]);
+    await pool.execute('DELETE FROM prescriptions WHERE patient_id = ?', [patientId]);
+    await pool.execute('DELETE FROM medical_records WHERE patient_id = ?', [patientId]);
+    await pool.execute('DELETE FROM appointments WHERE patient_id = ?', [patientId]);
+    
+    // Delete the patient record
+    await pool.execute('DELETE FROM patients WHERE id = ?', [patientId]);
+    
+    // Delete the user record (Assuming user is only a PATIENT and doesn't have other roles)
+    // Be careful: if it's an admin/doctor being a patient, we shouldn't delete the user, 
+    // but typically patients are just PATIENT role.
+    await pool.execute('DELETE FROM users WHERE id = ? AND role = "PATIENT"', [userId]);
+
+    return res.json({ success: true, message: 'Patient deleted successfully.' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { getProfile, updateProfile, getPatientAppointments, getAllPatients, getPatientById, searchPatients, deletePatient };

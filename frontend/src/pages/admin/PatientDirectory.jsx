@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
-import { FaSearch, FaUser, FaPhoneAlt, FaCalendarAlt, FaStethoscope, FaEye } from 'react-icons/fa';
+import { FaSearch, FaUser, FaPhoneAlt, FaCalendarAlt, FaStethoscope, FaEye, FaTrash } from 'react-icons/fa';
 
 const PatientDirectory = () => {
   const [patients, setPatients] = useState([]);
@@ -24,6 +24,17 @@ const PatientDirectory = () => {
       console.error('Error fetching patients:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const deletePatient = async (id) => {
+    if (!window.confirm("Are you sure you want to permanently delete this patient and all associated records? This cannot be undone.")) return;
+    try {
+      await api.delete(`/admin/patients/${id}`);
+      setPatients(patients.filter(p => p.patient_id !== id));
+    } catch (error) {
+      console.error('Error deleting patient:', error);
+      alert('Failed to delete patient');
     }
   };
 
@@ -118,6 +129,11 @@ const PatientDirectory = () => {
                             onClick={() => navigate(`/admin/patients/${patient.patient_id}`)}
                             className="px-3 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold hover:bg-blue-100 rounded-md transition-colors flex items-center gap-1.5"
                           ><FaEye /> Profile</button>
+                          
+                          <button 
+                            onClick={() => deletePatient(patient.patient_id)}
+                            className="px-3 py-1.5 bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100 rounded-md transition-colors flex items-center gap-1.5"
+                          ><FaTrash /> Delete</button>
                         </div>
                       </td>
                     </tr>
