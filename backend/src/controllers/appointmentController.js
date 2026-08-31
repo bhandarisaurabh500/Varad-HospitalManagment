@@ -24,13 +24,13 @@ async function createAppointment(req, res, next) {
 
     let patientId = null;
 
-    // 1. Check if patient exists by patient_uid or phone
-    let query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ?';
-    let params = [patient_phone];
+    // 1. Check if patient exists by patient_uid, phone, or email
+    let query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ? OR u.email = ?';
+    let params = [patient_phone, patient_email];
 
     if (patient_uid) {
-      query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE p.patient_uid = ? OR u.phone = ?';
-      params = [patient_uid, patient_phone];
+      query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE p.patient_uid = ? OR u.phone = ? OR u.email = ?';
+      params = [patient_uid, patient_phone, patient_email];
     }
 
     const [existingPatients] = await pool.execute(query, params);
