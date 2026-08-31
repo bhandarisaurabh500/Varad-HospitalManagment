@@ -184,7 +184,7 @@ async function deletePatient(req, res, next) {
     // Delete the user record (Assuming user is only a PATIENT and doesn't have other roles)
     // Be careful: if it's an admin/doctor being a patient, we shouldn't delete the user, 
     // but typically patients are just PATIENT role.
-    await pool.execute('DELETE FROM users WHERE id = ? AND role = "PATIENT"', [userId]);
+    await pool.execute("DELETE FROM users WHERE id = ? AND role = 'PATIENT'", [userId]);
 
     return res.json({ success: true, message: 'Patient deleted successfully.' });
   } catch (err) {
