@@ -73,7 +73,6 @@ const AdminAppointments = () => {
   };
 
   const deleteAppointment = async (id) => {
-    if (!window.confirm("Are you sure you want to permanently delete this appointment?")) return;
     try {
       await api.delete(`/appointments/${id}`); // Assumes this endpoint exists
       setAppointments(appointments.filter(appt => appt.id !== id));
@@ -254,7 +253,7 @@ const AdminAppointments = () => {
                             ><FaEllipsisV /></button>
                             
                             {actionMenuId === appt.id && (
-                              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/60 dark:border-slate-700/60 z-50 py-2 text-left transform origin-top-right transition-all">
+                              <div className="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/60 dark:border-slate-700/60 z-[100] py-2 text-left">
                                 {appt.status !== 'PENDING' && (
                                   <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-4 py-2.5 text-sm text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
                                     <FaClock className="text-amber-500" /> Mark Pending
