@@ -56,7 +56,13 @@ const AdminAppointments = () => {
         const patientName = appt.patient_name || 'Patient';
         const apptDate = new Date(appt.appointment_date).toLocaleDateString();
         const apptTime = appt.appointment_time;
-        const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${newStatus}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+        
+        const msg = newStatus === 'CONFIRMED' 
+          ? `Hello ${patientName},\n\nYour appointment at Varad Netralaya has been *APPROVED* for ${apptDate} at ${apptTime}.\nPlease arrive 10 minutes early.\n\nThank you!`
+          : newStatus === 'CANCELLED'
+          ? `Hello ${patientName},\n\nWe apologize, but your appointment at Varad Netralaya on ${apptDate} at ${apptTime} has been *REJECTED / CANCELLED*.\nPlease contact us for further details.\n\nThank you!`
+          : `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${newStatus}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+          
         waWindow.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
       }
     } catch (error) {
@@ -91,7 +97,12 @@ const AdminAppointments = () => {
     const apptTime = appt.appointment_time;
     const status = specificStatus || appt.status;
     
-    const msg = `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${status}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+    const msg = status === 'CONFIRMED' 
+      ? `Hello ${patientName},\n\nYour appointment at Varad Netralaya has been *APPROVED* for ${apptDate} at ${apptTime}.\nPlease arrive 10 minutes early.\n\nThank you!`
+      : status === 'CANCELLED'
+      ? `Hello ${patientName},\n\nWe apologize, but your appointment at Varad Netralaya on ${apptDate} at ${apptTime} has been *REJECTED / CANCELLED*.\nPlease contact us for further details.\n\nThank you!`
+      : `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${status}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
+      
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -255,14 +266,11 @@ const AdminAppointments = () => {
                                   </button>
                                 )}
                                 <button onClick={() => handleWhatsApp(appt)} className="w-full px-4 py-2.5 text-sm text-emerald-600 dark:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
-                                  <FaWhatsapp className="text-emerald-500 text-base" /> WhatsApp
+                                  <FaWhatsapp className="text-emerald-500 text-base" /> Send WhatsApp
                                 </button>
                                 <hr className="border-slate-100 dark:border-slate-700 my-2 mx-3"/>
-                                <button onClick={() => alert('Edit under construction')} className="w-full px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-left font-medium flex items-center gap-3 transition-colors">
-                                  <FaEdit className="text-slate-400" /> Edit Details
-                                </button>
-                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-left font-medium flex items-center gap-3 transition-colors">
-                                  <FaTrash className="text-red-400" /> Delete
+                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-left font-medium flex items-center gap-3 transition-colors">
+                                  <FaTrash className="text-red-400" /> Delete Booking
                                 </button>
                               </div>
                             )}
