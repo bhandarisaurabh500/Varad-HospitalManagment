@@ -28,7 +28,7 @@ const Navbar = () => {
     { name: 'Home', href: '/', isRoute: true },
     { name: 'Gallery', href: '/gallery', isRoute: true },
     { name: 'Advanced Equipment', href: '/advanced-equipment', isRoute: true },
-    { name: 'Healthcare', href: '#healthcare' },
+    { name: 'Healthcare', href: '/patient-healthcare', isRoute: true },
     { name: 'Services', href: '#services' },
     { name: 'Reviews', href: '#reviews' },
     { name: 'Contact', href: '#contact' },

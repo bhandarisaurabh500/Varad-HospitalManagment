@@ -260,7 +260,7 @@ export const testimonialsData = [
     source: "Justdial 5★ Review",
     timeAgo: "April 9",
     treatment: "Eye Treatment (Dr. Raosaheb K. BORUDE)",
-    comment: "I had an excellent experience at Varad Netralaya. The treatment by Dr. Raosaheb K. BORUDE was top-notch & very nice communication & treatment with patient. Dr Raosaheb K. BORUDE giving best treatment from last 24 years. Highly recommended! 1st Eye super speciality hospital in ahmednagar.",
+    comment: "I had an excellent experience at Varad Netralaya. The treatment by Dr. Raosaheb K. BORUDE was top-notch & very nice communication & treatment with patient. Dr. Raosaheb K. BORUDE giving best treatment from last 24 years. Highly recommended! 1st Eye super speciality hospital in ahmednagar.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
   },
   {
