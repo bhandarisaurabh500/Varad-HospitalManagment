@@ -18,6 +18,11 @@ const PatientProfile = () => {
   const [prescriptionItems, setPrescriptionItems] = useState([{ medicine_name: '', dosage: '', frequency: '', duration: '' }]);
   const [submittingRx, setSubmittingRx] = useState(false);
 
+  // Visit Modal State
+  const [showVisitModal, setShowVisitModal] = useState(false);
+  const [visitForm, setVisitForm] = useState({ chief_complaint: '', diagnosis: '', advice: '' });
+  const [submittingVisit, setSubmittingVisit] = useState(false);
+
   useEffect(() => {
     fetchPatient();
   }, [id]);
@@ -71,6 +76,30 @@ const PatientProfile = () => {
       alert("Failed to save prescription.");
     } finally {
       setSubmittingRx(false);
+    }
+  };
+
+  const handleSaveVisit = async () => {
+    if (!visitForm.chief_complaint && !visitForm.diagnosis && !visitForm.advice) {
+      return alert("Please fill at least one field.");
+    }
+    try {
+      setSubmittingVisit(true);
+      const payload = {
+        patient_id: patient.patient_id,
+        doctor_id: 1, // Hack for now, should get from logged in doctor
+        visit_date: new Date().toISOString().split('T')[0],
+        ...visitForm
+      };
+      await api.post('/admin/visits', payload);
+      setShowVisitModal(false);
+      setVisitForm({ chief_complaint: '', diagnosis: '', advice: '' });
+      fetchPatient(); // reload to show new visit
+    } catch (error) {
+      console.error("Failed to save visit", error);
+      alert("Failed to save visit record.");
+    } finally {
+      setSubmittingVisit(false);
     }
   };
 
@@ -245,7 +274,9 @@ const PatientProfile = () => {
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white">Consultation Visits</h3>
-              <button className="px-4 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-sm font-bold transition-colors">
+              <button 
+                onClick={() => setShowVisitModal(true)}
+                className="px-4 py-2 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg text-sm font-bold transition-colors">
                 + New Visit Record
               </button>
             </div>
@@ -492,6 +523,67 @@ const PatientProfile = () => {
                 className="px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-sm shadow-blue-500/30 disabled:opacity-50"
               >
                 {submittingRx ? 'Saving...' : 'Save & Issue Prescription'}
+              </button>
+            </div>
+          </div>
+        </div>
+      {/* Visit Modal */}
+      {showVisitModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-2xl border border-slate-200 dark:border-slate-800 flex flex-col">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                <FaStethoscope className="text-blue-600" /> New Visit Record
+              </h3>
+              <button onClick={() => setShowVisitModal(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white"><FaTimes size={20}/></button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto bg-slate-50 dark:bg-slate-950 space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Chief Complaint</label>
+                <textarea 
+                  value={visitForm.chief_complaint}
+                  onChange={e => setVisitForm({...visitForm, chief_complaint: e.target.value})}
+                  rows="2"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="E.g. Blurry vision in right eye..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Diagnosis</label>
+                <textarea 
+                  value={visitForm.diagnosis}
+                  onChange={e => setVisitForm({...visitForm, diagnosis: e.target.value})}
+                  rows="2"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="E.g. Mild Cataract"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Advice</label>
+                <textarea 
+                  value={visitForm.advice}
+                  onChange={e => setVisitForm({...visitForm, advice: e.target.value})}
+                  rows="3"
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="E.g. Wear sunglasses, return for surgery in 6 months..."
+                />
+              </div>
+            </div>
+            
+            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-end gap-3 rounded-b-2xl">
+              <button 
+                onClick={() => setShowVisitModal(false)}
+                className="px-5 py-2.5 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveVisit}
+                disabled={submittingVisit}
+                className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+              >
+                {submittingVisit ? 'Saving...' : 'Save Record'}
               </button>
             </div>
           </div>
