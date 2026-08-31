@@ -28,7 +28,6 @@ const PatientDirectory = () => {
   };
 
   const deletePatient = async (id) => {
-    if (!window.confirm("Are you sure you want to permanently delete this patient and all associated records? This cannot be undone.")) return;
     try {
       await api.delete(`/admin/patients/${id}`);
       setPatients(patients.filter(p => p.patient_id !== id));
