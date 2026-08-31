@@ -24,16 +24,31 @@ async function createAppointment(req, res, next) {
 
     let patientId = null;
 
-    // 1. Check if patient exists by patient_uid, phone, or email
-    let query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ? OR u.email = ?';
-    let params = [patient_phone, patient_email];
-
+    // 1. Always search by phone first (most reliable unique identifier)
+    let existingByPhone = [];
     if (patient_uid) {
-      query = 'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE p.patient_uid = ? OR u.phone = ? OR u.email = ?';
-      params = [patient_uid, patient_phone, patient_email];
+      const [rows] = await pool.execute(
+        'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ? OR p.patient_uid = ?',
+        [patient_phone, patient_uid]
+      );
+      existingByPhone = rows;
+    } else {
+      const [rows] = await pool.execute(
+        'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.phone = ?',
+        [patient_phone]
+      );
+      existingByPhone = rows;
     }
 
-    const [existingPatients] = await pool.execute(query, params);
+    // 2. If not found by phone, try by email (only if it's a real email)
+    let existingPatients = existingByPhone;
+    if (existingPatients.length === 0 && patient_email && !patient_email.includes('@noemail.com')) {
+      const [rowsByEmail] = await pool.execute(
+        'SELECT p.id, u.id as user_id FROM patients p JOIN users u ON p.user_id = u.id WHERE u.email = ?',
+        [patient_email]
+      );
+      existingPatients = rowsByEmail;
+    }
 
     let userId;
     if (existingPatients.length > 0) {
@@ -46,9 +61,19 @@ async function createAppointment(req, res, next) {
       const [roles] = await pool.execute("SELECT id FROM roles WHERE name='PATIENT'");
       const roleId = roles.length ? roles[0].id : 3;
 
+      // Use a safe email — if email already exists in DB, use phone-based fallback
+      let safeEmail = patient_email && !patient_email.includes('@noemail.com') ? patient_email : `${patient_phone}@noemail.com`;
+
+      // Check if email is already taken by another user
+      const [emailCheck] = await pool.execute('SELECT id FROM users WHERE email = ?', [safeEmail]);
+      if (emailCheck.length > 0) {
+        // Email taken — use phone-based unique email
+        safeEmail = `${patient_phone}_${Date.now()}@noemail.com`;
+      }
+
       const [userResult] = await pool.execute(
         'INSERT INTO users (role_id, full_name, email, phone, password, is_active) VALUES (?, ?, ?, ?, ?, 1)',
-        [roleId, patient_name, patient_email, patient_phone, 'guest_password']
+        [roleId, patient_name, safeEmail, patient_phone, 'guest_password']
       );
       userId = userResult.insertId;
 
