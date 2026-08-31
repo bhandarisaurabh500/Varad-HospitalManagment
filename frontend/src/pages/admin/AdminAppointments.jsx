@@ -243,17 +243,27 @@ const AdminAppointments = () => {
                             ><FaEllipsisV /></button>
                             
                             {actionMenuId === appt.id && (
-                              <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 z-50 py-1 text-left">
+                              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/60 dark:border-slate-700/60 z-50 py-2 text-left transform origin-top-right transition-all">
                                 {appt.status !== 'PENDING' && (
-                                  <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-4 py-2 text-sm text-amber-600 hover:bg-amber-50 text-left font-medium">Mark Pending</button>
+                                  <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-4 py-2.5 text-sm text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                    <FaClock className="text-amber-500" /> Mark Pending
+                                  </button>
                                 )}
                                 {appt.status !== 'CANCELLED' && (
-                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED', appt)} className="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left font-medium">Reject</button>
+                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED', appt)} className="w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                    <FaTimes className="text-red-500" /> Reject Booking
+                                  </button>
                                 )}
-                                <button onClick={() => handleWhatsApp(appt)} className="w-full px-4 py-2 text-sm text-green-600 hover:bg-green-50 text-left font-medium">WhatsApp</button>
-                                <hr className="border-slate-100 dark:border-slate-700 my-1"/>
-                                <button onClick={() => alert('Edit under construction')} className="w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left">Edit</button>
-                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">Delete</button>
+                                <button onClick={() => handleWhatsApp(appt)} className="w-full px-4 py-2.5 text-sm text-emerald-600 dark:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                  <FaWhatsapp className="text-emerald-500 text-base" /> WhatsApp
+                                </button>
+                                <hr className="border-slate-100 dark:border-slate-700 my-2 mx-3"/>
+                                <button onClick={() => alert('Edit under construction')} className="w-full px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-left font-medium flex items-center gap-3 transition-colors">
+                                  <FaEdit className="text-slate-400" /> Edit Details
+                                </button>
+                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-left font-medium flex items-center gap-3 transition-colors">
+                                  <FaTrash className="text-red-400" /> Delete
+                                </button>
                               </div>
                             )}
                           </div>
