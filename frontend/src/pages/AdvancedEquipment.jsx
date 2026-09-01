@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaTimes } from 'react-icons/fa';
 import api from '../services/api';
 import { advancedEquipmentList } from '../data/hospitalData';
 
 const AdvancedEquipment = () => {
   const [equipmentList, setEquipmentList] = useState(advancedEquipmentList);
+  const [selectedImg, setSelectedImg] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,7 +56,10 @@ const AdvancedEquipment = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              <div className="h-64 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+              <div 
+                className="h-64 overflow-hidden relative bg-slate-100 dark:bg-slate-800 cursor-pointer"
+                onClick={() => setSelectedImg(item.image_url || item.image)}
+              >
                 <img 
                   src={item.image_url || item.image} 
                   alt={item.name} 
@@ -73,6 +78,35 @@ const AdvancedEquipment = () => {
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedImg && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImg(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+          >
+            <button
+              onClick={() => setSelectedImg(null)}
+              className="absolute top-6 right-6 text-white hover:text-red-500 transition-colors bg-white/10 p-2 rounded-full backdrop-blur-md"
+            >
+              <FaTimes size={24} />
+            </button>
+            <motion.img
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              src={selectedImg}
+              alt="Equipment Preview"
+              className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
