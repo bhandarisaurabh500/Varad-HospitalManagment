@@ -110,8 +110,8 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
-      {/* Top Notification & Emergency Info Bar */}
-      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-xs py-2 px-4 shadow-md border-b border-blue-800/40">
+      {/* Top Notification & Emergency Info Bar - Hidden on mobile to save space */}
+      <div className="hidden md:block bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-xs py-2 px-4 shadow-md border-b border-blue-800/40">
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
             <div className="flex items-center gap-1 text-amber-400 font-bold bg-amber-950/80 px-3 py-0.5 rounded-full border border-amber-500/50 shadow-sm">
