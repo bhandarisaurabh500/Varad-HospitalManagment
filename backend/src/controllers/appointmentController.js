@@ -8,7 +8,7 @@ async function createAppointment(req, res, next) {
     const {
       doctor_id, service_id, appointment_date, appointment_time,
       symptoms, age, patient_name, patient_email, patient_phone,
-      patient_uid
+      patient_uid, blood_group
     } = req.body;
 
     // Normalize gender to UPPERCASE to match DB CHECK constraint ('MALE','FEMALE','OTHER')
@@ -56,9 +56,20 @@ async function createAppointment(req, res, next) {
       patientId = existingPatients[0].id;
       userId = existingPatients[0].user_id;
       
-      // If patient provides a valid email during booking, update contact_email
+      // Update contact_email and/or blood_group if provided
+      let updates = [];
+      let params = [];
       if (patient_email && !patient_email.includes('@noemail.com')) {
-        await pool.execute('UPDATE patients SET contact_email = ? WHERE id = ?', [patient_email, patientId]);
+        updates.push('contact_email = ?');
+        params.push(patient_email);
+      }
+      if (blood_group) {
+        updates.push('blood_group = ?');
+        params.push(blood_group);
+      }
+      if (updates.length > 0) {
+        params.push(patientId);
+        await pool.execute(`UPDATE patients SET ${updates.join(', ')} WHERE id = ?`, params);
       }
     } else {
       // New Patient
@@ -88,8 +99,8 @@ async function createAppointment(req, res, next) {
       const newUid = `VH-${year}-${randomSuffix}`; // Temporary uid to insert
 
       const [patientResult] = await pool.execute(
-        'INSERT INTO patients (user_id, age, gender, patient_uid, contact_email) VALUES (?, ?, ?, ?, ?)',
-        [userId, age || null, gender || null, newUid, patient_email && !patient_email.includes('@noemail.com') ? patient_email : null]
+        'INSERT INTO patients (user_id, age, gender, blood_group, patient_uid, contact_email) VALUES (?, ?, ?, ?, ?, ?)',
+        [userId, age || null, gender || null, blood_group || null, newUid, patient_email && !patient_email.includes('@noemail.com') ? patient_email : null]
       );
       patientId = patientResult.insertId;
 

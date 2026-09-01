@@ -26,6 +26,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     email: '',
     age: '',
     gender: 'MALE',
+    bloodGroup: '',
     doctor: preselectedDoctor || '',
     treatment: preselectedTreatment || '',
     preferredDate: '',
@@ -158,6 +159,7 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
         patient_phone: formData.phone,
         age: formData.age ? parseInt(formData.age, 10) : null,
         gender: formData.gender,
+        blood_group: formData.bloodGroup,
         symptoms: formData.message || formData.treatment || 'Comprehensive Checkup',
       };
 
@@ -281,8 +283,8 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
         </div>
       </div>
 
-      {/* Age & Gender Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Age, Gender & Blood Group Row */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
             Age
@@ -311,6 +313,23 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
             <option value="MALE">Male</option>
             <option value="FEMALE">Female</option>
             <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+            Blood Group
+          </label>
+          <select
+            name="bloodGroup"
+            value={formData.bloodGroup}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select...</option>
+            <option value="A+">A+</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B-">B-</option>
+            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+            <option value="O+">O+</option><option value="O-">O-</option>
           </select>
         </div>
       </div>
