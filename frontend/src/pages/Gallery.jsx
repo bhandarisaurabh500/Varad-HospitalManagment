@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaCameraRetro, FaTrophy } from 'react-icons/fa';
 import HospitalTour from '../components/HospitalTour';
+import api from '../services/api';
 
 const galleryPhotos = [
   { src: '/photos/Gallary/Bright Teal Medical Clinic Interior.png', title: 'Clinic Interior' },
@@ -23,8 +24,40 @@ const awardsPhotos = [
 const Gallery = () => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [activeTab, setActiveTab] = useState('hospital'); // 'hospital' or 'awards'
+  const [dbPhotos, setDbPhotos] = useState([]);
 
-  const currentPhotos = activeTab === 'hospital' ? galleryPhotos : awardsPhotos;
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+    const fetchGallery = async () => {
+      try {
+        const res = await api.get('/gallery');
+        if (res.data.success && res.data.data.length > 0) {
+          setDbPhotos(res.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      }
+    };
+    fetchGallery();
+  }, []);
+
+  const getActivePhotos = () => {
+    if (activeTab === 'awards') return awardsPhotos;
+    
+    // If we have DB photos for 'hospital' categories, use them
+    if (dbPhotos.length > 0) {
+      return dbPhotos.map(item => ({
+        src: item.image_url,
+        title: item.title,
+        id: item.id
+      }));
+    }
+    
+    // Fallback to static
+    return galleryPhotos;
+  };
+
+  const currentPhotos = getActivePhotos();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pt-32 pb-16">
@@ -83,7 +116,7 @@ const Gallery = () => {
           <AnimatePresence mode="popLayout">
             {currentPhotos.map((photo, index) => (
               <motion.div
-                key={photo.src}
+                key={photo.id || photo.src}
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
