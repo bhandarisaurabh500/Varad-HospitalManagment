@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaCameraRetro, FaTrophy } from 'react-icons/fa';
+import { FaTimes, FaCameraRetro, FaTrophy, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import HospitalTour from '../components/HospitalTour';
 import api from '../services/api';
 
@@ -22,7 +22,7 @@ const awardsPhotos = [
 ];
 
 const Gallery = () => {
-  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [activeTab, setActiveTab] = useState('hospital'); // 'hospital' or 'awards'
   const [dbPhotos, setDbPhotos] = useState([]);
 
@@ -48,18 +48,21 @@ const Gallery = () => {
         return dbPhotos.filter(p => p.category === 'Awards').map(item => ({
           src: item.image_url,
           title: item.title,
+          desc: item.description,
           id: item.id
         }));
       } else if (activeTab === 'patients') {
         return dbPhotos.filter(p => p.category === 'Patients').map(item => ({
           src: item.image_url,
           title: item.title,
+          desc: item.description,
           id: item.id
         }));
       } else {
         return dbPhotos.filter(p => p.category !== 'Awards' && p.category !== 'Patients').map(item => ({
           src: item.image_url,
           title: item.title,
+          desc: item.description,
           id: item.id
         }));
       }
@@ -146,12 +149,12 @@ const Gallery = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
-                onClick={() => setSelectedImg(photo.src)}
+                onClick={() => setSelectedIndex(index)}
               >
                 <img 
                   src={photo.src} 
                   alt={photo.title}
-                  className={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
+                  className={`w-full h-full transition-transform duration-700 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
                 />
                 
                 {/* Premium Glassmorphism Overlay */}
@@ -171,29 +174,60 @@ const Gallery = () => {
 
       {/* Lightbox Modal */}
       <AnimatePresence>
-        {selectedImg && (
+        {selectedIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImg(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm cursor-zoom-out"
+            onClick={() => setSelectedIndex(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md cursor-zoom-out"
           >
             <button 
-              className="absolute top-6 right-6 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
-              onClick={() => setSelectedImg(null)}
+              className="absolute top-6 right-6 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={() => setSelectedIndex(null)}
             >
               <FaTimes size={32} />
             </button>
-            <motion.img
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              src={selectedImg}
-              alt="Enlarged gallery view"
-              className="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+
+            <button 
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={(e) => { e.stopPropagation(); setSelectedIndex((prev) => (prev - 1 + currentPhotos.length) % currentPhotos.length); }}
+            >
+              <FaChevronLeft size={32} />
+            </button>
+
+            <button 
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={(e) => { e.stopPropagation(); setSelectedIndex((prev) => (prev + 1) % currentPhotos.length); }}
+            >
+              <FaChevronRight size={32} />
+            </button>
+
+            <div className="relative max-w-5xl w-full flex flex-col items-center cursor-default" onClick={(e) => e.stopPropagation()}>
+              <motion.img
+                key={selectedIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                src={currentPhotos[selectedIndex].src}
+                alt={currentPhotos[selectedIndex].title}
+                className="max-h-[75vh] max-w-full object-contain rounded-xl shadow-2xl bg-white p-1 md:p-3"
+              />
+              <motion.div 
+                key={`text-${selectedIndex}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="mt-6 text-center text-white"
+              >
+                <h3 className="text-2xl md:text-3xl font-bold font-poppins">{currentPhotos[selectedIndex].title}</h3>
+                {currentPhotos[selectedIndex].desc && (
+                  <p className="mt-2 text-slate-300 max-w-2xl text-center mx-auto text-sm md:text-base leading-relaxed">
+                    {currentPhotos[selectedIndex].desc}
+                  </p>
+                )}
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
