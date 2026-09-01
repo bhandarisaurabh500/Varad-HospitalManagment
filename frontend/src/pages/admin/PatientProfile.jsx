@@ -28,6 +28,11 @@ const PatientProfile = () => {
   const [editForm, setEditForm] = useState({ full_name: '', phone: '', email: '', age: '', gender: '', blood_group: '', address: '', date_of_birth: '', emergency_contact: '' });
   const [submittingEdit, setSubmittingEdit] = useState(false);
 
+  // Appointment Modal State
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [appointmentForm, setAppointmentForm] = useState({ date: '', time: '', symptoms: '' });
+  const [submittingAppt, setSubmittingAppt] = useState(false);
+
   useEffect(() => {
     fetchPatient();
   }, [id]);
@@ -140,6 +145,36 @@ const PatientProfile = () => {
     }
   };
 
+  const handleSaveAppointment = async () => {
+    if (!appointmentForm.date || !appointmentForm.time) return alert("Date and Time are required.");
+    try {
+      setSubmittingAppt(true);
+      const payload = {
+        doctor_id: 1, // Default Dr. Borude
+        appointment_date: appointmentForm.date,
+        // if length is 5 (HH:mm), append :00
+        appointment_time: appointmentForm.time.length === 5 ? appointmentForm.time + ':00' : appointmentForm.time,
+        symptoms: appointmentForm.symptoms,
+        patient_name: patient.full_name,
+        patient_email: patient.email,
+        patient_phone: patient.phone,
+        patient_uid: patient.patient_uid,
+        age: patient.age,
+        gender: patient.gender,
+        blood_group: patient.blood_group
+      };
+      await api.post('/appointments', payload);
+      setShowAppointmentModal(false);
+      setAppointmentForm({ date: '', time: '', symptoms: '' });
+      fetchPatient();
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || "Failed to book appointment");
+    } finally {
+      setSubmittingAppt(false);
+    }
+  };
+
   const handlePrintPrescription = (rx) => {
     const printWindow = window.open('', '_blank');
     const itemsHtml = patient.medicines.filter(m => m.created_at === rx.prescription_date).map(m => `
@@ -241,7 +276,9 @@ const PatientProfile = () => {
               <span className="text-slate-500">Last Visit</span>
               <span className="font-bold text-slate-800 dark:text-white">{patient.last_visit ? new Date(patient.last_visit).toLocaleDateString() : 'None'}</span>
             </div>
-            <button className="mt-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold transition-colors">
+            <button 
+              onClick={() => setShowAppointmentModal(true)}
+              className="mt-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold transition-colors">
               Book Appointment
             </button>
           </div>
@@ -734,6 +771,56 @@ const PatientProfile = () => {
                 className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
               >
                 {submittingEdit ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Appointment Modal */}
+      {showAppointmentModal && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-md overflow-hidden">
+            <div className="flex justify-between items-center p-5 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white">Book Appointment</h3>
+              <button onClick={() => setShowAppointmentModal(false)} className="text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                <FaTimes />
+              </button>
+            </div>
+            <div className="p-5 space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Date</label>
+                <input 
+                  type="date" 
+                  value={appointmentForm.date} 
+                  onChange={e => setAppointmentForm({...appointmentForm, date: e.target.value})}
+                  className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Time</label>
+                <input 
+                  type="time" 
+                  value={appointmentForm.time} 
+                  onChange={e => setAppointmentForm({...appointmentForm, time: e.target.value})}
+                  className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Description / Symptoms</label>
+                <textarea 
+                  value={appointmentForm.symptoms} 
+                  onChange={e => setAppointmentForm({...appointmentForm, symptoms: e.target.value})}
+                  rows="3"
+                  className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+                  placeholder="e.g. Regular Checkup"
+                ></textarea>
+              </div>
+            </div>
+            <div className="p-5 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3">
+              <button onClick={() => setShowAppointmentModal(false)} className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-400">Cancel</button>
+              <button onClick={handleSaveAppointment} disabled={submittingAppt} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-bold disabled:opacity-50">
+                {submittingAppt ? 'Booking...' : 'Book Appointment'}
               </button>
             </div>
           </div>
