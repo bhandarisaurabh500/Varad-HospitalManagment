@@ -100,16 +100,21 @@ export const AppointmentForm = ({ preselectedDoctor = null, preselectedTreatment
     const today = new Date();
     const selectedDate = new Date(formData.preferredDate);
     
-    // Check if selected date is today
-    if (selectedDate.toDateString() === today.toDateString()) {
-      const currentHour = today.getHours();
-      const currentMinute = today.getMinutes();
+    today.setHours(0,0,0,0);
+    selectedDate.setHours(0,0,0,0);
+    
+    if (selectedDate < today) return [];
+
+    // Check if selected date is exactly today
+    if (selectedDate.getTime() === today.getTime()) {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
       const currentTimeInMinutes = currentHour * 60 + currentMinute;
       
       return allSlots.filter(slot => {
         const [slotHour, slotMinute] = slot.value.split(':').map(Number);
-        const slotTimeInMinutes = slotHour * 60 + slotMinute;
-        return slotTimeInMinutes > currentTimeInMinutes;
+        return (slotHour * 60 + slotMinute) > currentTimeInMinutes;
       });
     }
 

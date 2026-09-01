@@ -33,6 +33,52 @@ const PatientProfile = () => {
   const [appointmentForm, setAppointmentForm] = useState({ date: '', time: '', symptoms: '' });
   const [submittingAppt, setSubmittingAppt] = useState(false);
 
+  const availableSlots = React.useMemo(() => {
+    const allSlots = [
+      { value: "09:00", label: "9:00 AM – 9:30 AM", group: "🌅 Morning" },
+      { value: "09:30", label: "9:30 AM – 10:00 AM", group: "🌅 Morning" },
+      { value: "10:00", label: "10:00 AM – 10:30 AM", group: "🌅 Morning" },
+      { value: "10:30", label: "10:30 AM – 11:00 AM", group: "🌅 Morning" },
+      { value: "11:00", label: "11:00 AM – 11:30 AM", group: "🌅 Morning" },
+      { value: "11:30", label: "11:30 AM – 12:00 PM", group: "🌅 Morning" },
+      { value: "14:00", label: "2:00 PM – 2:30 PM", group: "☀️ Afternoon" },
+      { value: "14:30", label: "2:30 PM – 3:00 PM", group: "☀️ Afternoon" },
+      { value: "15:00", label: "3:00 PM – 3:30 PM", group: "☀️ Afternoon" },
+      { value: "15:30", label: "3:30 PM – 4:00 PM", group: "☀️ Afternoon" },
+      { value: "16:00", label: "4:00 PM – 4:30 PM", group: "☀️ Afternoon" },
+    ];
+
+    if (!appointmentForm.date) return allSlots;
+
+    const today = new Date();
+    const selectedDate = new Date(appointmentForm.date);
+    
+    today.setHours(0,0,0,0);
+    selectedDate.setHours(0,0,0,0);
+    
+    if (selectedDate < today) return []; // past dates
+
+    if (selectedDate.getTime() === today.getTime()) {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+      const currentTimeInMinutes = currentHour * 60 + currentMinute;
+      
+      return allSlots.filter(slot => {
+        const [slotHour, slotMinute] = slot.value.split(':').map(Number);
+        return (slotHour * 60 + slotMinute) > currentTimeInMinutes;
+      });
+    }
+
+    return allSlots;
+  }, [appointmentForm.date]);
+
+  useEffect(() => {
+    if (availableSlots.length > 0 && !availableSlots.some(s => s.value === appointmentForm.time)) {
+      setAppointmentForm(prev => ({ ...prev, time: '' }));
+    }
+  }, [availableSlots]);
+
   useEffect(() => {
     fetchPatient();
   }, [id]);
@@ -792,6 +838,7 @@ const PatientProfile = () => {
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Date</label>
                 <input 
                   type="date" 
+                  min={new Date().toISOString().split('T')[0]}
                   value={appointmentForm.date} 
                   onChange={e => setAppointmentForm({...appointmentForm, date: e.target.value})}
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
@@ -802,24 +849,26 @@ const PatientProfile = () => {
                 <select 
                   value={appointmentForm.time} 
                   onChange={e => setAppointmentForm({...appointmentForm, time: e.target.value})}
+                  disabled={availableSlots.length === 0}
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
                 >
-                  <option value="">Select Time</option>
-                  <optgroup label="🌅 Morning">
-                    <option value="09:00">9:00 AM – 9:30 AM</option>
-                    <option value="09:30">9:30 AM – 10:00 AM</option>
-                    <option value="10:00">10:00 AM – 10:30 AM</option>
-                    <option value="10:30">10:30 AM – 11:00 AM</option>
-                    <option value="11:00">11:00 AM – 11:30 AM</option>
-                    <option value="11:30">11:30 AM – 12:00 PM</option>
-                  </optgroup>
-                  <optgroup label="☀️ Afternoon">
-                    <option value="14:00">2:00 PM – 2:30 PM</option>
-                    <option value="14:30">2:30 PM – 3:00 PM</option>
-                    <option value="15:00">3:00 PM – 3:30 PM</option>
-                    <option value="15:30">3:30 PM – 4:00 PM</option>
-                    <option value="16:00">4:00 PM – 4:30 PM</option>
-                  </optgroup>
+                  {availableSlots.length === 0 ? (
+                    <option value="">No slots available</option>
+                  ) : (
+                    <>
+                      <option value="">Select Time</option>
+                      <optgroup label="🌅 Morning">
+                        {availableSlots.filter(s => s.group.includes('Morning')).map(slot => (
+                          <option key={slot.value} value={slot.value}>{slot.label}</option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="☀️ Afternoon">
+                        {availableSlots.filter(s => s.group.includes('Afternoon')).map(slot => (
+                          <option key={slot.value} value={slot.value}>{slot.label}</option>
+                        ))}
+                      </optgroup>
+                    </>
+                  )}
                 </select>
               </div>
               <div>
