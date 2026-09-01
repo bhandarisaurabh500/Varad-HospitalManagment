@@ -2,8 +2,8 @@ const { createClient } = require('@supabase/supabase-js');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || 'https://ycfawzfgngechhvzvwwp.supabase.co';
-const supabaseKey = process.env.SUPABASE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljZmF3emZnbmdlY2hodnp2d3dwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzI4MzU2MywiZXhwIjoyMTAyODU5NTYzfQ.kST-sk8QHCpMAboup5dVeIZri2YHfz1Dsoe1H_miGd4';
+const supabaseUrl = 'https://ycfawzfgngechhvzvwwp.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InljZmF3emZnbmdlY2hodnp2d3dwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NzI4MzU2MywiZXhwIjoyMTAyODU5NTYzfQ.kST-sk8QHCpMAboup5dVeIZri2YHfz1Dsoe1H_miGd4'; // Forced Service Role Key to fix 500 error
 
 if (!supabaseUrl || !supabaseKey) {
   console.warn('⚠️ Supabase credentials are missing. Cloud storage uploads will fail.');
