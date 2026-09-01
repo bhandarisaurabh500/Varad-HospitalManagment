@@ -50,8 +50,14 @@ const Gallery = () => {
           title: item.title,
           id: item.id
         }));
+      } else if (activeTab === 'patients') {
+        return dbPhotos.filter(p => p.category === 'Patients').map(item => ({
+          src: item.image_url,
+          title: item.title,
+          id: item.id
+        }));
       } else {
-        return dbPhotos.filter(p => p.category !== 'Awards').map(item => ({
+        return dbPhotos.filter(p => p.category !== 'Awards' && p.category !== 'Patients').map(item => ({
           src: item.image_url,
           title: item.title,
           id: item.id
@@ -102,6 +108,17 @@ const Gallery = () => {
             Hospital Facilities
           </button>
           <button
+            onClick={() => setActiveTab('patients')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 shadow-md ${
+              activeTab === 'patients'
+                ? 'bg-teal-500 text-white hover:bg-teal-600 shadow-teal-500/30'
+                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
+            Patient Education
+          </button>
+          <button
             onClick={() => setActiveTab('awards')}
             className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 shadow-md ${
               activeTab === 'awards'
@@ -128,13 +145,13 @@ const Gallery = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="relative group cursor-pointer aspect-square rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800"
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
                 onClick={() => setSelectedImg(photo.src)}
               >
                 <img 
                   src={photo.src} 
                   alt={photo.title}
-                  className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${activeTab === 'awards' ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
+                  className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
                 />
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
