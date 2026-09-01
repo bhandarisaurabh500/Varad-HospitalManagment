@@ -153,9 +153,9 @@ const Gallery = () => {
                   alt={photo.title}
                   className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
                 />
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                  <span className="text-white font-medium text-lg text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                {/* Always visible title overlay at the bottom */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent p-4 flex items-end justify-center">
+                  <span className="text-white font-medium text-lg text-center drop-shadow-md">
                     {photo.title}
                   </span>
                 </div>
