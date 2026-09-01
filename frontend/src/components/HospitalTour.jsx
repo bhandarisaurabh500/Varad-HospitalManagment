@@ -19,16 +19,24 @@ const HospitalTour = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Patient Care Photo */}
-        <div className="relative rounded-3xl overflow-hidden group h-full min-h-[300px] shadow-xl border border-slate-200/80 dark:border-slate-800">
-          <img src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" alt="Advanced Patient Care" className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-5">
-            <h4 className="text-white text-lg font-bold">Advanced Patient Care</h4>
-            <p className="text-white/80 text-sm mt-1">Dr. Raosaheb K. BORUDE examining a patient</p>
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col group">
+          <div className="relative w-full overflow-hidden" style={{paddingTop: '56.25%'}}>
+            <img 
+              src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" 
+              alt="Advanced Patient Care" 
+              className="absolute top-0 left-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" 
+            />
+          </div>
+          <div className="p-6 md:p-8 flex flex-col flex-grow">
+            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Advanced Patient Care</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              Dr. Raosaheb K. BORUDE examining a patient using state-of-the-art diagnostic equipment. We prioritize accuracy and patient comfort in every step of the treatment process.
+            </p>
           </div>
         </div>
 
         {/* Native video player with poster */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col">
           <div className="relative w-full" style={{paddingTop: '56.25%'}}>
             <iframe
               className="absolute top-0 left-0 w-full h-full object-cover"
@@ -40,20 +48,22 @@ const HospitalTour = () => {
               allowFullScreen
             ></iframe>
           </div>
-          <div className="p-5">
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white">Patient Experience & Hospital Tour</h4>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Watch Dr. Raosaheb K. BORUDE examining patients at Varad Netralaya.</p>
-            <div className="mt-4 flex flex-col gap-2">
-              <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Read our patient reviews on Justdial:</span>
-              <a href="https://jsdl.in/RSL-BXC1787681221" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
-                <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 1
-              </a>
-              <a href="https://jsdl.in/RSL-QAV1787681289" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
-                <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 2
-              </a>
-              <a href="https://jsdl.in/RSL-HRZ1787681340" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-400 text-xs font-bold hover:underline">
-                <FaExternalLinkAlt className="text-[10px]" /> Review by Patient 3
-              </a>
+          <div className="p-6 md:p-8 flex flex-col flex-grow">
+            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Patient Experience & Hospital Tour</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-5 leading-relaxed">Watch Dr. Raosaheb K. BORUDE examining patients at Varad Netralaya.</p>
+            <div className="mt-auto flex flex-col gap-3">
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-wide uppercase">Read our patient reviews on Justdial:</span>
+              <div className="flex flex-wrap gap-3">
+                <a href="https://jsdl.in/RSL-BXC1787681221" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-teal-400 text-xs font-bold rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+                  <FaExternalLinkAlt className="text-[10px]" /> Review 1
+                </a>
+                <a href="https://jsdl.in/RSL-QAV1787681289" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-teal-400 text-xs font-bold rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+                  <FaExternalLinkAlt className="text-[10px]" /> Review 2
+                </a>
+                <a href="https://jsdl.in/RSL-HRZ1787681340" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-teal-400 text-xs font-bold rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+                  <FaExternalLinkAlt className="text-[10px]" /> Review 3
+                </a>
+              </div>
             </div>
           </div>
         </div>
