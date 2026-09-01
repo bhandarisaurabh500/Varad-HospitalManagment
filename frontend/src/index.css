@@ -116,3 +116,12 @@
 /* Hide scrollbar for tab nav */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Force pointer cursor on all buttons and interactive elements */
+button, 
+a, 
+input[type="submit"], 
+input[type="button"], 
+[role="button"] {
+  cursor: pointer !important;
+}
