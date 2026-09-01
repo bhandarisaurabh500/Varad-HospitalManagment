@@ -6,6 +6,7 @@ const AdminEquipment = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -31,6 +32,7 @@ const AdminEquipment = () => {
 
   const resetForm = () => {
     setFormData({ name: '', short_desc: '', image_url: '' });
+    setImageFile(null);
     setEditingId(null);
   };
 
@@ -61,10 +63,24 @@ const AdminEquipment = () => {
       return;
     }
     try {
-      if (editingId) {
-        await api.put(`/equipment/${editingId}`, formData);
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('short_desc', formData.short_desc || '');
+      
+      if (imageFile) {
+        data.append('image', imageFile);
       } else {
-        await api.post('/equipment', formData);
+        data.append('image_url', formData.image_url);
+      }
+
+      if (editingId) {
+        if (imageFile) {
+          await api.put(`/equipment/${editingId}`, data);
+        } else {
+          await api.put(`/equipment/${editingId}`, formData);
+        }
+      } else {
+        await api.post('/equipment', data);
       }
       resetForm();
       fetchEquipment();
@@ -112,14 +128,24 @@ const AdminEquipment = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image URL</label>
-                <input 
-                  type="text" 
-                  value={formData.image_url}
-                  onChange={e => setFormData({...formData, image_url: e.target.value})}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"
-                  placeholder="/photos/Machine/example.jpg"
-                />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image Upload (or URL)</label>
+                <div className="space-y-2">
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={e => setImageFile(e.target.files[0])}
+                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <div className="text-xs text-center text-slate-400">OR</div>
+                  <input 
+                    type="text" 
+                    value={formData.image_url}
+                    onChange={e => setFormData({...formData, image_url: e.target.value})}
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"
+                    placeholder="Enter Image URL directly..."
+                    disabled={!!imageFile}
+                  />
+                </div>
               </div>
 
               <div className="pt-4 flex gap-3">

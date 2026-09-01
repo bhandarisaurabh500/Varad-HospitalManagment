@@ -31,8 +31,8 @@ router.post('/contact', submitContact);
 // Equipment
 router.get('/equipment', getEquipment);
 router.get('/equipment/all', authMiddleware, roleMiddleware('ADMIN'), getAllEquipment);
-router.post('/equipment', authMiddleware, roleMiddleware('ADMIN'), createEquipment);
-router.put('/equipment/:id', authMiddleware, roleMiddleware('ADMIN'), updateEquipment);
+router.post('/equipment', authMiddleware, roleMiddleware('ADMIN'), uploadDocument.single('image'), createEquipment);
+router.put('/equipment/:id', authMiddleware, roleMiddleware('ADMIN'), uploadDocument.single('image'), updateEquipment);
 router.delete('/equipment/:id', authMiddleware, roleMiddleware('ADMIN'), deleteEquipment);
 
 // Notices
