@@ -145,7 +145,7 @@ const Gallery = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
                 onClick={() => setSelectedImg(photo.src)}
               >
                 <img 

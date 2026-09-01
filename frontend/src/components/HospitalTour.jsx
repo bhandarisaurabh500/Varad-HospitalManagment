@@ -1,9 +1,12 @@
-import React from 'react';
-import { FaHospital, FaExternalLinkAlt } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaHospital, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const HospitalTour = () => {
+  const [selectedImg, setSelectedImg] = useState(null);
+
   return (
-    <div className="max-w-5xl mx-auto mt-24 mb-10">
+    <div className="max-w-5xl mx-auto mt-24 mb-10 relative">
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
           <FaHospital className="text-emerald-500" />
@@ -19,7 +22,7 @@ const HospitalTour = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Patient Care Photo */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col group">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col group cursor-pointer" onClick={() => setSelectedImg('/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png')}>
           <div className="relative w-full overflow-hidden" style={{paddingTop: '56.25%'}}>
             <img 
               src="/photos/Patients/Ophthalmologist Performing Slit Lamp Eye Exam.png" 
@@ -36,7 +39,7 @@ const HospitalTour = () => {
         </div>
 
         {/* Native video player with poster */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:-translate-y-2 border border-slate-200/80 dark:border-slate-800 overflow-hidden flex flex-col">
           <div className="relative w-full" style={{paddingTop: '56.25%'}}>
             <iframe
               className="absolute top-0 left-0 w-full h-full object-cover"
@@ -68,6 +71,35 @@ const HospitalTour = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedImg && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImg(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+          >
+            <button
+              onClick={() => setSelectedImg(null)}
+              className="absolute top-6 right-6 text-white hover:text-red-500 transition-colors bg-white/10 p-2 rounded-full backdrop-blur-md"
+            >
+              <FaTimes size={24} />
+            </button>
+            <motion.img
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.5, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              src={selectedImg}
+              alt="Preview"
+              className="w-11/12 md:w-3/4 lg:w-2/3 h-[70vh] md:h-[85vh] object-contain rounded-2xl shadow-2xl bg-white p-2"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
