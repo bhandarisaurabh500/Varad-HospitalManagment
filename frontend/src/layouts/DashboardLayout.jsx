@@ -116,7 +116,7 @@ const DashboardLayout = ({ children }) => {
             {adminLinks.find(l => l.to === location.pathname)?.label || 'Dashboard'}
           </h1>
           <span className="text-xs font-bold text-teal-600 bg-teal-100 dark:bg-teal-900/30 dark:text-teal-400 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800">
-            Secure Mode
+            Admin Panel
           </span>
         </header>
 
