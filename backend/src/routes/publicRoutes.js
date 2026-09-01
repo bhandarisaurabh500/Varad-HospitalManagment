@@ -15,7 +15,7 @@ const { saveLead, getLeads, updateLeadStatus, deleteLead } = require('../control
 // Gallery
 router.get('/gallery', getGallery);
 router.post('/gallery', authMiddleware, roleMiddleware('ADMIN'), uploadDocument.single('image'), createGalleryItem);
-router.put('/gallery/:id', authMiddleware, roleMiddleware('ADMIN'), updateGalleryItem);
+router.put('/gallery/:id', authMiddleware, roleMiddleware('ADMIN'), uploadDocument.single('image'), updateGalleryItem);
 router.delete('/gallery/:id', authMiddleware, roleMiddleware('ADMIN'), deleteGalleryItem);
 
 // Reviews

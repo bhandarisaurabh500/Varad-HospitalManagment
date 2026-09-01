@@ -34,10 +34,23 @@ async function createGalleryItem(req, res, next) {
 async function updateGalleryItem(req, res, next) {
   try {
     const { title, description, category, sort_order, is_active } = req.body;
-    await pool.execute(
-      'UPDATE gallery SET title=?, description=?, category=?, sort_order=?, is_active=? WHERE id=?',
-      [title, description, category, sort_order || 0, is_active ?? 1, req.params.id]
-    );
+    let image_url = req.body.image_url;
+
+    if (req.file) {
+      image_url = await uploadToSupabase(req.file.buffer, req.file.originalname, req.file.mimetype, 'gallery');
+    }
+
+    if (image_url) {
+      await pool.execute(
+        'UPDATE gallery SET title=?, description=?, category=?, sort_order=?, is_active=?, image_url=? WHERE id=?',
+        [title, description, category, sort_order || 0, is_active ?? 1, image_url, req.params.id]
+      );
+    } else {
+      await pool.execute(
+        'UPDATE gallery SET title=?, description=?, category=?, sort_order=?, is_active=? WHERE id=?',
+        [title, description, category, sort_order || 0, is_active ?? 1, req.params.id]
+      );
+    }
     return res.json({ success: true, message: 'Gallery item updated.' });
   } catch (err) { next(err); }
 }

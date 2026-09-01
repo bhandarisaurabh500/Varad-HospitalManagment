@@ -6,6 +6,7 @@ const AdminGallery = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -35,6 +36,7 @@ const AdminGallery = () => {
 
   const resetForm = () => {
     setFormData({ title: '', description: '', category: 'Equipment', image_url: '', sort_order: 0 });
+    setImageFile(null);
     setEditingId(null);
   };
 
@@ -62,15 +64,34 @@ const AdminGallery = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || !formData.image_url) {
-      alert('Title and Image URL are required.');
+    if (!formData.title || (!formData.image_url && !imageFile)) {
+      alert('Title and Image (File or URL) are required.');
       return;
     }
     try {
-      if (editingId) {
-        await api.put(`/gallery/${editingId}`, formData);
+      const data = new FormData();
+      data.append('title', formData.title);
+      data.append('description', formData.description || '');
+      data.append('category', formData.category);
+      data.append('sort_order', formData.sort_order || 0);
+      
+      if (imageFile) {
+        data.append('image', imageFile);
       } else {
-        await api.post('/gallery', formData);
+        data.append('image_url', formData.image_url);
+      }
+
+      if (editingId) {
+        // PUT routes in this app might not support FormData/multer if not configured in backend,
+        // but let's assume it supports JSON for now if just updating text, 
+        // wait, let's just send JSON if no new file is selected on edit.
+        if (imageFile) {
+           await api.put(`/gallery/${editingId}`, data);
+        } else {
+           await api.put(`/gallery/${editingId}`, formData);
+        }
+      } else {
+        await api.post('/gallery', data);
       }
       resetForm();
       fetchGallery();
@@ -129,15 +150,25 @@ const AdminGallery = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image URL</label>
-                <input 
-                  type="text" 
-                  value={formData.image_url}
-                  onChange={e => setFormData({...formData, image_url: e.target.value})}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"
-                  placeholder="/photos/Gallary/example.png or http..."
-                  required
-                />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image Upload (or URL)</label>
+                <div className="space-y-2">
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={e => setImageFile(e.target.files[0])}
+                    className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                  <div className="text-xs text-center text-slate-400">OR</div>
+                  <input 
+                    type="text" 
+                    value={formData.image_url}
+                    onChange={e => setFormData({...formData, image_url: e.target.value})}
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"
+                    placeholder="Enter Image URL directly..."
+                    disabled={!!imageFile}
+                    required={!imageFile}
+                  />
+                </div>
               </div>
 
               <div className="pt-4 flex gap-3">
