@@ -23,6 +23,11 @@ const PatientProfile = () => {
   const [visitForm, setVisitForm] = useState({ chief_complaint: '', diagnosis: '', advice: '' });
   const [submittingVisit, setSubmittingVisit] = useState(false);
 
+  // Edit Profile State
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editForm, setEditForm] = useState({ full_name: '', phone: '', email: '', age: '', gender: '', blood_group: '', address: '', date_of_birth: '', emergency_contact: '' });
+  const [submittingEdit, setSubmittingEdit] = useState(false);
+
   useEffect(() => {
     fetchPatient();
   }, [id]);
@@ -100,6 +105,38 @@ const PatientProfile = () => {
       alert("Failed to save visit record.");
     } finally {
       setSubmittingVisit(false);
+    }
+  };
+
+  const handleEditClick = () => {
+    setEditForm({
+      full_name: patient.full_name || '',
+      phone: patient.phone || '',
+      email: patient.email && patient.email.includes('@noemail.com') ? '' : (patient.email || ''),
+      age: patient.age || '',
+      gender: patient.gender || '',
+      blood_group: patient.blood_group || '',
+      address: patient.address || '',
+      date_of_birth: patient.date_of_birth ? new Date(patient.date_of_birth).toISOString().split('T')[0] : '',
+      emergency_contact: patient.emergency_contact || ''
+    });
+    setShowEditModal(true);
+  };
+
+  const handleSaveProfile = async () => {
+    if (!editForm.full_name || !editForm.phone) {
+      return alert("Full Name and Phone are required.");
+    }
+    try {
+      setSubmittingEdit(true);
+      await api.put(`/admin/patients/${patient.patient_id}`, editForm);
+      setShowEditModal(false);
+      fetchPatient(); // reload to show updated details
+    } catch (error) {
+      console.error("Failed to update profile", error);
+      alert("Failed to update profile.");
+    } finally {
+      setSubmittingEdit(false);
     }
   };
 
@@ -190,7 +227,7 @@ const PatientProfile = () => {
               </div>
               <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-slate-500 dark:text-slate-400">
                 <p className="flex items-center gap-1.5"><FaPhoneAlt className="text-slate-400" /> {patient.phone || 'N/A'}</p>
-                <p className="flex items-center gap-1.5"><FaEnvelope className="text-slate-400" /> {patient.email || 'N/A'}</p>
+                <p className="flex items-center gap-1.5"><FaEnvelope className="text-slate-400" /> {(patient.email && patient.email.includes('@noemail.com')) ? 'Not Provided' : (patient.email || 'N/A')}</p>
               </div>
             </div>
           </div>
@@ -240,7 +277,10 @@ const PatientProfile = () => {
         {activeTab === 'overview' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Personal Details</h3>
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-white">Personal Details</h3>
+                <button onClick={handleEditClick} className="text-xs text-blue-600 font-bold hover:underline">Edit Profile</button>
+              </div>
               <div className="space-y-4 text-sm">
                 <div>
                   <p className="text-slate-500 mb-1">Date of Birth</p>
@@ -585,6 +625,88 @@ const PatientProfile = () => {
                 className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
               >
                 {submittingVisit ? 'Saving...' : 'Save Record'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Edit Profile Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-2xl border border-slate-200 dark:border-slate-800 flex flex-col max-h-[90vh]">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                <FaUser className="text-blue-600" /> Edit Patient Profile
+              </h3>
+              <button onClick={() => setShowEditModal(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white"><FaTimes size={20}/></button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto bg-slate-50 dark:bg-slate-950 flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
+                  <input type="text" value={editForm.full_name} onChange={e => setEditForm({...editForm, full_name: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
+                  <input type="text" value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                  <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Age</label>
+                  <input type="number" value={editForm.age} onChange={e => setEditForm({...editForm, age: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Gender</label>
+                  <select value={editForm.gender} onChange={e => setEditForm({...editForm, gender: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    <option value="">Select...</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Blood Group</label>
+                  <select value={editForm.blood_group} onChange={e => setEditForm({...editForm, blood_group: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    <option value="">Select...</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Date of Birth</label>
+                  <input type="date" value={editForm.date_of_birth} onChange={e => setEditForm({...editForm, date_of_birth: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Emergency Contact</label>
+                  <input type="text" value={editForm.emergency_contact} onChange={e => setEditForm({...editForm, emergency_contact: e.target.value})} className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Address</label>
+                  <textarea value={editForm.address} onChange={e => setEditForm({...editForm, address: e.target.value})} rows="2" className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-end gap-3 rounded-b-2xl">
+              <button 
+                onClick={() => setShowEditModal(false)}
+                className="px-5 py-2.5 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveProfile}
+                disabled={submittingEdit}
+                className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+              >
+                {submittingEdit ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
           </div>

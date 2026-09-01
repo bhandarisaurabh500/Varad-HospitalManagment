@@ -199,4 +199,35 @@ async function deletePatient(req, res, next) {
   }
 }
 
-module.exports = { getProfile, updateProfile, getPatientAppointments, getAllPatients, getPatientById, searchPatients, deletePatient };
+/** PUT /api/admin/patients/:id - Admin Update Patient Profile */
+async function updatePatientAdmin(req, res, next) {
+  try {
+    const patientId = req.params.id;
+    const { full_name, email, phone, age, gender, blood_group, address, date_of_birth, emergency_contact } = req.body;
+
+    const [patient] = await pool.execute('SELECT user_id FROM patients WHERE id = ?', [patientId]);
+    if (patient.length === 0) return res.status(404).json({ success: false, message: 'Patient not found' });
+    const userId = patient[0].user_id;
+
+    let safeEmail = email;
+    if (!safeEmail || safeEmail.trim() === '') {
+      safeEmail = `${phone}_${Date.now()}@noemail.com`;
+    }
+
+    await pool.execute(
+      'UPDATE users SET full_name=?, email=?, phone=? WHERE id=?',
+      [full_name, safeEmail, phone, userId]
+    );
+
+    await pool.execute(
+      'UPDATE patients SET age=?, gender=?, blood_group=?, address=?, date_of_birth=?, emergency_contact=? WHERE id=?',
+      [age || null, gender || null, blood_group || null, address || null, date_of_birth || null, emergency_contact || null, patientId]
+    );
+
+    return res.json({ success: true, message: 'Patient profile updated successfully.' });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { getProfile, updateProfile, getPatientAppointments, getAllPatients, getPatientById, searchPatients, deletePatient, updatePatientAdmin };
