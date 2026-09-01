@@ -55,6 +55,11 @@ async function createAppointment(req, res, next) {
       // Returning Patient found
       patientId = existingPatients[0].id;
       userId = existingPatients[0].user_id;
+      
+      // If patient provides a valid email during booking, update contact_email
+      if (patient_email && !patient_email.includes('@noemail.com')) {
+        await pool.execute('UPDATE patients SET contact_email = ? WHERE id = ?', [patient_email, patientId]);
+      }
     } else {
       // New Patient
       // 1. Get PATIENT role id
@@ -83,8 +88,8 @@ async function createAppointment(req, res, next) {
       const newUid = `VH-${year}-${randomSuffix}`; // Temporary uid to insert
 
       const [patientResult] = await pool.execute(
-        'INSERT INTO patients (user_id, age, gender, patient_uid) VALUES (?, ?, ?, ?)',
-        [userId, age || null, gender || null, newUid]
+        'INSERT INTO patients (user_id, age, gender, patient_uid, contact_email) VALUES (?, ?, ?, ?, ?)',
+        [userId, age || null, gender || null, newUid, patient_email && !patient_email.includes('@noemail.com') ? patient_email : null]
       );
       patientId = patientResult.insertId;
 

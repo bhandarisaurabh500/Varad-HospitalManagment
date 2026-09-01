@@ -65,7 +65,7 @@ async function getPatientAppointments(req, res, next) {
 async function getAllPatients(req, res, next) {
   try {
     const [rows] = await pool.execute(
-      `SELECT u.id as user_id, u.full_name, u.email, u.phone, u.created_at, u.is_active,
+      `SELECT u.id as user_id, u.full_name, COALESCE(p.contact_email, u.email) as email, u.phone, u.created_at, u.is_active,
               p.id AS patient_id, p.patient_uid, p.age, p.gender, p.blood_group,
               (SELECT MAX(visit_date) FROM medical_records mr WHERE mr.patient_id = p.id) as last_visit,
               (SELECT COUNT(*) FROM medical_records mr WHERE mr.patient_id = p.id) as total_visits
@@ -80,7 +80,7 @@ async function getAllPatients(req, res, next) {
 async function getPatientById(req, res, next) {
   try {
     const [rows] = await pool.execute(
-      `SELECT u.id as user_id, u.full_name, u.email, u.phone,
+      `SELECT u.id as user_id, u.full_name, COALESCE(p.contact_email, u.email) as email, u.phone,
               p.id AS patient_id, p.patient_uid, p.age, p.gender, p.blood_group, p.address,
               p.date_of_birth, p.emergency_contact, p.medical_history,
               (SELECT MAX(visit_date) FROM medical_records mr WHERE mr.patient_id = p.id) as last_visit,
@@ -148,7 +148,7 @@ async function searchPatients(req, res, next) {
     if (!q || q.length < 2) return res.json({ success: true, data: [] });
     const term = `%${q}%`;
     const [rows] = await pool.execute(`
-      SELECT u.full_name, u.phone, u.email,
+      SELECT u.full_name, u.phone, COALESCE(p.contact_email, u.email) as email,
              p.id AS patient_id, p.patient_uid, p.age, p.gender,
              (SELECT MAX(visit_date) FROM medical_records mr WHERE mr.patient_id = p.id) as last_visit,
              (SELECT COUNT(*) FROM medical_records mr WHERE mr.patient_id = p.id) as total_visits
@@ -214,14 +214,16 @@ async function updatePatientAdmin(req, res, next) {
       safeEmail = `${phone}_${Date.now()}@noemail.com`;
     }
 
+    // Only update name and phone in users table
     await pool.execute(
-      'UPDATE users SET full_name=?, email=?, phone=? WHERE id=?',
-      [full_name, safeEmail, phone, userId]
+      'UPDATE users SET full_name=?, phone=? WHERE id=?',
+      [full_name, phone, userId]
     );
 
+    // Update the contact_email in patients table
     await pool.execute(
-      'UPDATE patients SET age=?, gender=?, blood_group=?, address=?, date_of_birth=?, emergency_contact=? WHERE id=?',
-      [age || null, gender || null, blood_group || null, address || null, date_of_birth || null, emergency_contact || null, patientId]
+      'UPDATE patients SET age=?, gender=?, blood_group=?, address=?, date_of_birth=?, emergency_contact=?, contact_email=? WHERE id=?',
+      [age || null, gender || null, blood_group || null, address || null, date_of_birth || null, emergency_contact || null, email || null, patientId]
     );
 
     return res.json({ success: true, message: 'Patient profile updated successfully.' });
