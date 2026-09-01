@@ -25,7 +25,7 @@
       "dest": "/frontend/assets/$1"
     },
     {
-      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico|css|js|woff|woff2|ttf|eot))$",
+      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|ico|css|js|woff|woff2|ttf|eot|mp4|webm|ogg))$",
       "dest": "/frontend/$1"
     },
     {

@@ -104,7 +104,7 @@ const Navbar = () => {
         handleNavClick({ href: location.state.scrollTo, isRoute: false });
         // Clear state
         navigate('/', { replace: true, state: {} });
-      }, 500);
+      }, 100);
     }
   }, [location]);
 
