@@ -46,20 +46,18 @@ const AdminEquipment = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this equipment?')) return;
     try {
       await api.delete(`/equipment/${id}`);
       fetchEquipment();
     } catch (error) {
       console.error('Error deleting equipment:', error);
-      alert('Failed to delete item');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name) {
-      alert('Name is required.');
+      console.error('Name is required.');
       return;
     }
     try {
@@ -86,7 +84,6 @@ const AdminEquipment = () => {
       fetchEquipment();
     } catch (error) {
       console.error('Error saving equipment:', error);
-      alert('Failed to save item');
     }
   };
 

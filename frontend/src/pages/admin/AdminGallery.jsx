@@ -52,20 +52,18 @@ const AdminGallery = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this image?')) return;
     try {
       await api.delete(`/gallery/${id}`);
       fetchGallery();
     } catch (error) {
       console.error('Error deleting gallery item:', error);
-      alert('Failed to delete item');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.title || (!formData.image_url && !imageFile)) {
-      alert('Title and Image (File or URL) are required.');
+      console.error('Title and Image (File or URL) are required.');
       return;
     }
     try {
@@ -97,7 +95,6 @@ const AdminGallery = () => {
       fetchGallery();
     } catch (error) {
       console.error('Error saving gallery item:', error);
-      alert('Failed to save item');
     }
   };
 

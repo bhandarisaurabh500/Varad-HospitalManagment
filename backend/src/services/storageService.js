@@ -2,14 +2,14 @@ const { createClient } = require('@supabase/supabase-js');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
   console.warn('⚠️ Supabase credentials are missing. Cloud storage uploads will fail.');
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 const BUCKET_NAME = 'varad-hospital-storage';
 
@@ -23,6 +23,8 @@ const BUCKET_NAME = 'varad-hospital-storage';
  */
 async function uploadToSupabase(fileBuffer, originalName, mimeType, folder = '') {
   try {
+    if (!supabase) throw new Error('Supabase client not initialized (missing credentials).');
+    
     const ext = path.extname(originalName);
     const uniqueFilename = `${Date.now()}-${uuidv4().substring(0, 8)}${ext}`;
     const filePath = folder ? `${folder}/${uniqueFilename}` : uniqueFilename;
