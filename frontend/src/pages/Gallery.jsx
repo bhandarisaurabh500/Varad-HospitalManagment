@@ -145,19 +145,23 @@ const Gallery = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
                 onClick={() => setSelectedImg(photo.src)}
               >
                 <img 
                   src={photo.src} 
                   alt={photo.title}
-                  className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
+                  className={`w-full h-full transition-transform duration-700 group-hover:scale-110 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
                 />
-                {/* Always visible title overlay at the bottom */}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent p-4 flex items-end justify-center">
-                  <span className="text-white font-medium text-lg text-center drop-shadow-md">
+                
+                {/* Premium Glassmorphism Overlay */}
+                <div className="absolute inset-x-0 bottom-0 bg-white/20 dark:bg-black/40 backdrop-blur-md border-t border-white/30 dark:border-white/10 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-between">
+                  <span className="text-white font-semibold text-[1.1rem] drop-shadow-md truncate pr-2 font-poppins">
                     {photo.title}
                   </span>
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/30 dark:bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+                  </div>
                 </div>
               </motion.div>
             ))}
