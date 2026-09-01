@@ -249,26 +249,26 @@ const AdminAppointments = () => {
                           <div className="relative">
                             <button 
                               onClick={() => setActionMenuId(actionMenuId === appt.id ? null : appt.id)}
-                              className="p-1.5 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200 rounded-lg shadow-sm transition-all outline-none focus:ring-2 focus:ring-blue-500/20"
+                              className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200 rounded-lg shadow-sm transition-all outline-none"
                             ><FaEllipsisV /></button>
                             
                             {actionMenuId === appt.id && (
-                              <div className="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] border border-slate-100 dark:border-slate-700 z-[100] py-2 text-left overflow-hidden">
+                              <div className="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border border-slate-200/80 dark:border-slate-700 z-[100] p-1.5 text-left flex flex-col gap-0.5">
                                 {appt.status !== 'PENDING' && (
-                                  <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-4 py-2.5 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                  <button onClick={() => updateStatus(appt.id, 'PENDING', appt)} className="w-full px-3 py-2 text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-left font-semibold flex items-center gap-2.5 rounded-md transition-colors">
                                     <FaClock className="text-amber-500" /> Mark Pending
                                   </button>
                                 )}
                                 {appt.status !== 'CANCELLED' && (
-                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED', appt)} className="w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                  <button onClick={() => updateStatus(appt.id, 'CANCELLED', appt)} className="w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 text-left font-semibold flex items-center gap-2.5 rounded-md transition-colors">
                                     <FaTimes className="text-red-500" /> Reject Booking
                                   </button>
                                 )}
-                                <button onClick={() => handleWhatsApp(appt)} className="w-full px-4 py-2.5 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-left font-semibold flex items-center gap-3 transition-colors">
+                                <button onClick={() => handleWhatsApp(appt)} className="w-full px-3 py-2 text-sm text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-left font-semibold flex items-center gap-2.5 rounded-md transition-colors">
                                   <FaWhatsapp className="text-emerald-500 text-base" /> Send WhatsApp
                                 </button>
-                                <hr className="border-slate-100 dark:border-slate-700 my-1 mx-3"/>
-                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 text-left font-bold flex items-center gap-3 transition-colors">
+                                <div className="h-px bg-slate-100 dark:bg-slate-700 my-1 mx-1"></div>
+                                <button onClick={() => deleteAppointment(appt.id)} className="w-full px-3 py-2 text-sm text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 text-left font-bold flex items-center gap-2.5 rounded-md transition-colors">
                                   <FaTrash className="text-red-500" /> Delete Booking
                                 </button>
                               </div>
