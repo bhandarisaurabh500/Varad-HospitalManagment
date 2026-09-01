@@ -799,12 +799,28 @@ const PatientProfile = () => {
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Time</label>
-                <input 
-                  type="time" 
+                <select 
                   value={appointmentForm.time} 
                   onChange={e => setAppointmentForm({...appointmentForm, time: e.target.value})}
                   className="w-full px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
-                />
+                >
+                  <option value="">Select Time</option>
+                  <optgroup label="🌅 Morning">
+                    <option value="09:00">9:00 AM – 9:30 AM</option>
+                    <option value="09:30">9:30 AM – 10:00 AM</option>
+                    <option value="10:00">10:00 AM – 10:30 AM</option>
+                    <option value="10:30">10:30 AM – 11:00 AM</option>
+                    <option value="11:00">11:00 AM – 11:30 AM</option>
+                    <option value="11:30">11:30 AM – 12:00 PM</option>
+                  </optgroup>
+                  <optgroup label="☀️ Afternoon">
+                    <option value="14:00">2:00 PM – 2:30 PM</option>
+                    <option value="14:30">2:30 PM – 3:00 PM</option>
+                    <option value="15:00">3:00 PM – 3:30 PM</option>
+                    <option value="15:30">3:30 PM – 4:00 PM</option>
+                    <option value="16:00">4:00 PM – 4:30 PM</option>
+                  </optgroup>
+                </select>
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Description / Symptoms</label>
