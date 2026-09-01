@@ -10,13 +10,6 @@ const PremiumEyeVideo = () => {
     '/photos/eye-video/video-2.mp4'
   ];
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-      videoRef.current.play().catch(e => console.log('Autoplay prevented:', e));
-    }
-  }, [currentVideoIndex]);
-
   const handleVideoEnd = () => {
     setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
   };
@@ -71,6 +64,7 @@ const PremiumEyeVideo = () => {
         <div className="absolute inset-0 border-y border-white/10 pointer-events-none z-20" />
 
         <video
+          key={currentVideoIndex}
           ref={videoRef}
           className="w-full h-auto aspect-video object-cover opacity-90 transition-opacity duration-500 block"
           muted
