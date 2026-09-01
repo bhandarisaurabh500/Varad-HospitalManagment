@@ -16,7 +16,7 @@ const AdminGallery = () => {
     sort_order: 0
   });
 
-  const categories = ['Operation Theatre', 'Equipment', 'Facilities', 'Doctors', 'Patients'];
+  const categories = ['Operation Theatre', 'Equipment', 'Facilities', 'Doctors', 'Patients', 'Awards'];
 
   useEffect(() => {
     fetchGallery();

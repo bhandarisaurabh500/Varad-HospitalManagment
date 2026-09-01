@@ -42,19 +42,25 @@ const Gallery = () => {
   }, []);
 
   const getActivePhotos = () => {
-    if (activeTab === 'awards') return awardsPhotos;
-    
-    // If we have DB photos for 'hospital' categories, use them
+    // If we have DB photos, use them and filter based on activeTab
     if (dbPhotos.length > 0) {
-      return dbPhotos.map(item => ({
-        src: item.image_url,
-        title: item.title,
-        id: item.id
-      }));
+      if (activeTab === 'awards') {
+        return dbPhotos.filter(p => p.category === 'Awards').map(item => ({
+          src: item.image_url,
+          title: item.title,
+          id: item.id
+        }));
+      } else {
+        return dbPhotos.filter(p => p.category !== 'Awards').map(item => ({
+          src: item.image_url,
+          title: item.title,
+          id: item.id
+        }));
+      }
     }
     
     // Fallback to static
-    return galleryPhotos;
+    return activeTab === 'awards' ? awardsPhotos : galleryPhotos;
   };
 
   const currentPhotos = getActivePhotos();
