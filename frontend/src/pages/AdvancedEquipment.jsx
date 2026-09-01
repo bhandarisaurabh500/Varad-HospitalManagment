@@ -101,7 +101,7 @@ const AdvancedEquipment = () => {
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               src={selectedImg}
               alt="Equipment Preview"
-              className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+              className="w-11/12 md:w-3/4 lg:w-2/3 h-[70vh] md:h-[85vh] object-contain rounded-2xl shadow-2xl bg-white p-4 md:p-8"
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>
