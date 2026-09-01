@@ -106,10 +106,14 @@ async function getPatientById(req, res, next) {
     
     // Get Appointments
     const [appointments] = await pool.execute(`
-      SELECT a.id, a.appointment_no, a.appointment_date, a.appointment_time, a.status, a.symptoms
+      SELECT a.id, a.appointment_no, a.appointment_date, a.appointment_time, a.status, a.symptoms,
+             s.name as service_name, u_doc.full_name as doctor_name
       FROM appointments a
+      LEFT JOIN services s ON a.service_id = s.id
+      LEFT JOIN doctors d ON a.doctor_id = d.id
+      LEFT JOIN users u_doc ON d.user_id = u_doc.id
       WHERE a.patient_id = ?
-      ORDER BY a.appointment_date DESC
+      ORDER BY a.appointment_date DESC, a.appointment_time DESC
     `, [patient.patient_id]);
 
     // Get Prescriptions

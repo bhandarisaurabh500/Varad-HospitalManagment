@@ -294,6 +294,33 @@ const PatientProfile = () => {
                   <p className="text-slate-500 mb-1">Emergency Contact</p>
                   <p className="font-medium text-slate-800 dark:text-white">{patient.emergency_contact || 'N/A'}</p>
                 </div>
+
+                {/* Show Latest Booking Data if available */}
+                {patient.appointments && patient.appointments.length > 0 && (
+                  <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
+                    <h4 className="font-bold text-slate-700 dark:text-slate-300 mb-3 text-xs uppercase tracking-wider">Latest Booking Details</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="text-slate-500 mb-1 text-xs">Appointment Time & Date</p>
+                        <p className="font-medium text-slate-800 dark:text-white">
+                          {new Date(patient.appointments[0].appointment_date).toLocaleDateString()} at {patient.appointments[0].appointment_time}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-500 mb-1 text-xs">Department / Service</p>
+                        <p className="font-medium text-slate-800 dark:text-white">
+                          {patient.appointments[0].service_name || 'General'} {patient.appointments[0].doctor_name ? `(${patient.appointments[0].doctor_name})` : ''}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-500 mb-1 text-xs">Description / Symptoms</p>
+                        <p className="font-medium text-slate-800 dark:text-white line-clamp-2">
+                          {patient.appointments[0].symptoms || 'None provided'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
