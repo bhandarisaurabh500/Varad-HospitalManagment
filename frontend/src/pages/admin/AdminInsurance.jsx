@@ -70,7 +70,6 @@ function AdminInsurance() {
   };
 
   const handleDeleteClaim = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this claim?')) return;
     try {
       await insuranceService.deleteClaim(id);
       fetchData();
@@ -80,7 +79,6 @@ function AdminInsurance() {
   };
 
   const handleDeleteProvider = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this provider? This might fail if there are claims associated with it.')) return;
     try {
       await insuranceService.deleteProvider(id);
       fetchData();
