@@ -3,6 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import insuranceService from '../../services/insuranceService';
 import { supabase } from '../../lib/supabase';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 function AdminInsurance() {
   const { isDarkMode } = useTheme();
@@ -51,9 +52,9 @@ function AdminInsurance() {
       await insuranceService.addProvider(newProvider);
       setNewProvider({ provider_name: '', contact_email: '', contact_phone: '' });
       fetchData();
-      alert('Provider added successfully');
+      toast.success('Provider added successfully');
     } catch (error) {
-      alert('Failed to add provider');
+      toast.error('Failed to add provider');
     }
   };
 
@@ -64,8 +65,9 @@ function AdminInsurance() {
     try {
       await insuranceService.updateClaimStatus(id, { status, amount_approved: amount });
       fetchData();
+      toast.success(`Claim marked as ${status.toLowerCase()}`);
     } catch (error) {
-      alert('Failed to update claim');
+      toast.error('Failed to update claim');
     }
   };
 
@@ -73,8 +75,9 @@ function AdminInsurance() {
     try {
       await insuranceService.deleteClaim(id);
       fetchData();
+      toast.success('Claim deleted');
     } catch (error) {
-      alert('Failed to delete claim');
+      toast.error('Failed to delete claim');
     }
   };
 
@@ -82,8 +85,9 @@ function AdminInsurance() {
     try {
       await insuranceService.deleteProvider(id);
       fetchData();
+      toast.success('Provider deleted');
     } catch (error) {
-      alert('Failed to delete provider. (Claims might be using this provider)');
+      toast.error('Failed to delete provider. Make sure no claims are using it.');
     }
   };
 
@@ -100,8 +104,9 @@ function AdminInsurance() {
         contact_phone: provider.contact_phone || ''
       });
       fetchData();
+      toast.success('Provider updated');
     } catch (error) {
-      alert('Failed to update provider');
+      toast.error('Failed to update provider');
     }
   };
 
@@ -111,9 +116,9 @@ function AdminInsurance() {
       await insuranceService.submitClaim(newClaim);
       setNewClaim({ patient_id: '', provider_id: '', appointment_id: null, amount_claimed: '', claim_date: new Date().toISOString().split('T')[0], notes: '' });
       fetchData();
-      alert('Claim submitted successfully');
+      toast.success('Claim submitted successfully');
     } catch (error) {
-      alert('Failed to submit claim');
+      toast.error('Failed to submit claim');
     }
   };
 
