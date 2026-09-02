@@ -26,7 +26,7 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="relative w-full max-w-5xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row my-auto border border-slate-200 dark:border-slate-700 max-h-[90vh]"
+          className="relative w-full max-w-5xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row my-auto border border-slate-200 dark:border-slate-700 md:max-h-[90vh]"
         >
           {/* Close Button */}
           <button 
@@ -37,7 +37,7 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
           </button>
 
           {/* Left Column - Visuals & Profile */}
-          <div className="w-full md:w-5/12 bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-slate-900 p-8 flex flex-col items-center border-r border-slate-100 dark:border-slate-800 overflow-y-auto">
+          <div className="w-full md:w-5/12 bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 flex flex-col items-center border-r border-slate-100 dark:border-slate-800 md:overflow-y-auto shrink-0">
             <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-white dark:border-slate-700 shadow-xl mb-6 bg-white flex items-center justify-center overflow-hidden">
               <img 
                 src="/photos/doctor/Dr.BorudeSir.png" 
@@ -46,15 +46,15 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
               />
             </div>
             
-            <h2 className="text-3xl font-black text-blue-950 dark:text-white text-center mb-2">Dr. Raosaheb K. BORUDE</h2>
-            <p className="text-teal-600 dark:text-teal-400 font-bold text-center mb-6 px-4 py-1.5 bg-teal-50 dark:bg-teal-900/30 rounded-full text-sm">
+            <h2 className="text-2xl md:text-3xl font-black text-blue-950 dark:text-white text-center mb-2 mt-2">Dr. Raosaheb K. BORUDE</h2>
+            <p className="text-teal-600 dark:text-teal-400 font-bold text-center mb-6 px-4 py-2 bg-teal-50 dark:bg-teal-900/30 rounded-full text-xs sm:text-sm">
               Cataract, Glaucoma & Refractive Surgeon
             </p>
 
           </div>
 
           {/* Right Column - Details */}
-          <div className="w-full md:w-7/12 p-8 md:p-10 overflow-y-auto">
+          <div className="w-full md:w-7/12 p-6 md:p-10 md:overflow-y-auto">
             
             {/* Qualifications */}
             <div className="mb-8">
