@@ -32,6 +32,8 @@ const SectionHeading = ({ title, subtitle, icon: Icon }) => (
 
 const HospitalInformation = () => {
   const [currentVideo, setCurrentVideo] = useState(0);
+  const [dbNotices, setDbNotices] = useState([]);
+  
   const videos = [
     "/photos/Eye Video/Video 1.mp4",
     "/photos/Eye Video/Video 2.mp4"
@@ -39,6 +41,20 @@ const HospitalInformation = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Fetch dynamic notices from database
+    const fetchNotices = async () => {
+      try {
+        const { default: api } = await import('../services/api');
+        const res = await api.get('/notices');
+        if (res.data.success && res.data.data.length > 0) {
+          setDbNotices(res.data.data.map(n => n.notice_text));
+        }
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+      }
+    };
+    fetchNotices();
   }, []);
 
   const handleVideoEnded = () => {
@@ -46,6 +62,9 @@ const HospitalInformation = () => {
   };
 
   const doctor = doctorsData.find((d) => d.id === 2); // Dr. Borude
+  
+  // Use DB notices if available, otherwise fallback to hardcoded
+  const activeNotices = dbNotices.length > 0 ? dbNotices : patientGuidelinesData.notices;
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 font-sans">
@@ -374,7 +393,7 @@ const HospitalInformation = () => {
             <div className="bg-rose-50/50 dark:bg-rose-900/10 rounded-3xl p-8 border border-rose-100 dark:border-rose-800/50">
               <h3 className="text-2xl font-bold text-rose-800 dark:text-rose-400 mb-6 border-b border-rose-200 dark:border-rose-800 pb-4">महत्त्वाच्या सूचना</h3>
               <ul className="grid sm:grid-cols-2 gap-4">
-                {patientGuidelinesData.notices.map((item, i) => (
+                {activeNotices.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 shrink-0"></div>
                     <span className="text-slate-700 dark:text-slate-300 font-medium">{item}</span>

@@ -17,6 +17,7 @@ import {
   FaEye,
   FaInstagram
 } from 'react-icons/fa';
+import NoticeMarquee from './NoticeMarquee';
 
 const Navbar = () => {
   const location = useLocation();
@@ -112,6 +113,7 @@ const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+      <NoticeMarquee />
       {/* Top Notification & Emergency Info Bar - Hidden on mobile to save space */}
       <div className="hidden md:block bg-gradient-to-r from-blue-950 via-slate-900 to-blue-950 text-white text-xs py-2 px-4 shadow-md border-b border-blue-800/40">
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
