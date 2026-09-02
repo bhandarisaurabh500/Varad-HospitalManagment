@@ -102,6 +102,8 @@ const Hero = () => {
               >
                 <FaUserMd className="text-lg text-blue-500" />
                 <span>View Profile</span>
+              </button>
+            </div>
           </motion.div>
 
           {/* Right Visual Doctor Photo */}
