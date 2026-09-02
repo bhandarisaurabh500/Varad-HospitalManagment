@@ -37,11 +37,11 @@ const Hero = () => {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-300 text-xs font-bold shadow-sm">
                 <FaStar className="text-amber-500" />
-                <span>{hospitalInfo.stats.googleRating}★ Rated (Top Eye Specialist)</span>
+                <span>{hospitalInfo.stats.googleRating} {hospitalInfo.stats.googleReviewCount} (Top Eye Specialist)</span>
               </div>
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-100/90 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-teal-300 text-xs font-bold shadow-sm">
                 <FaAward className="text-blue-500" />
-                <span>22+ Years of Excellence</span>
+                <span>{hospitalInfo.stats.experiencedDoctors} Excellence</span>
               </div>
             </div>
 

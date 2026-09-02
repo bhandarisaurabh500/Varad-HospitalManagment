@@ -21,12 +21,12 @@ export const hospitalInfo = {
     emergency: ""
   },
   stats: {
-    happyPatients: "30,000+",
+    happyPatients: "Thousands of",
     successfulSurgeries: "Proven",
-    experiencedDoctors: "22+ Years Experience",
-    yearsOfExperience: "22+",
-    googleRating: "4.9",
-    googleReviewCount: "Top Rated"
+    experiencedDoctors: "Two Decades of",
+    yearsOfExperience: "Extensive",
+    googleRating: "Top",
+    googleReviewCount: "Rated"
   }
 };
 
@@ -69,7 +69,7 @@ export const aboutData = {
   title: "About Varad Netralaya",
   subtitle: "Prominent Eye Care Clinic in Savedi, Ahilyanagar (Ahmednagar)",
   description: "Varad Netralaya (वरद नेत्रालय, सावेडी, अहिल्यानगर) is a renowned eye super-specialty clinic led by experienced senior ophthalmologist Dr. Raosaheb K. BORUDE. Located near Anita Medical, behind Hotel Parichay on Balikashram Road, we offer complete ophthalmic examinations, advanced computerized eye testing, micro-incision cataract surgeries, retina diagnostics, and cashless hospitalization.",
-  history: "Trusted by over 30,000+ patients across Ahilyanagar, Varad Netralaya has established an outstanding 4.9★ Google Rating backed by 439+ verified patient reviews for clinical precision and patient care.",
+  history: "Trusted by thousands of patients across Ahilyanagar, Varad Netralaya has established an outstanding reputation backed by excellent verified patient reviews for clinical precision and patient care.",
   mission: "To deliver accessible, accurate, and world-class vision care through cutting-edge diagnostic technology, surgical mastery, and compassionate patient service.",
   vision: "To remain the most trusted tertiary eye care institute in Ahilyanagar for vision preservation and sight restoration.",
   qualityPolicy: "We stringently follow zero-infection surgical protocols, automated computerized testing, and seamless cashless insurance approvals."
@@ -189,8 +189,8 @@ export const whyChooseUsData = [
   },
   {
     id: 2,
-    title: "4.9★ Rated (439+ Google Reviews)",
-    desc: "Highly trusted eye clinic in Ahilyanagar with over 30,000+ satisfied visual outcomes.",
+    title: "Top Rated (Google Reviews)",
+    desc: "Highly trusted eye clinic in Ahilyanagar with thousands of satisfied visual outcomes.",
     icon: "FaStar",
     color: "bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400"
   },

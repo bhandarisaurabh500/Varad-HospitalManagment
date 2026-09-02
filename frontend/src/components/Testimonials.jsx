@@ -89,7 +89,7 @@ const Testimonials = () => {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-xs font-bold text-slate-800 dark:text-white">
               <FaGoogle className="text-rose-500 text-base" />
-              <span>Google Rating: <strong className="text-amber-500 font-extrabold text-sm">{hospitalInfo.stats.googleRating}★</strong> ({hospitalInfo.stats.googleReviewCount})</span>
+              <span><strong className="text-amber-500 font-extrabold text-sm">{hospitalInfo.stats.googleRating}</strong> ({hospitalInfo.stats.googleReviewCount})</span>
             </div>
 
             <a

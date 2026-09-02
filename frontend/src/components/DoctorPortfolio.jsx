@@ -95,7 +95,7 @@ const DoctorPortfolio = () => {
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent p-6">
                   <span className="text-xs font-bold text-teal-400 uppercase tracking-widest">Varad Netralaya, Ahilyanagar</span>
-                  <p className="text-white font-bold text-lg mt-1">22+ Years Experience</p>
+                  <p className="text-white font-bold text-lg mt-1">Extensive Experience</p>
                 </div>
               </div>
               <motion.div
@@ -106,10 +106,10 @@ const DoctorPortfolio = () => {
                 className="absolute -bottom-6 -right-6 bg-white dark:bg-slate-900 rounded-2xl px-5 py-4 shadow-2xl border border-slate-200/20"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center text-white text-lg">?</div>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-teal-500 flex items-center justify-center text-white text-lg">★</div>
                   <div>
-                    <p className="text-xs text-slate-500">Google Rating</p>
-                    <p className="text-lg font-extrabold text-slate-900 dark:text-white">4.9 / 5.0</p>
+                    <p className="text-xs text-slate-500">Patient Trust</p>
+                    <p className="text-lg font-extrabold text-slate-900 dark:text-white">Top Rated</p>
                   </div>
                 </div>
               </motion.div>
