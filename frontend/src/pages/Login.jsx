@@ -76,36 +76,46 @@ const Login = () => {
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 font-sans">
       {/* Left Side - Medical Visual / Branding (Desktop Only) */}
-      <div className="hidden lg:flex w-1/2 bg-blue-900 relative overflow-hidden items-center justify-center p-12">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-teal-900 opacity-90 z-10" />
+      <div className="hidden lg:flex w-1/2 bg-slate-900 relative overflow-hidden items-center justify-center p-12">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-teal-950 opacity-90 z-10" />
         <div 
-          className="absolute inset-0 bg-cover bg-center z-0 opacity-20" 
+          className="absolute inset-0 bg-cover bg-center z-0 opacity-40 mix-blend-overlay" 
           style={{ backgroundImage: 'url(/photos/Clinic/1.jpg)' }} 
         />
         
+        {/* Animated Orbs */}
+        <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-blue-600 rounded-full filter blur-[100px] opacity-30 z-10" />
+        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-teal-500 rounded-full filter blur-[100px] opacity-30 z-10" />
+        
         <motion.div 
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative z-20 text-white max-w-lg"
         >
-          <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl mb-8 border border-white/20">
-            <FaUserMd />
+          <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl mb-8 border border-white/20 shadow-2xl">
+            <FaUserMd className="text-teal-300" />
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 leading-tight">Dr. Raosaheb K. BORUDE</h1>
-          <h2 className="text-2xl font-medium text-teal-300 mb-6">CATARACT, GLAUCOMA & REFRACTIVE SURGEON</h2>
-          <div className="w-16 h-1 bg-teal-400 mb-6 rounded-full" />
-          <p className="text-xl text-blue-100 font-light tracking-wide">Professional Eye Care Management</p>
+          <h1 className="text-5xl font-extrabold mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">Dr. Raosaheb K. BORUDE</h1>
+          <h2 className="text-xl font-bold text-teal-400 mb-6 tracking-wide">CATARACT, GLAUCOMA & REFRACTIVE SURGEON</h2>
+          <div className="w-16 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mb-6 rounded-full" />
+          <p className="text-lg text-slate-300 font-light tracking-wide leading-relaxed">Experience world-class eye care with state-of-the-art technology and compassionate treatment.</p>
         </motion.div>
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative overflow-hidden">
+        {/* Subtle background glow on right side */}
+        <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-3xl opacity-50" />
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-100 dark:bg-teal-900/20 rounded-full blur-3xl opacity-50" />
+        </div>
+
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 p-8 sm:p-10"
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="w-full max-w-md bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white dark:border-slate-800 p-8 sm:p-10 relative z-10"
         >
           <div className="text-center mb-10">
             <div className="lg:hidden w-16 h-16 bg-gradient-to-br from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-lg">
@@ -154,7 +164,7 @@ const Login = () => {
                     placeholder="Enter username or email"
                     value={loginForm.email}
                     onChange={e => setLoginForm(p => ({ ...p, email: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
                   />
                 </div>
               </div>
@@ -169,7 +179,7 @@ const Login = () => {
                     placeholder="••••••••"
                     value={loginForm.password}
                     onChange={e => setLoginForm(p => ({ ...p, password: e.target.value }))}
-                    className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
                   />
                   <button 
                     type="button" 
@@ -206,7 +216,7 @@ const Login = () => {
               <button
                 type="submit" 
                 disabled={loading}
-                className="w-full mt-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:hover:translate-y-0"
+                className="w-full mt-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-lg shadow-[0_8px_20px_rgb(13,148,136,0.3)] hover:shadow-[0_10px_25px_rgb(13,148,136,0.4)] hover:-translate-y-1 transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0"
               >
                 {loading ? 'Authenticating...' : 'Login to Dashboard'}
               </button>
