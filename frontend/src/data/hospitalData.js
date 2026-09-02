@@ -21,7 +21,7 @@ export const hospitalInfo = {
     emergency: ""
   },
   stats: {
-    happyPatients: "10,000+",
+    happyPatients: "30,000+",
     successfulSurgeries: "Proven",
     experiencedDoctors: "22+ Years Experience",
     yearsOfExperience: "22+",
