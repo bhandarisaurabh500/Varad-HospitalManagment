@@ -2,14 +2,14 @@ const { pool } = require('../config/db');
 
 async function getNotices(req, res, next) {
   try {
-    const [rows] = await pool.execute('SELECT * FROM notices WHERE is_active = 1 ORDER BY id');
+    const [rows] = await pool.execute('SELECT * FROM notices ORDER BY id DESC');
     return res.json({ success: true, data: rows });
   } catch (err) { next(err); }
 }
 
 async function getAllNotices(req, res, next) {
   try {
-    const [rows] = await pool.execute('SELECT * FROM notices ORDER BY id');
+    const [rows] = await pool.execute('SELECT * FROM notices ORDER BY id DESC');
     return res.json({ success: true, data: rows });
   } catch (err) { next(err); }
 }
