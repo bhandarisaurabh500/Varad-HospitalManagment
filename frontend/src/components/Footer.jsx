@@ -115,7 +115,9 @@ const Footer = () => {
 
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-4">
-          <p>© {currentYear} Dr. Raosaheb K. BORUDE. All Rights Reserved.</p>
+          <Link to="/login" className="cursor-default hover:text-slate-300 transition-colors" title="Varad Netralaya">
+            © {currentYear} Dr. Raosaheb K. BORUDE. All Rights Reserved.
+          </Link>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <a
               href="https://instagram.com"
