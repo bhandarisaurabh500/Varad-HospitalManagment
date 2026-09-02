@@ -5,8 +5,9 @@ import {
   FaTachometerAlt, FaCalendarCheck, FaUserMd,
   FaConciergeBell, FaMicroscope, FaImages,
   FaInfoCircle, FaShieldAlt, FaStar, FaCog, FaSignOutAlt, 
-  FaBars, FaEye, FaHospital, FaHeartbeat, FaPhoneAlt
+  FaBars, FaEye, FaHospital, FaHeartbeat, FaPhoneAlt, FaSun, FaMoon
 } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 const adminLinks = [
   { to: '/admin/dashboard',          label: 'Dashboard',           icon: FaTachometerAlt },
@@ -27,6 +28,7 @@ const DashboardLayout = ({ children }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { darkMode, toggleDarkMode } = useTheme();
 
   // We are treating all authenticated users as the Admin/Doctor
   const roleLabel = 'Doctor Administration';
@@ -115,7 +117,16 @@ const DashboardLayout = ({ children }) => {
           <h1 className="text-slate-800 dark:text-white font-bold text-lg flex-1 truncate">
             {adminLinks.find(l => l.to === location.pathname)?.label || 'Dashboard'}
           </h1>
-          <span className="text-xs font-bold text-teal-600 bg-teal-100 dark:bg-teal-900/30 dark:text-teal-400 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800">
+          
+          <button
+            onClick={toggleDarkMode}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            title="Toggle Dark Mode"
+          >
+            {darkMode ? <FaSun className="text-amber-500" /> : <FaMoon />}
+          </button>
+
+          <span className="hidden sm:inline-block text-xs font-bold text-teal-600 bg-teal-100 dark:bg-teal-900/30 dark:text-teal-400 px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800">
             Admin Panel
           </span>
         </header>

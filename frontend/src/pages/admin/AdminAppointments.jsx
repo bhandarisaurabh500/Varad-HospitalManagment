@@ -264,46 +264,46 @@ const AdminAppointments = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-1.5 items-center relative">
+                        <div className="flex justify-end gap-2 items-center flex-wrap max-w-[200px] ml-auto">
                           <button 
                             onClick={() => navigate(`/admin/patients/${appt.patient_id}`)}
-                            className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg shadow-sm transition-all outline-none"
+                            className="h-8 px-3 flex items-center justify-center gap-1.5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                             title="View Patient Details"
-                          ><FaEye /></button>
+                          ><FaEye /> <span>View</span></button>
                           
                           <button 
                             onClick={() => navigate(`/admin/patients/${appt.patient_id}?tab=medical`)}
-                            className="w-8 h-8 flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 hover:border-emerald-300 dark:hover:border-emerald-700/50 rounded-lg shadow-sm transition-all outline-none"
+                            className="h-8 px-3 flex items-center justify-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                             title="Medical & Prescriptions"
-                          ><FaStethoscope /></button>
+                          ><FaStethoscope /> <span>Medical</span></button>
 
                           {appt.status === 'PENDING' && (
                             <>
                               <button 
                                 onClick={() => updateStatus(appt.id, 'CONFIRMED', appt)}
-                                className="w-8 h-8 flex items-center justify-center bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200/50 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-900/40 hover:border-blue-300 dark:hover:border-blue-700/50 rounded-lg shadow-sm transition-all outline-none"
+                                className="h-8 px-3 flex items-center justify-center gap-1.5 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border border-blue-200/50 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                                 title="Approve Appointment"
-                              ><FaCheck /></button>
+                              ><FaCheck /> <span>Approve</span></button>
 
                               <button 
                                 onClick={() => updateStatus(appt.id, 'CANCELLED', appt)}
-                                className="w-8 h-8 flex items-center justify-center bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-200/50 dark:border-red-800/50 hover:bg-red-100 dark:hover:bg-red-900/40 hover:border-red-300 dark:hover:border-red-700/50 rounded-lg shadow-sm transition-all outline-none"
+                                className="h-8 px-3 flex items-center justify-center gap-1.5 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200/50 dark:border-red-800/50 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                                 title="Reject Appointment"
-                              ><FaTimes /></button>
+                              ><FaTimes /> <span>Reject</span></button>
                             </>
                           )}
                           
                           <button 
                             onClick={() => handleEditClick(appt)}
-                            className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-blue-500 border border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700 hover:border-blue-200 hover:text-blue-600 rounded-lg shadow-sm transition-all outline-none"
+                            className="h-8 px-3 flex items-center justify-center gap-1.5 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                             title="Edit Booking"
-                          ><FaEdit /></button>
+                          ><FaEdit /> <span>Edit</span></button>
                           
                           <button 
                             onClick={() => deleteAppointment(appt.id)}
-                            className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-red-500 border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-slate-700 hover:border-red-200 hover:text-red-600 rounded-lg shadow-sm transition-all outline-none"
+                            className="h-8 px-3 flex items-center justify-center gap-1.5 bg-white dark:bg-slate-800 text-red-600 dark:text-red-400 border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-slate-700 rounded-lg shadow-sm transition-all outline-none text-xs font-bold"
                             title="Delete Booking"
-                          ><FaTrash /></button>
+                          ><FaTrash /> <span>Delete</span></button>
                         </div>
                       </td>
                     </tr>
