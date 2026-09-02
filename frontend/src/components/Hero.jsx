@@ -102,25 +102,6 @@ const Hero = () => {
               >
                 <FaUserMd className="text-lg text-blue-500" />
                 <span>View Profile</span>
-              </button>
-            </div>
-
-            {/* Trust Stats Row */}
-            <div className="pt-8 mt-8 border-t border-slate-200 dark:border-slate-800/50 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10">
-              <div className="text-center lg:text-left">
-                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">15k+</h4>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Happy Patients</p>
-              </div>
-              <div className="text-center lg:text-left">
-                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">22+</h4>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Years Experience</p>
-              </div>
-              <div className="text-center lg:text-left">
-                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">100%</h4>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Cashless Facility</p>
-              </div>
-            </div>
-
           </motion.div>
 
           {/* Right Visual Doctor Photo */}
