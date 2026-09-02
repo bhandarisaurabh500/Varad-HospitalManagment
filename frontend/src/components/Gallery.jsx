@@ -22,7 +22,14 @@ const Gallery = () => {
     fetchGallery();
   }, []);
 
-  const categories = ['All', 'Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
+  const categories = ['All', 'Hospital Videos (Reels)', 'Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
+  
+  const reelVideos = [
+    { id: 'v1', url: '/photos/eye-video/hospital-tour-1.mp4', title: 'Hospital Tour 1' },
+    { id: 'v2', url: '/photos/eye-video/hospital-tour-2.mp4', title: 'Hospital Tour 2' },
+    { id: 'v3', url: '/photos/eye-video/hospital-tour-3.mp4', title: 'Patient Interaction' },
+    { id: 'v4', url: '/photos/eye-video/hospital-tour-4.mp4', title: 'Doctor Message' }
+  ];
 
   const filteredImages = selectedCategory === 'All'
     ? galleryData
@@ -65,40 +72,66 @@ const Gallery = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredImages.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              onClick={() => setSelectedImage(item)}
-              className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-300 cursor-pointer h-64 group border border-slate-200/80 dark:border-slate-800"
-            >
-              <img
-                src={encodeURI(item.image_url)}
-                alt={item.title}
-                className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
-                  ['Equipment', 'Machines'].includes(item.category) 
-                    ? 'object-contain p-4 bg-white' 
-                    : 'object-cover'
-                }`}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
-                <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider">
-                  {item.category}
-                </span>
-                <h3 className="text-base font-bold font-poppins">{item.title}</h3>
-                <p className="text-xs text-slate-300 mt-1 line-clamp-2">{item.description}</p>
-
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-sm">
-                  <FaSearchPlus />
+        {selectedCategory === 'Hospital Videos (Reels)' ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {reelVideos.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-300 h-96 group border border-slate-200/80 dark:border-slate-800 bg-black"
+              >
+                <video
+                  src={item.url}
+                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <h3 className="text-white text-sm font-bold">{item.title}</h3>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredImages.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                onClick={() => setSelectedImage(item)}
+                className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-2xl transition-all duration-300 cursor-pointer h-64 group border border-slate-200/80 dark:border-slate-800"
+              >
+                <img
+                  src={encodeURI(item.image_url)}
+                  alt={item.title}
+                  className={`w-full h-full transition-transform duration-500 group-hover:scale-110 ${
+                    ['Equipment', 'Machines'].includes(item.category) 
+                      ? 'object-contain p-4 bg-white' 
+                      : 'object-cover'
+                  }`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-white">
+                  <span className="text-[10px] font-bold text-teal-300 uppercase tracking-wider">
+                    {item.category}
+                  </span>
+                  <h3 className="text-base font-bold font-poppins">{item.title}</h3>
+                  <p className="text-xs text-slate-300 mt-1 line-clamp-2">{item.description}</p>
+  
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-sm">
+                    <FaSearchPlus />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         {/* Lightbox Image View Modal */}
         <AnimatePresence>
