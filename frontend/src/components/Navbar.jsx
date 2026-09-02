@@ -146,17 +146,17 @@ const Navbar = () => {
           <a 
             href="#home" 
             onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }}
-            className="flex items-center gap-2 sm:gap-4 group shrink-0 min-w-0"
+            className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0"
           >
-            <div className="shrink-0 hidden xs:block">
-              <FaUserMd className="text-2xl sm:text-3xl text-blue-600" />
+            <div className="shrink-0 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-tr from-blue-600 to-teal-500 text-white rounded-xl shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+              <FaEye className="text-xl sm:text-2xl" />
             </div>
             <div className="flex flex-col min-w-0">
               <div className="flex flex-wrap items-baseline leading-tight">
                 <span className="text-base sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
                 <span className="text-base sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1">BORUDE</span>
               </div>
-              <p className="text-[10px] sm:text-sm font-extrabold text-slate-600 dark:text-slate-400 tracking-wider uppercase mt-0.5 truncate">
+              <p className="text-[10px] sm:text-[11px] font-extrabold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-0.5 truncate">
                 Cataract, Glaucoma & Refractive Surgeon
               </p>
             </div>

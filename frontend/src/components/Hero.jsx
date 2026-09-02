@@ -48,7 +48,7 @@ const Hero = () => {
             {/* Main Headline */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-[1.15] font-poppins">
               {hospitalInfo.marathiName} <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl block mt-2">
+              <span className="bg-gradient-to-r from-blue-700 via-cyan-500 to-teal-500 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl block mt-2 drop-shadow-sm">
                 {hospitalInfo.tagline}
               </span>
             </h1>
@@ -105,6 +105,22 @@ const Hero = () => {
               </button>
             </div>
 
+            {/* Trust Stats Row */}
+            <div className="pt-8 mt-8 border-t border-slate-200 dark:border-slate-800/50 flex flex-wrap items-center justify-center lg:justify-start gap-6 sm:gap-10">
+              <div className="text-center lg:text-left">
+                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">15k+</h4>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Happy Patients</p>
+              </div>
+              <div className="text-center lg:text-left">
+                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">22+</h4>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Years Experience</p>
+              </div>
+              <div className="text-center lg:text-left">
+                <h4 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white drop-shadow-sm">100%</h4>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">Cashless Facility</p>
+              </div>
+            </div>
+
           </motion.div>
 
           {/* Right Visual Doctor Photo */}
@@ -112,11 +128,15 @@ const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 relative"
+            className="lg:col-span-5 relative mt-10 lg:mt-0"
           >
             <div className="relative mx-auto max-w-md lg:max-w-none">
               {/* Glowing Ambient Halo */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-blue-600 via-amber-400 to-teal-400 opacity-30 blur-2xl"></div>
+              <motion.div 
+                animate={{ opacity: [0.4, 0.7, 0.4] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute -inset-6 rounded-3xl bg-gradient-to-tr from-blue-600 via-cyan-400 to-teal-400 opacity-50 blur-3xl"
+              ></motion.div>
               
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 bg-white dark:bg-slate-900">
                 <img src={doctor.photo} alt={doctor.name} className="w-full h-auto object-cover" />
@@ -128,7 +148,7 @@ const Hero = () => {
 
               {/* Floating Badge 1 */}
               <motion.div 
-                animate={{ y: [0, -8, 0] }}
+                animate={{ y: [0, -15, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                 className="absolute -top-6 -right-6 hidden sm:flex items-center gap-3 p-4 rounded-2xl glass-panel shadow-soft text-slate-800 dark:text-white max-w-xs border border-white/40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md"
               >
