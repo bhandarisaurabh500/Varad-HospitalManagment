@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import insuranceService from '../../services/insuranceService';
 import { supabase } from '../../lib/supabase';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 function AdminInsurance() {
   const { isDarkMode } = useTheme();
@@ -86,6 +86,24 @@ function AdminInsurance() {
       fetchData();
     } catch (error) {
       alert('Failed to delete provider. (Claims might be using this provider)');
+    }
+  };
+
+  const handleEditProvider = async (provider) => {
+    const newName = prompt('Edit Provider Name:', provider.provider_name);
+    if (!newName) return; // User cancelled or left empty
+    
+    const newEmail = prompt('Edit Provider Email:', provider.contact_email || '');
+    
+    try {
+      await insuranceService.updateProvider(provider.id, {
+        provider_name: newName,
+        contact_email: newEmail,
+        contact_phone: provider.contact_phone || ''
+      });
+      fetchData();
+    } catch (error) {
+      alert('Failed to update provider');
     }
   };
 
@@ -208,10 +226,15 @@ function AdminInsurance() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {providers.map(p => (
-              <div key={p.id} className="relative bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 group">
-                <button onClick={() => handleDeleteProvider(p.id)} className="absolute top-4 right-4 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" title="Delete Provider"><FaTrash /></button>
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white pr-6">{p.provider_name}</h3>
-                <p className="text-slate-500 text-sm mt-2">{p.contact_email || 'No email provided'}</p>
+              <div key={p.id} className="relative bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-white pr-16">{p.provider_name}</h3>
+                  <p className="text-slate-500 text-sm mt-2">{p.contact_email || 'No email provided'}</p>
+                </div>
+                <div className="absolute top-4 right-4 flex space-x-2">
+                  <button onClick={() => handleEditProvider(p)} className="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-colors" title="Edit Provider"><FaEdit /></button>
+                  <button onClick={() => handleDeleteProvider(p.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-slate-800 rounded-lg transition-colors" title="Delete Provider"><FaTrash /></button>
+                </div>
               </div>
             ))}
           </div>

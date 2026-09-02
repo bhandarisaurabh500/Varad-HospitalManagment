@@ -26,6 +26,9 @@ router.post('/claims', authMiddleware, isAdmin, insuranceController.submitClaim)
 
 // Update claim status
 router.put('/claims/:id', authMiddleware, isAdmin, insuranceController.updateClaimStatus);
+// Update a provider
+router.put('/providers/:id', authMiddleware, isAdmin, insuranceController.updateProvider);
+
 // Delete a provider
 router.delete('/providers/:id', authMiddleware, isAdmin, insuranceController.deleteProvider);
 

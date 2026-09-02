@@ -116,6 +116,21 @@ exports.deleteProvider = async (req, res) => {
   }
 };
 
+exports.updateProvider = async (req, res) => {
+  const { id } = req.params;
+  const { provider_name, contact_email, contact_phone } = req.body;
+  try {
+    await pool.execute(
+      'UPDATE tpa_providers SET provider_name = ?, contact_email = ?, contact_phone = ? WHERE id = ?',
+      [provider_name, contact_email, contact_phone || null, id]
+    );
+    res.json({ success: true, message: 'Provider updated successfully' });
+  } catch (error) {
+    console.error('Error updating provider:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 exports.deleteClaim = async (req, res) => {
   const { id } = req.params;
   try {
