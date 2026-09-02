@@ -11,12 +11,18 @@ const NoticeMarquee = () => {
         const res = await api.get('/notices');
         if (res.data.success && res.data.data.length > 0) {
           setNotices(res.data.data);
+        } else {
+          setNotices([]);
         }
       } catch (error) {
         console.error('Error fetching notices:', error);
       }
     };
+    
     fetchNotices();
+    // Poll every 10 seconds
+    const interval = setInterval(fetchNotices, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   if (notices.length === 0) return null;

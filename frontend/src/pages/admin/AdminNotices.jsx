@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { FaPlus, FaEdit, FaTrash, FaSave } from 'react-icons/fa';
+import toast from 'react-hot-toast';
 
 const AdminNotices = () => {
   const [items, setItems] = useState([]);
@@ -38,20 +39,20 @@ const AdminNotices = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this notice?')) return;
     try {
       await api.delete(`/notices/${id}`);
+      toast.success('Notice deleted successfully');
       fetchNotices();
     } catch (error) {
       console.error('Error deleting notice:', error);
-      alert('Failed to delete item');
+      toast.error('Failed to delete item');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.notice_text) {
-      alert('Notice text is required.');
+      toast.error('Notice text is required.');
       return;
     }
     try {
@@ -59,12 +60,13 @@ const AdminNotices = () => {
         await api.put(`/notices/${editingId}`, formData);
       } else {
         await api.post('/notices', formData);
+        toast.success('Notice added successfully');
       }
       resetForm();
       fetchNotices();
     } catch (error) {
       console.error('Error saving notice:', error);
-      alert('Failed to save item');
+      toast.error('Failed to save notice');
     }
   };
 

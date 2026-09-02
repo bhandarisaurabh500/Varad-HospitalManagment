@@ -55,6 +55,9 @@ const HospitalInformation = () => {
       }
     };
     fetchNotices();
+    // Poll every 10 seconds so notices auto-update without refresh
+    const interval = setInterval(fetchNotices, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleVideoEnded = () => {
