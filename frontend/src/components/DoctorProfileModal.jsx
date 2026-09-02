@@ -38,11 +38,11 @@ const DoctorProfileModal = ({ isOpen, onClose }) => {
 
           {/* Left Column - Visuals & Profile */}
           <div className="w-full md:w-5/12 bg-gradient-to-b from-blue-50 to-white dark:from-slate-800 dark:to-slate-900 p-8 flex flex-col items-center border-r border-slate-100 dark:border-slate-800 overflow-y-auto">
-            <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white dark:border-slate-700 shadow-xl mb-6 bg-blue-100">
+            <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-white dark:border-slate-700 shadow-xl mb-6 bg-white flex items-center justify-center overflow-hidden">
               <img 
                 src="/photos/doctor/Dr.BorudeSir.png" 
                 alt="Dr. Raosaheb K. BORUDE" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain scale-95 origin-bottom"
               />
             </div>
             
