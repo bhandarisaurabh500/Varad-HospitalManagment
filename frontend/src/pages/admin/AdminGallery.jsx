@@ -15,8 +15,7 @@ const AdminGallery = () => {
     image_url: '',
     sort_order: 0
   });
-
-  const categories = ['Operation Theatre', 'Equipment', 'Facilities', 'Doctors', 'Patients', 'Awards'];
+  const categories = ['Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
 
   useEffect(() => {
     fetchGallery();

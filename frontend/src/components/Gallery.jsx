@@ -22,7 +22,7 @@ const Gallery = () => {
     fetchGallery();
   }, []);
 
-  const categories = ['All', 'Operation Theatre', 'Equipment', 'Facilities', 'Doctors', 'Patients'];
+  const categories = ['All', 'Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
 
   const filteredImages = selectedCategory === 'All'
     ? galleryData
