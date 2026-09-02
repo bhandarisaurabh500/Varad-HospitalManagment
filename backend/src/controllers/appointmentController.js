@@ -213,7 +213,7 @@ async function getAppointments(req, res, next) {
 async function getAppointmentById(req, res, next) {
   try {
     const [rows] = await pool.execute(
-      `SELECT a.*, u_pat.full_name AS patient_name, u_pat.email AS patient_email,
+      `SELECT a.*, u_pat.full_name AS patient_name, COALESCE(NULLIF(pt.contact_email, ''), u_pat.email) AS patient_email,
               u_pat.phone AS patient_phone, u_doc.full_name AS doctor_name,
               s.name AS service_name
        FROM appointments a
@@ -248,7 +248,7 @@ async function updateStatus(req, res, next) {
     // Fetch appointment details to send the email
     const [rows] = await pool.execute(
       `SELECT a.appointment_no, a.appointment_date, a.appointment_time, a.symptoms,
-              u_pat.full_name AS patient_name, u_pat.email AS patient_email
+              u_pat.full_name AS patient_name, COALESCE(NULLIF(pt.contact_email, ''), u_pat.email) AS patient_email
        FROM appointments a
        JOIN patients pt ON pt.id = a.patient_id
        JOIN users u_pat ON u_pat.id = pt.user_id
