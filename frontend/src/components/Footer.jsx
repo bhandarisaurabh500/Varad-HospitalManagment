@@ -126,9 +126,6 @@ const Footer = () => {
             >
               <FaInstagram className="text-lg" /> Follow on Instagram
             </a>
-            <Link to="/login" className="bg-slate-800 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center gap-2 shadow-sm">
-              <FaUserMd /> Admin Panel
-            </Link>
           </div>
         </div>
 
