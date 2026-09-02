@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaUserMd, FaAward, FaStethoscope, FaClock, FaPhoneAlt,
@@ -6,6 +6,7 @@ import {
   FaShieldAlt, FaTools, FaEye, FaFlask, FaChevronDown
 } from 'react-icons/fa';
 import { doctorsData, infrastructureData, patientGuidelinesData, insurancePartnersData } from '../data/hospitalData';
+import api from '../services/api';
 
 // ─── Section IDs mapped to tabs ────────────────────────────────────────────
 const tabs = [
@@ -61,10 +62,28 @@ const facilitiesList = [
 // ─── Main Component ─────────────────────────────────────────────────────────
 const DoctorProfile = () => {
   const [activeTab, setActiveTab] = useState('doctor');
+  const [galleryPhotos, setGalleryPhotos] = useState([]);
   const doctor = doctorsData.find(d => d.id === 2); // Dr. Borude
 
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await api.get('/gallery');
+        if (res.data.success) {
+          const doctorPhotos = res.data.data.filter(img => 
+            img.category === 'Awards & Journey' || img.category === 'Social Initiatives'
+          );
+          setGalleryPhotos(doctorPhotos);
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery:', err);
+      }
+    };
+    fetchGallery();
+  }, []);
+
   // Listen for navbar tab-switch events
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = (e) => {
       setActiveTab(e.detail);
       setTimeout(() => {
@@ -130,6 +149,26 @@ const DoctorProfile = () => {
                   }}
                   reverse={false}
                 />
+                
+                {/* ── DOCTOR SPECIFIC GALLERY ── */}
+                {galleryPhotos.length > 0 && (
+                  <div className="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800">
+                    <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-8 font-poppins flex items-center gap-3">
+                      <FaAward className="text-blue-600" /> Dr. Borude's Journey & Initiatives
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {galleryPhotos.map((photo, i) => (
+                        <div key={i} className="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                          <img src={photo.image_url} alt={photo.title || 'Doctor Photo'} className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider mb-2">{photo.category}</span>
+                            <h4 className="text-white font-semibold text-sm line-clamp-2">{photo.title}</h4>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
