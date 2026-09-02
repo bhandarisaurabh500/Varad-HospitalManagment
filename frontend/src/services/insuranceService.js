@@ -34,6 +34,16 @@ const insuranceService = {
   updateClaimStatus: async (id, data) => {
     const response = await api.put(`/insurance/claims/${id}`, data);
     return response.data;
+  },
+  
+  deleteProvider: async (id) => {
+    const response = await api.delete(`/insurance/providers/${id}`);
+    return response.data;
+  },
+
+  deleteClaim: async (id) => {
+    const response = await api.delete(`/insurance/claims/${id}`);
+    return response.data;
   }
 };
 

@@ -104,3 +104,25 @@ exports.updateClaimStatus = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
+exports.deleteProvider = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.execute('DELETE FROM tpa_providers WHERE id = ?', [id]);
+    res.json({ success: true, message: 'Provider deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting provider:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+exports.deleteClaim = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.execute('DELETE FROM tpa_claims WHERE id = ?', [id]);
+    res.json({ success: true, message: 'Claim deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting claim:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import insuranceService from '../../services/insuranceService';
 import { supabase } from '../../lib/supabase';
+import { FaTrash } from 'react-icons/fa';
 
 function AdminInsurance() {
   const { isDarkMode } = useTheme();
@@ -65,6 +66,26 @@ function AdminInsurance() {
       fetchData();
     } catch (error) {
       alert('Failed to update claim');
+    }
+  };
+
+  const handleDeleteClaim = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this claim?')) return;
+    try {
+      await insuranceService.deleteClaim(id);
+      fetchData();
+    } catch (error) {
+      alert('Failed to delete claim');
+    }
+  };
+
+  const handleDeleteProvider = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this provider? This might fail if there are claims associated with it.')) return;
+    try {
+      await insuranceService.deleteProvider(id);
+      fetchData();
+    } catch (error) {
+      alert('Failed to delete provider. (Claims might be using this provider)');
     }
   };
 
@@ -152,13 +173,16 @@ function AdminInsurance() {
                         {claim.status}
                       </span>
                     </td>
-                    <td className="p-4 space-x-2">
+                    <td className="p-4 space-x-2 flex items-center">
                       {claim.status === 'PENDING' && (
                         <>
-                          <button onClick={() => handleUpdateClaim(claim.id, 'APPROVED', claim.amount_claimed)} className="text-green-600 hover:underline">Approve</button>
-                          <button onClick={() => handleUpdateClaim(claim.id, 'REJECTED', 0)} className="text-red-600 hover:underline">Reject</button>
+                          <button onClick={() => handleUpdateClaim(claim.id, 'APPROVED', claim.amount_claimed)} className="text-green-600 hover:underline text-sm font-medium">Mark Approved</button>
+                          <span className="text-slate-300 dark:text-slate-700">|</span>
+                          <button onClick={() => handleUpdateClaim(claim.id, 'REJECTED', 0)} className="text-red-600 hover:underline text-sm font-medium">Mark Rejected</button>
+                          <span className="text-slate-300 dark:text-slate-700">|</span>
                         </>
                       )}
+                      <button onClick={() => handleDeleteClaim(claim.id)} className="text-slate-400 hover:text-red-500" title="Delete Claim"><FaTrash /></button>
                     </td>
                   </tr>
                 ))}
@@ -184,8 +208,9 @@ function AdminInsurance() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {providers.map(p => (
-              <div key={p.id} className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white">{p.provider_name}</h3>
+              <div key={p.id} className="relative bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 group">
+                <button onClick={() => handleDeleteProvider(p.id)} className="absolute top-4 right-4 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" title="Delete Provider"><FaTrash /></button>
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white pr-6">{p.provider_name}</h3>
                 <p className="text-slate-500 text-sm mt-2">{p.contact_email || 'No email provided'}</p>
               </div>
             ))}
