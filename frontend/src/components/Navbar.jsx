@@ -13,7 +13,8 @@ import {
   FaCalendarCheck,
   FaShieldAlt,
   FaStar,
-  FaUserMd
+  FaUserMd,
+  FaEye
 } from 'react-icons/fa';
 
 const Navbar = () => {
