@@ -342,11 +342,11 @@ const DoctorCard = ({ doctor, reverse }) => (
     className={`flex flex-col ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300`}
   >
     {/* Photo Side */}
-    <div className="md:w-80 lg:w-96 flex-shrink-0 relative overflow-hidden bg-gradient-to-br from-blue-50 to-teal-50 dark:from-slate-800 dark:to-slate-900">
+    <div className="md:w-80 lg:w-96 flex-shrink-0 relative flex items-center justify-center bg-white dark:bg-slate-900 border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800 p-6">
       <img
         src={doctor.photo}
         alt={doctor.name}
-        className="w-full h-full object-cover object-top min-h-[320px] md:min-h-[420px]"
+        className="w-full max-w-[280px] h-auto object-contain drop-shadow-md rounded-full"
       />
       {/* Rating Badge */}
       <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow">
