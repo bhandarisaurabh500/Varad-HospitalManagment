@@ -52,46 +52,52 @@ const PremiumEyeVideo = () => {
         </div>
       </div>
 
-      {/* Full-width video — no max-width, edge to edge */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="relative w-full overflow-hidden bg-black"
-      >
-        {/* Subtle inner border overlay */}
-        <div className="absolute inset-0 border-y border-white/10 pointer-events-none z-20" />
-
-        <video
-          key={currentVideoIndex}
-          ref={videoRef}
-          className="w-full h-auto aspect-video object-cover opacity-90 transition-opacity duration-500 block"
-          muted
-          playsInline
-          autoPlay
-          onEnded={handleVideoEnd}
+      {/* Framed Cinematic Video */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative w-full overflow-hidden rounded-2xl sm:rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] border border-slate-700/50 bg-black group"
         >
-          <source src={videos[currentVideoIndex]} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+          {/* Ambient Background Glow behind the video */}
+          <div className="absolute -inset-2 bg-gradient-to-tr from-blue-600/30 via-transparent to-teal-500/30 blur-2xl -z-10 group-hover:opacity-100 opacity-60 transition-opacity duration-700" />
+          
+          {/* Subtle inner ring overlay */}
+          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl sm:rounded-[2rem] pointer-events-none z-20" />
 
-        {/* Premium gradient overlay at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
+          <video
+            key={currentVideoIndex}
+            ref={videoRef}
+            className="w-full h-auto aspect-[16/9] sm:aspect-video object-cover opacity-90 transition-opacity duration-700 block"
+            muted
+            playsInline
+            autoPlay
+            onEnded={handleVideoEnd}
+          >
+            <source src={videos[currentVideoIndex]} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
 
-        {/* Dot indicators + label */}
-        <div className="absolute bottom-6 left-6 z-20 flex items-center gap-3">
-          <div className="flex gap-1.5">
-            {videos.map((_, idx) => (
-              <div
-                key={idx}
-                className={`h-1.5 rounded-full transition-all duration-300 ${currentVideoIndex === idx ? 'w-6 bg-teal-400' : 'w-2 bg-white/30'}`}
-              />
-            ))}
+          {/* Premium gradient overlay at the bottom */}
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+
+          {/* Dot indicators + label */}
+          <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-10 z-20 flex items-center gap-4">
+            <div className="flex gap-2">
+              {videos.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${currentVideoIndex === idx ? 'w-8 sm:w-10 bg-teal-400 shadow-[0_0_10px_rgba(45,212,191,0.8)]' : 'w-2 sm:w-3 bg-white/30 hover:bg-white/50 cursor-pointer'}`}
+                  onClick={() => setCurrentVideoIndex(idx)}
+                />
+              ))}
+            </div>
+            <span className="text-white/80 text-[10px] sm:text-xs font-bold tracking-widest uppercase hidden sm:inline-block border border-white/20 px-3 py-1 rounded-full backdrop-blur-sm bg-black/20">Live Surgery View</span>
           </div>
-          <span className="text-white/70 text-xs font-semibold tracking-wider uppercase">Live Surgery View</span>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Bottom padding */}
       <div className="pb-16" />
