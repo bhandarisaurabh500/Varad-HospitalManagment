@@ -6,7 +6,8 @@ import {
   FaPhoneAlt, 
   FaEnvelope, 
   FaClock, 
-  FaUserMd
+  FaUserMd,
+  FaInstagram
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -115,9 +116,20 @@ const Footer = () => {
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-4">
           <p>© {currentYear} Dr. Raosaheb K. BORUDE. All Rights Reserved.</p>
-          <Link to="/login" className="bg-slate-800 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center gap-2 shadow-sm">
-            <FaUserMd /> Admin Panel
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit our Instagram"
+              className="bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600 hover:scale-105 text-white px-4 py-2 rounded-lg font-bold transition-transform flex items-center gap-2 shadow-sm"
+            >
+              <FaInstagram className="text-lg" /> Follow on Instagram
+            </a>
+            <Link to="/login" className="bg-slate-800 hover:bg-teal-600 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center gap-2 shadow-sm">
+              <FaUserMd /> Admin Panel
+            </Link>
+          </div>
         </div>
 
       </div>

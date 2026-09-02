@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaCameraRetro, FaTrophy, FaChevronLeft, FaChevronRight, FaVideo } from 'react-icons/fa';
+import { FaTimes, FaCameraRetro, FaTrophy, FaChevronLeft, FaChevronRight, FaVideo, FaPlay } from 'react-icons/fa';
 import HospitalTour from '../components/HospitalTour';
 import api from '../services/api';
 
@@ -30,7 +30,8 @@ const reelVideos = [
 
 const Gallery = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [activeTab, setActiveTab] = useState('hospital'); // 'hospital' or 'awards'
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
+  const [activeTab, setActiveTab] = useState('hospital'); // 'hospital' or 'awards' or 'videos'
   const [dbPhotos, setDbPhotos] = useState([]);
 
   React.useEffect(() => {
@@ -79,7 +80,20 @@ const Gallery = () => {
     return activeTab === 'awards' ? awardsPhotos : galleryPhotos;
   };
 
+  const getActiveVideos = () => {
+    if (dbPhotos.length > 0) {
+      const dbVideos = dbPhotos.filter(p => p.category === 'Hospital Videos (Reels)').map(item => ({
+        url: item.image_url,
+        title: item.title,
+        id: item.id
+      }));
+      if (dbVideos.length > 0) return dbVideos;
+    }
+    return reelVideos;
+  };
+
   const currentPhotos = getActivePhotos();
+  const currentVideos = getActiveVideos();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 pt-32 pb-16">
@@ -159,25 +173,35 @@ const Gallery = () => {
         >
           <AnimatePresence mode="popLayout">
             {activeTab === 'videos' ? (
-              reelVideos.map((video, index) => (
+              currentVideos.map((video, index) => (
                 <motion.div
-                  key={video.id}
+                  key={video.id || video.url}
                   layout
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="relative group rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 h-96 border border-slate-200 dark:border-slate-700 bg-black"
+                  onClick={() => setSelectedVideoIndex(index)}
+                  className="relative group cursor-pointer rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-rose-500/20 transition-all duration-500 h-[28rem] border border-slate-200 dark:border-slate-700 bg-black"
                 >
                   <video
                     src={video.url}
-                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                    controls
+                    className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                    muted
                     playsInline
                     preload="metadata"
                   />
-                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <h3 className="text-white text-sm font-bold font-poppins">{video.title}</h3>
+                  {/* Premium Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col items-center justify-center pointer-events-none">
+                    <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white/90 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                      <FaPlay className="text-2xl ml-1" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 pointer-events-none">
+                    <h3 className="text-white text-lg font-bold font-poppins drop-shadow-md">{video.title}</h3>
+                    <p className="text-slate-200 text-sm mt-1 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> Watch Reel
+                    </p>
                   </div>
                 </motion.div>
               ))
@@ -270,6 +294,59 @@ const Gallery = () => {
                   </p>
                 )}
               </motion.div>
+              <div className="absolute bottom-6 left-0 right-0 text-center text-white/70 text-sm z-[60]">
+                {selectedIndex + 1} / {currentPhotos.length}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Video Lightbox Modal */}
+        {selectedVideoIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/95 backdrop-blur-md"
+          >
+            <button 
+              className="absolute top-6 right-6 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={() => setSelectedVideoIndex(null)}
+            >
+              <FaTimes size={32} />
+            </button>
+
+            <button 
+              className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={(e) => { e.stopPropagation(); setSelectedVideoIndex((prev) => (prev - 1 + currentVideos.length) % currentVideos.length); }}
+            >
+              <FaChevronLeft size={32} />
+            </button>
+
+            <button 
+              className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-[60]"
+              onClick={(e) => { e.stopPropagation(); setSelectedVideoIndex((prev) => (prev + 1) % currentVideos.length); }}
+            >
+              <FaChevronRight size={32} />
+            </button>
+
+            <div 
+              className="relative w-full max-w-sm mx-auto flex items-center justify-center h-full max-h-[85vh] rounded-3xl overflow-hidden shadow-2xl bg-black border border-white/10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <video
+                src={currentVideos[selectedVideoIndex].url}
+                className="w-full h-full object-cover md:object-contain"
+                controls
+                autoPlay
+                playsInline
+              />
+              <div className="absolute top-4 left-4 right-4 text-center z-10 pointer-events-none drop-shadow-md">
+                 <h3 className="text-white text-lg font-bold">{currentVideos[selectedVideoIndex].title}</h3>
+              </div>
+              <div className="absolute bottom-4 left-0 right-0 text-center text-white/70 text-sm z-[60] pointer-events-none drop-shadow-md">
+                {selectedVideoIndex + 1} / {currentVideos.length}
+              </div>
             </div>
           </motion.div>
         )}

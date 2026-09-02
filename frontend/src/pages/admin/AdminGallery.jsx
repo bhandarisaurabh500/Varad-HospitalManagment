@@ -15,7 +15,7 @@ const AdminGallery = () => {
     image_url: '',
     sort_order: 0
   });
-  const categories = ['Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
+  const categories = ['Hospital Videos (Reels)', 'Hospital Facilities', 'Operation Theatre', 'Advanced Equipment', 'Awards & Journey', 'Social Initiatives', 'Patient Education'];
 
   useEffect(() => {
     fetchGallery();
@@ -146,11 +146,11 @@ const AdminGallery = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image Upload (or URL)</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Image/Video Upload (or URL)</label>
                 <div className="space-y-2">
                   <input 
                     type="file" 
-                    accept="image/*"
+                    accept="image/*, video/mp4, video/webm"
                     onChange={e => setImageFile(e.target.files[0])}
                     className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
@@ -189,7 +189,13 @@ const AdminGallery = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {items.map(item => (
                 <div key={item.id} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex gap-4 shadow-sm relative overflow-hidden">
-                  <img src={item.image_url} alt={item.title} className="w-24 h-24 object-cover rounded-xl bg-slate-100" />
+                  <div className="w-24 h-24 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
+                    {(item.image_url.endsWith('.mp4') || item.image_url.endsWith('.webm') || item.category === 'Hospital Videos (Reels)') ? (
+                      <video src={item.image_url} className="w-full h-full object-cover" muted />
+                    ) : (
+                      <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
+                    )}
+                  </div>
                   <div className="flex-1">
                     <span className="text-[10px] uppercase font-bold text-blue-500">{item.category}</span>
                     <h4 className="font-bold text-slate-800 dark:text-white line-clamp-1">{item.title}</h4>

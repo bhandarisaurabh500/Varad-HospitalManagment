@@ -14,7 +14,8 @@ import {
   FaShieldAlt,
   FaStar,
   FaUserMd,
-  FaEye
+  FaEye,
+  FaInstagram
 } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -186,11 +187,22 @@ const Navbar = () => {
 
           {/* Right Utilities & CTA */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-2">
+            {/* Instagram Link */}
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit our Instagram"
+              className="p-2 sm:p-3 rounded-full bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600 text-white hover:scale-110 transition-transform shadow-md flex items-center justify-center"
+            >
+              <FaInstagram className="text-lg sm:text-xl" />
+            </a>
+
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
               aria-label="Toggle Dark Mode"
-              className="p-2 sm:p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-inner border border-slate-200 dark:border-slate-700"
+              className="p-2 sm:p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition shadow-inner border border-slate-200 dark:border-slate-700 flex items-center justify-center"
             >
               {darkMode ? <FaSun className="text-lg sm:text-xl" /> : <FaMoon className="text-lg sm:text-xl" />}
             </button>
