@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaCameraRetro, FaTrophy, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTimes, FaCameraRetro, FaTrophy, FaChevronLeft, FaChevronRight, FaVideo } from 'react-icons/fa';
 import HospitalTour from '../components/HospitalTour';
 import api from '../services/api';
 
@@ -19,6 +19,13 @@ const awardsPhotos = [
   { src: '/photos/doctor/Doctor 1.png', title: 'Dr. Borude – Award Ceremony' },
   { src: '/photos/doctor/Doctor 2.png', title: 'Dr. Borude – Felicitation' },
   { src: '/photos/Award/Award-2024.png', title: 'Excellence Award 2024' },
+];
+
+const reelVideos = [
+  { id: 'v1', url: '/photos/eye-video/hospital-tour-1.mp4', title: 'Hospital Tour 1' },
+  { id: 'v2', url: '/photos/eye-video/hospital-tour-2.mp4', title: 'Hospital Tour 2' },
+  { id: 'v3', url: '/photos/eye-video/hospital-tour-3.mp4', title: 'Patient Interaction' },
+  { id: 'v4', url: '/photos/eye-video/hospital-tour-4.mp4', title: 'Doctor Message' }
 ];
 
 const Gallery = () => {
@@ -132,42 +139,78 @@ const Gallery = () => {
             <FaTrophy />
             Awards & Recognitions
           </button>
+          <button
+            onClick={() => setActiveTab('videos')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 shadow-md ${
+              activeTab === 'videos'
+                ? 'bg-rose-500 text-white hover:bg-rose-600 shadow-rose-500/30'
+                : 'bg-white text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+            }`}
+          >
+            <FaVideo />
+            Hospital Videos (Reels)
+          </button>
         </div>
 
-        {/* Photo Grid */}
+        {/* Photo/Video Grid */}
         <motion.div 
           layout
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {currentPhotos.map((photo, index) => (
-              <motion.div
-                key={photo.id || photo.src}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
-                onClick={() => setSelectedIndex(index)}
-              >
-                <img 
-                  src={photo.src} 
-                  alt={photo.title}
-                  className={`w-full h-full transition-transform duration-700 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
-                />
-                
-                {/* Premium Glassmorphism Overlay */}
-                <div className="absolute inset-x-0 bottom-0 bg-white/20 dark:bg-black/40 backdrop-blur-md border-t border-white/30 dark:border-white/10 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-between">
-                  <span className="text-white font-semibold text-[1.1rem] drop-shadow-md truncate pr-2 font-poppins">
-                    {photo.title}
-                  </span>
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/30 dark:bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+            {activeTab === 'videos' ? (
+              reelVideos.map((video, index) => (
+                <motion.div
+                  key={video.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className="relative group rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 h-96 border border-slate-200 dark:border-slate-700 bg-black"
+                >
+                  <video
+                    src={video.url}
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    controls
+                    playsInline
+                    preload="metadata"
+                  />
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <h3 className="text-white text-sm font-bold font-poppins">{video.title}</h3>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            ) : (
+              currentPhotos.map((photo, index) => (
+                <motion.div
+                  key={photo.id || photo.src}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 ${activeTab === 'patients' ? 'aspect-auto' : 'aspect-square'}`}
+                  onClick={() => setSelectedIndex(index)}
+                >
+                  <img 
+                    src={photo.src} 
+                    alt={photo.title}
+                    className={`w-full h-full transition-transform duration-700 ${(activeTab === 'awards' || activeTab === 'patients') ? 'object-contain bg-slate-50 dark:bg-slate-900 p-2' : 'object-cover'}`}
+                  />
+                  
+                  {/* Premium Glassmorphism Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 bg-white/20 dark:bg-black/40 backdrop-blur-md border-t border-white/30 dark:border-white/10 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 flex items-center justify-between">
+                    <span className="text-white font-semibold text-[1.1rem] drop-shadow-md truncate pr-2 font-poppins">
+                      {photo.title}
+                    </span>
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/30 dark:bg-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            )}
           </AnimatePresence>
         </motion.div>
       </div>
