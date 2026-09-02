@@ -74,48 +74,42 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 font-sans">
-      {/* Left Side - Medical Visual / Branding (Desktop Only) */}
-      <div className="hidden lg:flex w-1/2 bg-slate-900 relative overflow-hidden items-center justify-center p-12">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-teal-950 opacity-90 z-10" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0 opacity-40 mix-blend-overlay" 
-          style={{ backgroundImage: 'url(/photos/Clinic/1.jpg)' }} 
-        />
+    <div className="min-h-screen w-full flex items-center justify-center font-sans relative overflow-hidden bg-slate-900">
+      
+      {/* Deep Premium Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-teal-950 opacity-95 z-0" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-0 opacity-30 mix-blend-overlay" 
+        style={{ backgroundImage: 'url(/photos/Clinic/1.jpg)' }} 
+      />
+      
+      {/* Animated Floating Orbs */}
+      <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3], x: [0, 50, 0], y: [0, -50, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }} className="absolute top-0 left-0 w-[40rem] h-[40rem] bg-blue-600/40 rounded-full filter blur-[120px] pointer-events-none z-0" />
+      <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2], x: [0, -50, 0], y: [0, 50, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }} className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-teal-500/40 rounded-full filter blur-[120px] pointer-events-none z-0" />
+      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.3, 0.1] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 5 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-indigo-500/20 rounded-full filter blur-[150px] pointer-events-none z-0" />
+
+      {/* Main Login Card Wrapper */}
+      <div className="relative z-10 w-full max-w-md p-6">
         
-        {/* Animated Orbs */}
-        <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-blue-600 rounded-full filter blur-[100px] opacity-30 z-10" />
-        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-teal-500 rounded-full filter blur-[100px] opacity-30 z-10" />
-        
+        {/* Optional Branding Above Card */}
         <motion.div 
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative z-20 text-white max-w-lg"
+          className="text-center mb-8"
         >
-          <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-4xl mb-8 border border-white/20 shadow-2xl">
+          <div className="w-16 h-16 mx-auto bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-3xl mb-4 border border-white/20 shadow-2xl">
             <FaUserMd className="text-teal-300" />
           </div>
-          <h1 className="text-5xl font-extrabold mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">Dr. Raosaheb K. BORUDE</h1>
-          <h2 className="text-xl font-bold text-teal-400 mb-6 tracking-wide">CATARACT, GLAUCOMA & REFRACTIVE SURGEON</h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-teal-400 to-blue-500 mb-6 rounded-full" />
-          <p className="text-lg text-slate-300 font-light tracking-wide leading-relaxed">Experience world-class eye care with state-of-the-art technology and compassionate treatment.</p>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight">Varad Netralaya</h1>
+          <p className="text-teal-400 font-medium tracking-widest uppercase text-xs mt-2">Admin Portal</p>
         </motion.div>
-      </div>
-
-      {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative overflow-hidden">
-        {/* Subtle background glow on right side */}
-        <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none z-0">
-          <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-3xl opacity-50" />
-          <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-teal-100 dark:bg-teal-900/20 rounded-full blur-3xl opacity-50" />
-        </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="w-full max-w-md bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white dark:border-slate-800 p-8 sm:p-10 relative z-10"
+          className="w-full bg-white/90 dark:bg-slate-900/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.2)] hover:-translate-y-1 border border-white/50 dark:border-slate-700/50 p-8 sm:p-10 transition-all duration-500"
         >
           <div className="text-center mb-10">
             <div className="lg:hidden w-16 h-16 bg-gradient-to-br from-blue-600 to-teal-500 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-lg">
