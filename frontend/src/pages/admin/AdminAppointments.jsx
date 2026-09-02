@@ -10,6 +10,9 @@ const AdminAppointments = () => {
   const [filter, setFilter] = useState('ALL'); // ALL, PENDING, CONFIRMED, COMPLETED, CANCELLED
   const [search, setSearch] = useState('');
   const [actionMenuId, setActionMenuId] = useState(null);
+  const [editAppointmentId, setEditAppointmentId] = useState(null);
+  const [editApptForm, setEditApptForm] = useState({ date: '', time: '', symptoms: '' });
+  const [submittingEdit, setSubmittingEdit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -105,6 +108,41 @@ const AdminAppointments = () => {
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
+  const handleEditClick = (appt) => {
+    setEditAppointmentId(appt.id);
+    setEditApptForm({
+      date: appt.appointment_date ? new Date(appt.appointment_date).toISOString().split('T')[0] : '',
+      time: appt.appointment_time || '',
+      symptoms: appt.symptoms || ''
+    });
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      setSubmittingEdit(true);
+      await api.put(`/appointments/${editAppointmentId}/reschedule`, {
+        appointment_date: editApptForm.date,
+        appointment_time: editApptForm.time,
+        symptoms: editApptForm.symptoms
+      });
+      // Refresh local state without refetching everything
+      setAppointments(appointments.map(a => 
+        a.id === editAppointmentId ? { 
+          ...a, 
+          appointment_date: editApptForm.date, 
+          appointment_time: editApptForm.time, 
+          symptoms: editApptForm.symptoms 
+        } : a
+      ));
+      setEditAppointmentId(null);
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      alert('Failed to update appointment details.');
+    } finally {
+      setSubmittingEdit(false);
+    }
+  };
+
   const filteredAppointments = appointments.filter(appt => {
     const matchesFilter = filter === 'ALL' || appt.status === filter;
     const searchString = search.toLowerCase();
@@ -159,6 +197,7 @@ const AdminAppointments = () => {
           </div>
         ) : (
           <div className="overflow-x-auto overflow-y-visible">
+            {/* Table Code Omitted for Brevity (unchanged) */}
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
@@ -255,6 +294,12 @@ const AdminAppointments = () => {
                           )}
                           
                           <button 
+                            onClick={() => handleEditClick(appt)}
+                            className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-blue-500 border border-slate-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 hover:text-blue-600 rounded-lg shadow-sm transition-all outline-none"
+                            title="Edit Booking"
+                          ><FaEdit /></button>
+                          
+                          <button 
                             onClick={() => deleteAppointment(appt.id)}
                             className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-800 text-red-500 border border-slate-200 dark:border-slate-700 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-200 hover:text-red-600 rounded-lg shadow-sm transition-all outline-none"
                             title="Delete Booking"
@@ -269,6 +314,67 @@ const AdminAppointments = () => {
           </div>
         )}
       </div>
+
+      {editAppointmentId && (
+        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl w-full max-w-md border border-slate-200 dark:border-slate-800 flex flex-col">
+            <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                <FaEdit className="text-blue-600" /> Edit Appointment
+              </h3>
+              <button onClick={() => setEditAppointmentId(null)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white"><FaTimes size={18}/></button>
+            </div>
+            <div className="p-5 space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Appointment Date</label>
+                <input 
+                  type="date" 
+                  value={editApptForm.date} 
+                  onChange={e => setEditApptForm({...editApptForm, date: e.target.value})} 
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Appointment Time</label>
+                <input 
+                  type="time" 
+                  value={editApptForm.time} 
+                  onChange={e => setEditApptForm({...editApptForm, time: e.target.value})} 
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Issue / Symptoms</label>
+                <textarea 
+                  value={editApptForm.symptoms} 
+                  onChange={e => setEditApptForm({...editApptForm, symptoms: e.target.value})} 
+                  rows="3" 
+                  className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                />
+              </div>
+            </div>
+            <div className="p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex justify-end gap-3 rounded-b-2xl">
+              <button 
+                onClick={() => setEditAppointmentId(null)}
+                className="px-4 py-2 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveEdit}
+                disabled={submittingEdit || (
+                  (appointments.find(a => a.id === editAppointmentId)?.appointment_date?.split('T')[0] || '') === editApptForm.date &&
+                  (appointments.find(a => a.id === editAppointmentId)?.appointment_time || '') === editApptForm.time &&
+                  (appointments.find(a => a.id === editAppointmentId)?.symptoms || '') === editApptForm.symptoms
+                )}
+                className="px-4 py-2 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                {submittingEdit ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

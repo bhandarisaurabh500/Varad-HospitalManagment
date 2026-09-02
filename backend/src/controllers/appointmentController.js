@@ -276,27 +276,37 @@ async function updateStatus(req, res, next) {
 /** PUT /api/appointments/:id/reschedule */
 async function rescheduleAppointment(req, res, next) {
   try {
-    const { appointment_date, appointment_time, doctor_id } = req.body;
-    if (!appointment_date || !appointment_time) {
-      return res.status(422).json({ success: false, message: 'New date and time are required.' });
-    }
+    const { appointment_date, appointment_time, doctor_id, symptoms, age, gender, service_id } = req.body;
 
     // Check existing appointment
-    const [appt] = await pool.execute('SELECT doctor_id FROM appointments WHERE id=?', [req.params.id]);
+    const [appt] = await pool.execute('SELECT * FROM appointments WHERE id=?', [req.params.id]);
     if (!appt.length) return res.status(404).json({ success: false, message: 'Appointment not found.' });
 
     const effectiveDoctorId = doctor_id || appt[0].doctor_id;
-    const booked = await isSlotBooked(effectiveDoctorId, appointment_date, appointment_time, req.params.id);
-    if (booked) {
-      return res.status(409).json({
-        success: false,
-        message: 'This time slot is already booked. Please choose another time.',
-      });
+    const effDate = appointment_date || appt[0].appointment_date;
+    const effTime = appointment_time || appt[0].appointment_time;
+
+    // Only check double booking if date or time changed
+    if (appointment_date || appointment_time) {
+      const booked = await isSlotBooked(effectiveDoctorId, effDate, effTime, req.params.id);
+      if (booked) {
+        return res.status(409).json({
+          success: false,
+          message: 'This time slot is already booked. Please choose another time.',
+        });
+      }
     }
 
+    const effSymptoms = symptoms !== undefined ? symptoms : appt[0].symptoms;
+    const effAge = age !== undefined ? age : appt[0].age;
+    const effGender = gender !== undefined ? gender : appt[0].gender;
+    const effServiceId = service_id !== undefined ? service_id : appt[0].service_id;
+    // Set status to RESCHEDULED only if date or time changed
+    const newStatus = (appointment_date || appointment_time) ? 'RESCHEDULED' : appt[0].status;
+
     await pool.execute(
-      'UPDATE appointments SET appointment_date=?, appointment_time=?, status="RESCHEDULED" WHERE id=?',
-      [appointment_date, appointment_time, req.params.id]
+      'UPDATE appointments SET appointment_date=?, appointment_time=?, status=?, symptoms=?, age=?, gender=?, service_id=? WHERE id=?',
+      [effDate, effTime, newStatus, effSymptoms, effAge, effGender, effServiceId, req.params.id]
     );
     return res.json({ success: true, message: 'Appointment rescheduled.' });
   } catch (err) {

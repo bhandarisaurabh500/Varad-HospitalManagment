@@ -223,12 +223,12 @@ const PatientProfile = () => {
 
   const handlePrintPrescription = (rx) => {
     const printWindow = window.open('', '_blank');
-    const itemsHtml = patient.medicines.filter(m => m.created_at === rx.prescription_date).map(m => `
-      <tr>
-        <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${m.medicine_name}</strong></td>
-        <td style="padding: 10px; border-bottom: 1px solid #eee;">${m.dosage}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eee;">${m.frequency}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eee;">${m.duration}</td>
+    const itemsHtml = patient.medicines.filter(m => m.created_at === rx.prescription_date).map((m, i) => `
+      <tr style="border-bottom: 1px solid #e2e8f0; ${i % 2 === 0 ? 'background-color: #f8fafc;' : 'background-color: #ffffff;'}">
+        <td style="padding: 12px 16px; font-weight: 600; color: #1e293b;">${m.medicine_name}</td>
+        <td style="padding: 12px 16px; color: #475569;">${m.dosage || '-'}</td>
+        <td style="padding: 12px 16px; color: #475569;">${m.frequency || '-'}</td>
+        <td style="padding: 12px 16px; color: #475569;">${m.duration || '-'}</td>
       </tr>
     `).join('');
 
@@ -236,25 +236,183 @@ const PatientProfile = () => {
       <html>
         <head>
           <title>Prescription ${rx.prescription_uid}</title>
-          <style>body { font-family: system-ui; padding: 40px; color: #333; } th { text-align: left; background: #f8f9fa; padding: 10px; }</style>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+          <style>
+            @media print {
+              @page { margin: 0; size: A4; }
+              body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            }
+            body { 
+              font-family: 'Inter', sans-serif; 
+              margin: 0; 
+              padding: 0;
+              color: #334155; 
+              background: #fff;
+            }
+            .container {
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 40px;
+              position: relative;
+            }
+            .watermark {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) rotate(-45deg);
+              font-size: 80px;
+              color: rgba(37, 99, 235, 0.03);
+              white-space: nowrap;
+              z-index: -1;
+              pointer-events: none;
+              font-weight: 800;
+            }
+            .header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border-bottom: 3px solid #2563eb;
+              padding-bottom: 20px;
+              margin-bottom: 30px;
+            }
+            .hospital-info h1 {
+              color: #1e40af;
+              margin: 0 0 5px 0;
+              font-size: 28px;
+              font-weight: 800;
+              letter-spacing: -0.5px;
+            }
+            .hospital-info p {
+              margin: 2px 0;
+              font-size: 13px;
+              color: #64748b;
+            }
+            .rx-badge {
+              background: #eff6ff;
+              color: #2563eb;
+              padding: 10px 20px;
+              border-radius: 8px;
+              text-align: right;
+              border: 1px solid #bfdbfe;
+            }
+            .rx-badge h2 { margin: 0; font-size: 20px; }
+            .rx-badge p { margin: 5px 0 0 0; font-size: 12px; font-weight: 600; }
+            .patient-details {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              background: #f8fafc;
+              padding: 20px;
+              border-radius: 12px;
+              margin-bottom: 40px;
+              border: 1px solid #e2e8f0;
+            }
+            .patient-details div p {
+              margin: 5px 0;
+              font-size: 14px;
+            }
+            .patient-details span.label {
+              font-weight: 600;
+              color: #64748b;
+              display: inline-block;
+              width: 90px;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 50px;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            }
+            th {
+              text-align: left;
+              background: #2563eb;
+              color: white;
+              padding: 14px 16px;
+              font-weight: 600;
+              font-size: 14px;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .footer {
+              display: flex;
+              justify-content: space-between;
+              margin-top: 80px;
+              padding-top: 30px;
+              border-top: 1px dashed #cbd5e1;
+            }
+            .signature {
+              text-align: center;
+              width: 200px;
+            }
+            .signature p { margin: 5px 0; }
+            .signature .name { font-weight: bold; color: #1e293b; font-size: 16px; }
+            .signature .title { color: #64748b; font-size: 12px; }
+            .signature .line { border-bottom: 1px solid #94a3b8; height: 40px; margin-bottom: 10px; }
+          </style>
         </head>
         <body>
-          <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="color: #2563eb; margin: 0;">Varad Netralaya</h1>
-            <p style="color: #666; margin: 5px 0;">Patient: ${patient.full_name} (UHID: ${patient.patient_uid})</p>
-            <p style="color: #666; margin: 0;">Date: ${new Date(rx.prescription_date).toLocaleDateString()} | Dr. ${rx.doctor_name}</p>
+          <div class="container">
+            <div class="watermark">VARAD NETRALAYA</div>
+            
+            <div class="header">
+              <div class="hospital-info">
+                <h1>Varad Netralaya</h1>
+                <p>Opposite to City Center, Main Road, Pune</p>
+                <p>Phone: +91 9876543210 | Email: contact@varadnetralaya.com</p>
+              </div>
+              <div class="rx-badge">
+                <h2>PRESCRIPTION</h2>
+                <p>ID: ${rx.prescription_uid}</p>
+                <p>Date: ${new Date(rx.prescription_date).toLocaleDateString()}</p>
+              </div>
+            </div>
+
+            <div class="patient-details">
+              <div>
+                <p><span class="label">Patient Name:</span> <strong>${patient.full_name}</strong></p>
+                <p><span class="label">UHID:</span> ${patient.patient_uid}</p>
+                <p><span class="label">Age/Gender:</span> ${patient.age || '-'} Yrs / ${patient.gender || '-'}</p>
+              </div>
+              <div>
+                <p><span class="label">Consultant:</span> <strong>Dr. ${rx.doctor_name || 'R. K. Borude'}</strong></p>
+                <p><span class="label">Phone:</span> ${patient.phone || '-'}</p>
+                <p><span class="label">Blood Group:</span> ${patient.blood_group || '-'}</p>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th style="border-radius: 8px 0 0 0;">Medicine Name</th>
+                  <th>Dosage</th>
+                  <th>Frequency</th>
+                  <th style="border-radius: 0 8px 0 0;">Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${itemsHtml || '<tr><td colspan="4" style="text-align:center; padding: 20px; color: #94a3b8;">No medicines prescribed</td></tr>'}
+              </tbody>
+            </table>
+
+            <div class="footer">
+              <div style="font-size: 12px; color: #64748b; max-width: 300px;">
+                <p style="font-weight: 600; color: #334155;">Terms & Instructions:</p>
+                <p>1. Please bring this prescription on your next visit.</p>
+                <p>2. Follow the exact dosage and timing as prescribed.</p>
+                <p>3. In case of emergency, contact the hospital immediately.</p>
+              </div>
+              <div class="signature">
+                <div class="line"></div>
+                <p class="name">Dr. ${rx.doctor_name || 'R. K. Borude'}</p>
+                <p class="title">Chief Ophthalmologist</p>
+              </div>
+            </div>
           </div>
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr><th>Medicine</th><th>Dosage</th><th>Frequency</th><th>Duration</th></tr>
-            </thead>
-            <tbody>${itemsHtml}</tbody>
-          </table>
-          <div style="margin-top: 60px; text-align: right;">
-            <p><strong>Dr. ${rx.doctor_name}</strong></p>
-            <p style="color: #666;">Signature</p>
-          </div>
-          <script>window.print();</script>
+          <script>
+            setTimeout(() => { window.print(); }, 500);
+          </script>
         </body>
       </html>
     `);
@@ -813,8 +971,18 @@ const PatientProfile = () => {
               </button>
               <button 
                 onClick={handleSaveProfile}
-                disabled={submittingEdit}
-                className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+                disabled={submittingEdit || (
+                  editForm.full_name === (patient?.full_name || '') &&
+                  editForm.phone === (patient?.phone || '') &&
+                  editForm.email === (patient?.email || '') &&
+                  String(editForm.age) === String(patient?.age || '') &&
+                  editForm.gender === (patient?.gender || '') &&
+                  editForm.blood_group === (patient?.blood_group || '') &&
+                  editForm.address === (patient?.address || '') &&
+                  editForm.date_of_birth === (patient?.date_of_birth?.split('T')[0] || '') &&
+                  editForm.emergency_contact === (patient?.emergency_contact || '')
+                )}
+                className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {submittingEdit ? 'Saving...' : 'Save Changes'}
               </button>

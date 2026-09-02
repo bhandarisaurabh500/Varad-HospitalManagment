@@ -5,7 +5,7 @@ async function createPrescription(req, res, next) {
   try {
     const { patient_id, visit_id, doctor_id, items } = req.body;
     
-    if (!patient_id || !visit_id || !doctor_id || !items || !Array.isArray(items)) {
+    if (!patient_id || !doctor_id || !items || !Array.isArray(items)) {
       return res.status(422).json({ success: false, message: 'Invalid payload for prescription' });
     }
 
@@ -15,7 +15,7 @@ async function createPrescription(req, res, next) {
 
     const [headerResult] = await pool.execute(
       `INSERT INTO prescriptions (prescription_uid, patient_id, visit_id, doctor_id) VALUES (?, ?, ?, ?)`,
-      [prescription_uid, patient_id, visit_id, doctor_id]
+      [prescription_uid, patient_id, visit_id || null, doctor_id]
     );
 
     const prescriptionId = headerResult.insertId;

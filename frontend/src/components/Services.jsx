@@ -161,7 +161,7 @@ const Services = () => {
                   </button>
                   <button
                     onClick={() => {
-                      const serviceTitle = activeModalService.title;
+                      const serviceTitle = activeModalService.name;
                       setActiveModalService(null);
                       openAppointmentModal(null, serviceTitle);
                     }}
