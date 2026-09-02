@@ -347,7 +347,16 @@ async function getAvailableSlots(req, res, next) {
     );
     const bookedSet = new Set(booked.map(r => r.t));
 
-    const slots = allSlots.map(s => ({ time: s, available: !bookedSet.has(s) }));
+    const now = new Date();
+    // Use local time formatted as YYYY-MM-DD
+    const today = now.toLocaleDateString('en-CA'); // en-CA gives YYYY-MM-DD format based on local time
+    const isToday = date === today;
+    const currentTimeStr = now.toTimeString().substring(0, 5);
+
+    const slots = allSlots.map(s => {
+      const isPast = isToday && s <= currentTimeStr;
+      return { time: s, available: !bookedSet.has(s) && !isPast };
+    });
     return res.json({ success: true, data: slots });
   } catch (err) {
     next(err);

@@ -345,36 +345,38 @@ const AdminAppointments = () => {
                   className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
                 >
                   <option value="" disabled>Select Time</option>
-                  <optgroup label="🌅 Morning">
-                    <option value="08:00">8:00 AM</option>
-                    <option value="08:30">8:30 AM</option>
-                    <option value="09:00">9:00 AM</option>
-                    <option value="09:30">9:30 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="10:30">10:30 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                  </optgroup>
-                  <optgroup label="☀️ Afternoon">
-                    <option value="14:00">2:00 PM</option>
-                    <option value="14:30">2:30 PM</option>
-                    <option value="15:00">3:00 PM</option>
-                    <option value="15:30">3:30 PM</option>
-                    <option value="16:00">4:00 PM</option>
-                    <option value="16:30">4:30 PM</option>
-                  </optgroup>
-                  <optgroup label="🌆 Evening">
-                    <option value="17:00">5:00 PM</option>
-                    <option value="17:30">5:30 PM</option>
-                    <option value="18:00">6:00 PM</option>
-                    <option value="18:30">6:30 PM</option>
-                    <option value="19:00">7:00 PM</option>
-                    <option value="19:30">7:30 PM</option>
-                    <option value="20:00">8:00 PM</option>
-                    <option value="20:30">8:30 PM</option>
-                    <option value="21:00">9:00 PM</option>
-                  </optgroup>
+                  {(() => {
+                    const now = new Date();
+                    const today = now.toLocaleDateString('en-CA'); // YYYY-MM-DD
+                    const isToday = editApptForm.date === today;
+                    const currentTimeStr = now.toTimeString().substring(0, 5);
+
+                    const timeSlots = [
+                      { label: '🌅 Morning', options: ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00'] },
+                      { label: '☀️ Afternoon', options: ['14:00', '14:30', '15:00', '15:30', '16:00', '16:30'] },
+                      { label: '🌆 Evening', options: ['17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00'] }
+                    ];
+
+                    const formatAMPM = (timeStr) => {
+                      let [h, m] = timeStr.split(':');
+                      let period = 'AM';
+                      if (h >= 12) { period = 'PM'; if (h > 12) h -= 12; }
+                      return `${parseInt(h)}:${m} ${period}`;
+                    };
+
+                    return timeSlots.map(group => (
+                      <optgroup key={group.label} label={group.label}>
+                        {group.options.map(time => {
+                          const isPast = isToday && time <= currentTimeStr;
+                          return (
+                            <option key={time} value={time} disabled={isPast}>
+                              {formatAMPM(time)} {isPast ? '(Passed)' : ''}
+                            </option>
+                          );
+                        })}
+                      </optgroup>
+                    ));
+                  })()}
                 </select>
               </div>
               <div>
