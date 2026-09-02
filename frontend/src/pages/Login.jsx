@@ -151,7 +151,7 @@ const Login = () => {
                   <input
                     type="text" 
                     required
-                    placeholder="admin or doctor@varadnetralaya.com"
+                    placeholder="Enter username or email"
                     value={loginForm.email}
                     onChange={e => setLoginForm(p => ({ ...p, email: e.target.value }))}
                     className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
