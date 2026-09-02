@@ -9,7 +9,9 @@ const PremiumEyeVideo = () => {
     '/photos/eye-video/video-1.mp4',
     '/photos/eye-video/video-2.mp4',
     '/photos/eye-video/hospital-tour-1.mp4',
-    '/photos/eye-video/hospital-tour-2.mp4'
+    '/photos/eye-video/hospital-tour-2.mp4',
+    '/photos/eye-video/hospital-tour-3.mp4',
+    '/photos/eye-video/hospital-tour-4.mp4'
   ];
 
   const handleVideoEnd = () => {
