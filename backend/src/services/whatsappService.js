@@ -42,7 +42,9 @@ async function sendWhatsAppMessage(toPhone, messageText) {
       {
         headers: {
           'apikey': waApiKey || '',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'Bypass-Tunnel-Reminder': 'true'
         }
       }
     );
