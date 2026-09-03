@@ -3,6 +3,8 @@ import { supabase } from '../../lib/supabase';
 import api from '../../services/api';
 import { FaCalendarAlt, FaCheck, FaTimes, FaSearch, FaClock, FaPhoneAlt, FaEnvelope, FaEye, FaEdit, FaTrash, FaWhatsapp, FaEllipsisV, FaStethoscope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 const AdminAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -40,25 +42,51 @@ const AdminAppointments = () => {
       
       setActionMenuId(null);
 
-      // Update local state instead of refetching
       const updatedAppointments = appointments.map(appt => 
         appt.id === id ? { ...appt, status: newStatus } : appt
       );
       setAppointments(updatedAppointments);
+      
+      toast.success(`Appointment marked as ${newStatus}`, {
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      });
     } catch (error) {
       console.error('Error updating status:', error);
-      alert('Failed to update status');
+      toast.error('Failed to update status');
     }
   };
 
   const deleteAppointment = async (id) => {
-    try {
-      await api.delete(`/appointments/${id}`); // Assumes this endpoint exists
-      setAppointments(appointments.filter(appt => appt.id !== id));
-      setActionMenuId(null);
-    } catch (error) {
-      console.error('Error deleting appointment:', error);
-      alert('Failed to delete appointment');
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this! The appointment will be permanently deleted.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await api.delete(`/appointments/${id}`);
+        setAppointments(appointments.filter(appt => appt.id !== id));
+        setActionMenuId(null);
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Appointment has been deleted successfully.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        });
+      } catch (error) {
+        console.error('Error deleting appointment:', error);
+        toast.error('Failed to delete appointment');
+      }
     }
   };
 
