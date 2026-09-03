@@ -245,10 +245,11 @@ async function updateStatus(req, res, next) {
       [status, notes || null, cancelled_reason || null, req.user ? req.user.id : null, req.params.id]
     );
 
-    // Fetch appointment details to send the email
+    // Fetch appointment details to send the email and WhatsApp
     const [rows] = await pool.execute(
       `SELECT a.appointment_no, a.appointment_date, a.appointment_time, a.symptoms,
-              u_pat.full_name AS patient_name, COALESCE(NULLIF(pt.contact_email, ''), u_pat.email) AS patient_email
+              u_pat.full_name AS patient_name, COALESCE(NULLIF(pt.contact_email, ''), u_pat.email) AS patient_email,
+              u_pat.phone AS patient_phone
        FROM appointments a
        JOIN patients pt ON pt.id = a.patient_id
        JOIN users u_pat ON u_pat.id = pt.user_id
@@ -256,16 +257,22 @@ async function updateStatus(req, res, next) {
       [req.params.id]
     );
 
-    if (rows.length > 0 && (status === 'PENDING' || status === 'CONFIRMED' || status === 'CANCELLED')) {
-      const appointmentDetails = rows[0];
-      setImmediate(async () => {
-        try {
-          await emailService.sendStatusUpdateEmail(appointmentDetails, status);
-        } catch (notifyErr) {
-          console.error('Failed to send status update notification:', notifyErr);
-        }
-      });
-    }
+      if (rows.length > 0 && (status === 'PENDING' || status === 'CONFIRMED' || status === 'CANCELLED')) {
+        const appointmentDetails = rows[0];
+        setImmediate(async () => {
+          try {
+            await emailService.sendStatusUpdateEmail(appointmentDetails, status);
+          } catch (notifyErr) {
+            console.error('Failed to send status update notification email:', notifyErr);
+          }
+          try {
+            const whatsappService = require('../services/whatsappService');
+            await whatsappService.sendWhatsAppStatusUpdate(appointmentDetails, status);
+          } catch (waErr) {
+            console.error('Failed to send status update notification whatsapp:', waErr);
+          }
+        });
+      }
 
     return res.json({ success: true, message: `Appointment ${status.toLowerCase()}.` });
   } catch (err) {
@@ -308,6 +315,38 @@ async function rescheduleAppointment(req, res, next) {
       'UPDATE appointments SET appointment_date=?, appointment_time=?, status=?, symptoms=?, age=?, gender=?, service_id=? WHERE id=?',
       [effDate, effTime, newStatus, effSymptoms, effAge, effGender, effServiceId, req.params.id]
     );
+
+    // If it was actually rescheduled, send notifications
+    if (newStatus === 'RESCHEDULED') {
+      const [rows] = await pool.execute(
+        `SELECT a.appointment_no, a.appointment_date, a.appointment_time, a.symptoms,
+                u_pat.full_name AS patient_name, COALESCE(NULLIF(pt.contact_email, ''), u_pat.email) AS patient_email,
+                u_pat.phone AS patient_phone
+         FROM appointments a
+         JOIN patients pt ON pt.id = a.patient_id
+         JOIN users u_pat ON u_pat.id = pt.user_id
+         WHERE a.id = ?`,
+        [req.params.id]
+      );
+
+      if (rows.length > 0) {
+        const appointmentDetails = rows[0];
+        setImmediate(async () => {
+          try {
+            await emailService.sendStatusUpdateEmail(appointmentDetails, 'RESCHEDULED');
+          } catch (notifyErr) {
+            console.error('Failed to send reschedule email:', notifyErr);
+          }
+          try {
+            const whatsappService = require('../services/whatsappService');
+            await whatsappService.sendWhatsAppStatusUpdate(appointmentDetails, 'RESCHEDULED');
+          } catch (waErr) {
+            console.error('Failed to send reschedule whatsapp:', waErr);
+          }
+        });
+      }
+    }
+
     return res.json({ success: true, message: 'Appointment rescheduled.' });
   } catch (err) {
     next(err);

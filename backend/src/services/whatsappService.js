@@ -98,6 +98,8 @@ async function sendWhatsAppStatusUpdate(appointmentDetails, newStatus) {
     customMessage = `has been *APPROVED*.\nPlease arrive 10 mins early.`;
   } else if (newStatus === 'CANCELLED') {
     customMessage = `could not be fulfilled and is *CANCELLED*. Please contact us to reschedule.`;
+  } else if (newStatus === 'RESCHEDULED') {
+    customMessage = `has been *RESCHEDULED*.\nPlease note the new date and time.`;
   } else if (newStatus === 'PENDING') {
     customMessage = `is currently *PENDING* confirmation.`;
   }

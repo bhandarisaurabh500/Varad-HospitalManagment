@@ -247,6 +247,11 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
     bgColor = '#fee2e2';
     statusText = 'REJECTED / CANCELLED';
     customMessage = 'We apologize, but your appointment request could not be fulfilled at this time.';
+  } else if (newStatus === 'RESCHEDULED') {
+    statusColor = '#0284c7'; // Blue
+    bgColor = '#e0f2fe';
+    statusText = 'RESCHEDULED';
+    customMessage = 'Your appointment has been rescheduled. Please note the new date and time below.';
   } else if (newStatus === 'PENDING') {
     statusColor = '#c2410c'; // Orange
     bgColor = '#ffedd5';
