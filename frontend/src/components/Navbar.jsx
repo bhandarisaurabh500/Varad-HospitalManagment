@@ -15,7 +15,8 @@ import {
   FaStar,
   FaUserMd,
   FaEye,
-  FaInstagram
+  FaInstagram,
+  FaYoutube
 } from 'react-icons/fa';
 import NoticeMarquee from './NoticeMarquee';
 
@@ -191,13 +192,24 @@ const Navbar = () => {
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-1">
             {/* Instagram Link */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/varadnetralaya?igsi=MTByMjNuanRxMGw4Nw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our Instagram"
               className="p-1.5 sm:p-3 rounded-full bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600 text-white hover:scale-110 transition-transform shadow-md flex items-center justify-center"
             >
               <FaInstagram className="text-sm sm:text-xl" />
+            </a>
+
+            {/* YouTube Link */}
+            <a
+              href="https://www.youtube.com/@VaradNetrayala"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit our YouTube"
+              className="p-1.5 sm:p-3 rounded-full bg-red-600 text-white hover:scale-110 transition-transform shadow-md flex items-center justify-center"
+            >
+              <FaYoutube className="text-sm sm:text-xl" />
             </a>
 
             {/* Dark Mode Toggle */}
