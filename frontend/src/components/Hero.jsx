@@ -133,7 +133,7 @@ const Hero = () => {
               <motion.div 
                 animate={{ y: [0, -15, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute -top-6 -right-6 hidden sm:flex items-center gap-3 p-4 rounded-2xl glass-panel shadow-soft text-slate-800 dark:text-white max-w-xs border border-white/40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md"
+                className="absolute -top-6 -right-2 lg:-right-4 xl:-right-6 hidden sm:flex items-center gap-3 p-3 lg:p-4 rounded-2xl glass-panel shadow-soft text-slate-800 dark:text-white max-w-[240px] lg:max-w-xs border border-white/40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md z-10"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-500 to-teal-400 text-white flex items-center justify-center text-xl shadow-md font-extrabold font-poppins">
                   <FaEye />

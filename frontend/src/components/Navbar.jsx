@@ -156,11 +156,11 @@ const Navbar = () => {
               <FaEye className="text-lg sm:text-2xl" />
             </div>
             <div className="flex flex-col min-w-0">
-              <div className="flex flex-wrap items-baseline leading-tight">
-                <span className="text-sm sm:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
-                <span className="text-sm sm:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1">BORUDE</span>
-              </div>
-              <p className="text-[9px] sm:text-[11px] font-extrabold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-0.5 truncate max-w-[180px] sm:max-w-none">
+                <div className="flex flex-wrap items-baseline leading-tight">
+                  <span className="text-sm sm:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl font-black tracking-tight text-blue-950 dark:text-white font-poppins">Dr. Raosaheb K.</span>
+                  <span className="text-sm sm:text-xl lg:text-2xl xl:text-xl 2xl:text-2xl font-bold tracking-tight text-teal-600 dark:text-teal-400 ml-1">BORUDE</span>
+                </div>
+                <p className="text-[9px] sm:text-[11px] lg:text-[12px] xl:text-[10px] 2xl:text-[11px] font-extrabold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-0.5 truncate max-w-[180px] sm:max-w-none">
                 Cataract, Glaucoma & Refractive Surgeon
               </p>
             </div>
@@ -212,10 +212,11 @@ const Navbar = () => {
             {/* Book Appointment CTA */}
             <button
               onClick={() => openAppointmentModal()}
-              className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 hover:from-blue-700 hover:to-teal-600 text-white font-black text-sm px-6 py-3 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+              className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 hover:from-blue-700 hover:to-teal-600 text-white font-black text-xs sm:text-sm px-4 py-2 xl:px-4 xl:py-2 2xl:px-6 2xl:py-3 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
             >
               <FaCalendarCheck />
-              <span>Book Appointment</span>
+              <span className="hidden lg:inline">Book Appointment</span>
+              <span className="lg:hidden">Book</span>
             </button>
 
             {/* Mobile Menu Button */}
