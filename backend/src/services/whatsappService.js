@@ -1,12 +1,10 @@
 const axios = require('axios');
 
-const evoApiUrl = process.env.EVOLUTION_API_URL; // e.g. http://localhost:8080
-const evoApiKey = process.env.EVOLUTION_API_KEY; // Global API Key
-const instanceName = process.env.EVOLUTION_INSTANCE_NAME; // e.g. varad-netralaya
+const waApiUrl = process.env.WHATSAPP_API_URL; // e.g. https://your-ngrok-url.ngrok.app (DON'T USE LOCALHOST)
+const waApiKey = process.env.WHATSAPP_API_KEY; // e.g. my-whatsapp-token
 
 /**
  * Format phone number to E.164 format for WhatsApp if needed.
- * Evolution API usually expects just the country code + number, e.g. 919923890890
  */
 function formatWhatsAppNumber(phone) {
   if (!phone) return null;
@@ -19,43 +17,40 @@ function formatWhatsAppNumber(phone) {
 }
 
 /**
- * Helper to send message via Evolution API
+ * Helper to send message via Custom WhatsApp API
  */
-async function sendEvolutionMessage(toPhone, messageText) {
-  if (!evoApiUrl || !evoApiKey || !instanceName) {
-    console.warn('Evolution API credentials not set. Skipping WhatsApp message.');
+async function sendWhatsAppMessage(toPhone, messageText) {
+  if (!waApiUrl) {
+    console.warn('WhatsApp API URL not set. Skipping message.');
     return;
   }
 
-  // Remove trailing slash if present
-  const baseUrl = evoApiUrl.endsWith('/') ? evoApiUrl.slice(0, -1) : evoApiUrl;
-  const endpoint = `${baseUrl}/message/sendText/${instanceName}`;
+  // Ensure no trailing slash
+  const baseUrl = waApiUrl.endsWith('/') ? waApiUrl.slice(0, -1) : waApiUrl;
+  
+  // Endpoint exactly matching user's Postman: /send/text
+  const endpoint = `${baseUrl}/send/text`;
   
   try {
     const response = await axios.post(
       endpoint,
       {
-        number: toPhone,
-        options: {
-          delay: 1000, // 1 second delay
-          presence: "composing"
-        },
-        textMessage: {
-          text: messageText
-        }
+        number: toPhone, // Typical for such APIs
+        phone: toPhone,  // Fallback
+        text: messageText, // Fallback
+        message: messageText // Fallback
       },
       {
         headers: {
-          'apikey': evoApiKey,
+          'apikey': waApiKey || '',
           'Content-Type': 'application/json'
         }
       }
     );
-    console.log('WhatsApp message sent via Evolution API:', response.data?.message?.id || 'Success');
+    console.log('WhatsApp message sent successfully:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Evolution API error:', error?.response?.data || error.message);
-    // Don't throw, we don't want to crash the main app if WA fails
+    console.error('WhatsApp API error:', error?.response?.data || error.message);
   }
 }
 
@@ -80,7 +75,7 @@ async function sendPatientWhatsAppConfirmation(appointmentDetails) {
 
   const messageText = `Hello ${patient_name},\n\nYour appointment request has been received at Varad Netralaya.\n\n*ID:* ${appointment_no}\n*Date:* ${new Date(appointment_date).toLocaleDateString()}\n*Time:* ${appointment_time}\n\nOur staff will review and confirm this shortly.`;
 
-  return await sendEvolutionMessage(toWhatsAppNumber, messageText);
+  return await sendWhatsAppMessage(toWhatsAppNumber, messageText);
 }
 
 /**
@@ -115,7 +110,7 @@ async function sendWhatsAppStatusUpdate(appointmentDetails, newStatus) {
 
   const messageText = `Hello ${patient_name},\n\nUpdate regarding your appointment (*ID: ${appointment_no}*) at Varad Netralaya.\n\nYour appointment for *${new Date(appointment_date).toLocaleDateString()}* at *${appointment_time}* ${customMessage}\n\nThank you!`;
 
-  return await sendEvolutionMessage(toWhatsAppNumber, messageText);
+  return await sendWhatsAppMessage(toWhatsAppNumber, messageText);
 }
 
 module.exports = {
