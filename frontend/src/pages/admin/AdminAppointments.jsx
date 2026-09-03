@@ -139,9 +139,16 @@ const AdminAppointments = () => {
         } : a
       ));
       setEditAppointmentId(null);
+      toast.success('Appointment Rescheduled Successfully! ✨', {
+        style: {
+          borderRadius: '10px',
+          background: '#333',
+          color: '#fff',
+        },
+      });
     } catch (error) {
       console.error('Error updating appointment:', error);
-      alert('Failed to update appointment details.');
+      toast.error('Failed to reschedule appointment');
     } finally {
       setSubmittingEdit(false);
     }

@@ -79,8 +79,7 @@ const Login = () => {
       {/* Deep Premium Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-teal-950 opacity-95 z-0" />
       <div 
-        className="absolute inset-0 bg-cover bg-center z-0 opacity-30 mix-blend-overlay" 
-        style={{ backgroundImage: 'url(/photos/Clinic/1.jpg)' }} 
+        className="absolute inset-0 z-0 opacity-30 mix-blend-overlay bg-gradient-to-br from-blue-900 to-teal-900" 
       />
       
       {/* Animated Floating Orbs */}
