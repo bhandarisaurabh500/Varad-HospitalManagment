@@ -1,43 +1,68 @@
-const twilio = require('twilio');
+const axios = require('axios');
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const fromWhatsAppNumber = process.env.TWILIO_WHATSAPP_NUMBER; // e.g. 'whatsapp:+14155238886'
-
-let client = null;
-if (accountSid && authToken) {
-  try {
-    client = twilio(accountSid, authToken);
-  } catch (error) {
-    console.error('Failed to initialize Twilio client:', error);
-  }
-}
+const evoApiUrl = process.env.EVOLUTION_API_URL; // e.g. http://localhost:8080
+const evoApiKey = process.env.EVOLUTION_API_KEY; // Global API Key
+const instanceName = process.env.EVOLUTION_INSTANCE_NAME; // e.g. varad-netralaya
 
 /**
  * Format phone number to E.164 format for WhatsApp if needed.
- * Assuming Indian numbers (+91), or if not specified, add it.
+ * Evolution API usually expects just the country code + number, e.g. 919923890890
  */
 function formatWhatsAppNumber(phone) {
   if (!phone) return null;
   // Remove non-digit characters
   const cleaned = phone.replace(/\D/g, '');
   if (cleaned.length === 10) {
-    return `whatsapp:+91${cleaned}`;
-  } else if (cleaned.length > 10) {
-    return `whatsapp:+${cleaned}`;
+    return `91${cleaned}`; // Add country code if missing
   }
-  return null;
+  return cleaned;
+}
+
+/**
+ * Helper to send message via Evolution API
+ */
+async function sendEvolutionMessage(toPhone, messageText) {
+  if (!evoApiUrl || !evoApiKey || !instanceName) {
+    console.warn('Evolution API credentials not set. Skipping WhatsApp message.');
+    return;
+  }
+
+  // Remove trailing slash if present
+  const baseUrl = evoApiUrl.endsWith('/') ? evoApiUrl.slice(0, -1) : evoApiUrl;
+  const endpoint = `${baseUrl}/message/sendText/${instanceName}`;
+  
+  try {
+    const response = await axios.post(
+      endpoint,
+      {
+        number: toPhone,
+        options: {
+          delay: 1000, // 1 second delay
+          presence: "composing"
+        },
+        textMessage: {
+          text: messageText
+        }
+      },
+      {
+        headers: {
+          'apikey': evoApiKey,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    console.log('WhatsApp message sent via Evolution API:', response.data?.message?.id || 'Success');
+    return response.data;
+  } catch (error) {
+    console.error('Evolution API error:', error?.response?.data || error.message);
+    // Don't throw, we don't want to crash the main app if WA fails
+  }
 }
 
 /**
  * Send a WhatsApp confirmation to the patient for a new appointment
  */
 async function sendPatientWhatsAppConfirmation(appointmentDetails) {
-  if (!client || !fromWhatsAppNumber) {
-    console.warn('Twilio credentials not set. Skipping WhatsApp notification.');
-    return;
-  }
-
   const {
     appointment_no,
     patient_name,
@@ -55,29 +80,13 @@ async function sendPatientWhatsAppConfirmation(appointmentDetails) {
 
   const messageText = `Hello ${patient_name},\n\nYour appointment request has been received at Varad Netralaya.\n\n*ID:* ${appointment_no}\n*Date:* ${new Date(appointment_date).toLocaleDateString()}\n*Time:* ${appointment_time}\n\nOur staff will review and confirm this shortly.`;
 
-  try {
-    const message = await client.messages.create({
-      body: messageText,
-      from: fromWhatsAppNumber,
-      to: toWhatsAppNumber
-    });
-    console.log('Patient WhatsApp confirmation sent:', message.sid);
-    return message;
-  } catch (error) {
-    console.error('Failed to send WhatsApp confirmation:', error);
-    // Don't throw so it doesn't break the flow if WhatsApp fails
-  }
+  return await sendEvolutionMessage(toWhatsAppNumber, messageText);
 }
 
 /**
  * Send a WhatsApp notification when appointment status changes
  */
 async function sendWhatsAppStatusUpdate(appointmentDetails, newStatus) {
-  if (!client || !fromWhatsAppNumber) {
-    console.warn('Twilio credentials not set. Skipping WhatsApp status update.');
-    return;
-  }
-
   const {
     appointment_no,
     patient_name,
@@ -104,19 +113,9 @@ async function sendWhatsAppStatusUpdate(appointmentDetails, newStatus) {
     customMessage = `is currently *PENDING* confirmation.`;
   }
 
-  const messageText = `Hello ${patient_name},\n\nYour appointment (${appointment_no}) on ${new Date(appointment_date).toLocaleDateString()} at ${appointment_time} ${customMessage}\n\nThank you,\nVarad Netralaya`;
+  const messageText = `Hello ${patient_name},\n\nUpdate regarding your appointment (*ID: ${appointment_no}*) at Varad Netralaya.\n\nYour appointment for *${new Date(appointment_date).toLocaleDateString()}* at *${appointment_time}* ${customMessage}\n\nThank you!`;
 
-  try {
-    const message = await client.messages.create({
-      body: messageText,
-      from: fromWhatsAppNumber,
-      to: toWhatsAppNumber
-    });
-    console.log('Patient WhatsApp status update sent:', message.sid);
-    return message;
-  } catch (error) {
-    console.error('Failed to send WhatsApp status update:', error);
-  }
+  return await sendEvolutionMessage(toWhatsAppNumber, messageText);
 }
 
 module.exports = {
