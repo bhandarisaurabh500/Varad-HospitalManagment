@@ -34,42 +34,18 @@ const AdminAppointments = () => {
     }
   };
 
-  const updateStatus = async (id, newStatus, appt) => {
-    // Open window synchronously to avoid popup blockers
-    let waWindow = null;
-    if (appt && appt.patient_phone) {
-      waWindow = window.open('', '_blank');
-    }
-
+  const updateStatus = async (id, newStatus) => {
     try {
       await api.put(`/appointments/${id}/status`, { status: newStatus });
       
-      // Update local state
-      setAppointments(appointments.map(a => 
-        a.id === id ? { ...a, status: newStatus } : a
-      ));
       setActionMenuId(null);
 
-      // Navigate the opened window to WhatsApp
-      if (waWindow) {
-        const rawPhone = appt.patient_phone || '';
-        let phone = rawPhone.replace(/\D/g, ''); 
-        if (phone.length === 10) phone = '91' + phone;
-        
-        const patientName = appt.patient_name || 'Patient';
-        const apptDate = new Date(appt.appointment_date).toLocaleDateString();
-        const apptTime = appt.appointment_time;
-        
-        const msg = newStatus === 'CONFIRMED' 
-          ? `Hello ${patientName},\n\nYour appointment at Varad Netralaya has been *APPROVED* for ${apptDate} at ${apptTime}.\nPlease arrive 10 minutes early.\n\nThank you!`
-          : newStatus === 'CANCELLED'
-          ? `Hello ${patientName},\n\nWe apologize, but your appointment at Varad Netralaya on ${apptDate} at ${apptTime} has been *REJECTED / CANCELLED*.\nPlease contact us for further details.\n\nThank you!`
-          : `Hello ${patientName},\n\nYour appointment at Varad Netralaya is *${newStatus}* on ${apptDate} at ${apptTime}.\n\nThank you!`;
-          
-        waWindow.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-      }
+      // Update local state instead of refetching
+      const updatedAppointments = appointments.map(appt => 
+        appt.id === id ? { ...appt, status: newStatus } : appt
+      );
+      setAppointments(updatedAppointments);
     } catch (error) {
-      if (waWindow) waWindow.close();
       console.error('Error updating status:', error);
       alert('Failed to update status');
     }
@@ -279,15 +255,15 @@ const AdminAppointments = () => {
 
                           {appt.status === 'PENDING' && (
                             <>
-                              <button 
-                                onClick={() => updateStatus(appt.id, 'CONFIRMED', appt)}
-                                className="h-8 px-4 flex items-center justify-center gap-1.5 bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-sm shadow-blue-600/20 transition-all outline-none text-xs font-bold"
+                              <button
+                                onClick={(e) => { e.stopPropagation(); updateStatus(appt.id, 'CONFIRMED'); }}
+                                className="flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-100 transition-colors border border-green-200"
                                 title="Approve Appointment"
                               ><FaCheck /> <span>Approve</span></button>
 
-                              <button 
-                                onClick={() => updateStatus(appt.id, 'CANCELLED', appt)}
-                                className="h-8 px-3 flex items-center justify-center gap-1.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg transition-all outline-none text-xs font-semibold"
+                              <button
+                                onClick={(e) => { e.stopPropagation(); updateStatus(appt.id, 'CANCELLED'); }}
+                                className="flex items-center gap-1 bg-red-50 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors border border-red-200"
                                 title="Reject Appointment"
                               ><FaTimes /> <span>Reject</span></button>
                             </>
