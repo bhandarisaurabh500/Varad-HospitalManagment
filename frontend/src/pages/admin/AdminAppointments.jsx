@@ -209,7 +209,7 @@ const AdminAppointments = () => {
                   <th className="px-6 py-4 font-bold min-w-[200px]">Patient</th>
                   <th className="px-6 py-4 font-bold min-w-[150px]">Issue & Last Visit</th>
                   <th className="px-6 py-4 font-bold">Status</th>
-                  <th className="px-6 py-4 font-bold text-right min-w-[300px]">Actions</th>
+                  <th className="px-6 py-4 font-bold text-center min-w-[300px]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-sm">
@@ -267,8 +267,8 @@ const AdminAppointments = () => {
                             {appt.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-2 items-center flex-wrap max-w-[280px] ml-auto">
+                      <td className="px-6 py-4 text-center">
+                        <div className="flex justify-center gap-2 items-center flex-wrap max-w-[300px] mx-auto">
                           <button 
                             onClick={() => navigate(`/admin/patients/${appt.patient_id}`)}
                             className="h-8 px-3.5 flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all outline-none text-xs font-semibold"
