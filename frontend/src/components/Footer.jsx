@@ -7,7 +7,8 @@ import {
   FaEnvelope, 
   FaClock, 
   FaUserMd,
-  FaInstagram
+  FaInstagram,
+  FaYoutube
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -120,13 +121,22 @@ const Footer = () => {
           </Link>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/varadnetralaya?igsi=MTByMjNuanRxMGw4Nw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our Instagram"
               className="bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600 hover:scale-105 text-white px-4 py-2 rounded-lg font-bold transition-transform flex items-center gap-2 shadow-sm"
             >
               <FaInstagram className="text-lg" /> Follow on Instagram
+            </a>
+            <a
+              href="https://www.youtube.com/@VaradNetrayala"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit our YouTube"
+              className="bg-red-600 hover:scale-105 text-white px-4 py-2 rounded-lg font-bold transition-transform flex items-center gap-2 shadow-sm"
+            >
+              <FaYoutube className="text-lg" /> Watch on YouTube
             </a>
           </div>
         </div>
