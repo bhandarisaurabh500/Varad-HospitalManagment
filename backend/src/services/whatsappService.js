@@ -1,7 +1,9 @@
 const axios = require('axios');
 
 const waApiUrl = process.env.WHATSAPP_API_URL;
-const waApiKey = process.env.WHATSAPP_API_KEY; 
+const waApiKey = process.env.WHATSAPP_API_KEY;
+const isTestMode = process.env.TEST_MODE === 'true';
+const testPhone = process.env.TEST_PHONE; 
 
 /**
  * Format phone number to E.164 format for WhatsApp if needed.
@@ -25,6 +27,20 @@ async function sendWhatsAppMessage(toPhone, messageText) {
     return;
   }
 
+  let finalPhone = toPhone;
+  let finalMessage = messageText;
+
+  if (isTestMode) {
+    console.log(`[TEST MODE] Intercepted WhatsApp message intended for: ${toPhone}`);
+    if (!testPhone) {
+      console.warn('[TEST MODE] No TEST_PHONE set in env. Skipping message.');
+      return;
+    }
+    finalPhone = formatWhatsAppNumber(testPhone);
+    finalMessage = `[TEST MODE - Original Recipient: ${toPhone}]\n\n${messageText}`;
+    console.log(`[TEST MODE] Routing message to test phone: ${finalPhone}`);
+  }
+
   // Ensure no trailing slash
   const baseUrl = waApiUrl.endsWith('/') ? waApiUrl.slice(0, -1) : waApiUrl;
   
@@ -35,8 +51,8 @@ async function sendWhatsAppMessage(toPhone, messageText) {
     const response = await axios.post(
       endpoint,
       {
-        number: toPhone, 
-        text: messageText, 
+        number: finalPhone, 
+        text: finalMessage, 
         delay: 1200
       },
       {

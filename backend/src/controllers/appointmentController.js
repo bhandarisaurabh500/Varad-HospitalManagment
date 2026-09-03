@@ -1,6 +1,7 @@
 const { pool } = require('../config/db');
 const { isSlotBooked, generateAppointmentNo } = require('../services/appointmentService');
 const emailService = require('../services/emailService');
+const whatsappService = require('../services/whatsappService');
 
 /** POST /api/appointments - Patient books appointment */
 async function createAppointment(req, res, next) {
@@ -152,14 +153,18 @@ async function createAppointment(req, res, next) {
       created_at: new Date().toISOString()
     };
 
-    // Send emails asynchronously (don't await them so we don't delay the response)
-    // We wrap in a try-catch to prevent email failure from affecting the appointment booking
+    // Send emails and WhatsApp asynchronously
     setImmediate(async () => {
       try {
         await emailService.sendDoctorNotification(appointmentDetails);
         await emailService.sendPatientConfirmation(appointmentDetails);
       } catch (notifyErr) {
-        console.error('Notification sending failed after successful appointment creation:', notifyErr);
+        console.error('Email notification failed after successful appointment creation:', notifyErr);
+      }
+      try {
+        await whatsappService.sendPatientWhatsAppConfirmation(appointmentDetails);
+      } catch (waErr) {
+        console.error('WhatsApp notification failed after successful appointment creation:', waErr);
       }
     });
 

@@ -10,6 +10,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const DOCTOR_EMAIL = process.env.DOCTOR_EMAIL || process.env.EMAIL_USER;
+const isTestMode = process.env.TEST_MODE === 'true';
+const testEmail = process.env.TEST_EMAIL;
 
 /**
  * Send an email notification to the doctor for a new appointment request
@@ -107,10 +109,23 @@ async function sendDoctorNotification(appointmentDetails) {
   `;
 
   try {
+    let finalTo = DOCTOR_EMAIL;
+    let finalSubject = `New Appointment Request \u2014 Dr. Raosaheb K. Borude`;
+    
+    if (isTestMode) {
+      if (!testEmail) {
+        console.warn('[TEST MODE] No TEST_EMAIL set in env. Skipping email.');
+        return;
+      }
+      console.log(`[TEST MODE] Routing doctor notification to: ${testEmail}`);
+      finalTo = testEmail;
+      finalSubject = `[TEST MODE] ${finalSubject}`;
+    }
+
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
-      to: DOCTOR_EMAIL,
-      subject: `New Appointment Request \u2014 Dr. Raosaheb K. Borude`,
+      to: finalTo,
+      subject: finalSubject,
       html: html,
     });
     console.log('Doctor notification email sent:', info.messageId);
@@ -199,10 +214,23 @@ async function sendPatientConfirmation(appointmentDetails) {
   `;
 
   try {
+    let finalTo = patient_email;
+    let finalSubject = `Appointment Request Received \u2014 Dr. Raosaheb K. Borude`;
+    
+    if (isTestMode) {
+      if (!testEmail) {
+        console.warn('[TEST MODE] No TEST_EMAIL set in env. Skipping email.');
+        return;
+      }
+      console.log(`[TEST MODE] Routing patient confirmation (intended for ${patient_email}) to: ${testEmail}`);
+      finalTo = testEmail;
+      finalSubject = `[TEST MODE] ${finalSubject}`;
+    }
+
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
-      to: patient_email,
-      subject: `Appointment Request Received \u2014 Dr. Raosaheb K. Borude`,
+      to: finalTo,
+      subject: finalSubject,
       html: html,
     });
     console.log('Patient confirmation email sent:', info.messageId);
@@ -317,10 +345,23 @@ async function sendStatusUpdateEmail(appointmentDetails, newStatus) {
   `;
 
   try {
+    let finalTo = patient_email;
+    let finalSubject = `Appointment Status Updated: ${statusText} — Dr. Raosaheb K. Borude`;
+    
+    if (isTestMode) {
+      if (!testEmail) {
+        console.warn('[TEST MODE] No TEST_EMAIL set in env. Skipping email.');
+        return;
+      }
+      console.log(`[TEST MODE] Routing status update (intended for ${patient_email}) to: ${testEmail}`);
+      finalTo = testEmail;
+      finalSubject = `[TEST MODE] ${finalSubject}`;
+    }
+
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
-      to: patient_email,
-      subject: `Appointment Status Updated: ${statusText} — Dr. Raosaheb K. Borude`,
+      to: finalTo,
+      subject: finalSubject,
       html: html,
     });
     console.log('Status update email sent:', info.messageId);
@@ -362,10 +403,23 @@ async function sendOtpEmail(email, otp) {
   `;
 
   try {
+    let finalTo = email;
+    let finalSubject = `Password Reset OTP - Varad Netralaya`;
+    
+    if (isTestMode) {
+      if (!testEmail) {
+        console.warn('[TEST MODE] No TEST_EMAIL set in env. Skipping email.');
+        return;
+      }
+      console.log(`[TEST MODE] Routing OTP email (intended for ${email}) to: ${testEmail}`);
+      finalTo = testEmail;
+      finalSubject = `[TEST MODE] ${finalSubject}`;
+    }
+
     const info = await transporter.sendMail({
       from: `"Varad Netralaya" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: `Password Reset OTP - Varad Netralaya`,
+      to: finalTo,
+      subject: finalSubject,
       html: html,
     });
     console.log('OTP email sent:', info.messageId);
